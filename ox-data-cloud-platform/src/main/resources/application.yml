@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: odc-platform
+  datasource:
+    url: xxx
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: xxx
+    password: xxx
+
+server:
+  port: 8030
+
+odc:
+  resource:
+    server:
+      enable: true
+logging:
+  level:
+    org:
+      butterfly:
+        infra:
+          mapper: debug

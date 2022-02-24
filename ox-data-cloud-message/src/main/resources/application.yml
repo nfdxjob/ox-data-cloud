@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: odc-message
+server:
+  port: 8020
+
+odc:
+  resource:
+    server:
+      enable: false

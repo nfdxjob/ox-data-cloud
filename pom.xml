@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.dshubs</groupId>
+    <artifactId>ox-data-cloud</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>ox-data-cloud</name>
+    <description>ox-data-cloud(牛数企业级快速开发微服务平台)</description>
+    <packaging>pom</packaging>
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+    <modules>
+        <module>ox-data-cloud-parent</module>
+        <module>ox-data-cloud-core</module>
+        <module>ox-data-cloud-mybatis</module>
+        <module>ox-data-cloud-register</module>
+        <module>ox-data-cloud-oauth</module>
+        <module>ox-data-cloud-platform</module>
+        <module>ox-data-cloud-message</module>
+        <module>ox-data-cloud-document</module>
+        <module>ox-data-cloud-gateway</module>
+        <module>ox-data-cloud-generate</module>
+    </modules>
+
+</project>

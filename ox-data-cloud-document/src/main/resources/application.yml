@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: odc-document
+server:
+  port: 8100
+butterfly:
+  resource:
+    server:
+      enable: false

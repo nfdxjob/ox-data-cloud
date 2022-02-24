@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "odc.resource.server.enable",
+      "type": "java.lang.String",
+      "description": "Description for odc.resource.server.enable."
+  }
+] }

@@ -1,0 +1,27 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: odc-gatewy
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: false
+      routes:
+        - id: odc-oauth
+          uri: lb://odc-oauth
+          predicates:
+            - Path=/oauth/**
+        - id: odc-platform
+          uri: lb://odc-platform
+          predicates:
+            - Path=/pfmb/**
+          filters:
+            - StripPrefix=1
+        - id: odc-message
+          uri: lb://odc-message
+          predicates:
+            - Path=/message/**
+          filters:
+            - StripPrefix=1

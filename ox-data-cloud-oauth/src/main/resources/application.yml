@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: odc-oauth
+  thymeleaf:
+    cache: false
+  datasource:
+    url: xxx
+    username: xxx
+    password: xxx
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  redis:
+    host: localhost
+server:
+  port: 8010
+  servlet:
+    context-path: /oauth
+
+odc:
+  oauth:
+    redirect-url: ${BUTTERFLY_OAUTH_REDIRECT_URL:login}
+  resource:
+    server:
+      enable: true
