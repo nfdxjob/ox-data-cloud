@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Butterfly代码生成</title>
+    <title>ODC代码生成</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12"></script>
     <!-- 引入样式 -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
@@ -15,7 +15,7 @@
     <el-container>
         <el-header style="background-color: #409EFF">
             <div style="line-height: 60px;font-weight: bold;font-size:22px;color: white">
-                Butterfly代码生成
+                ODC代码生成
             </div>
         </el-header>
         <el-main>
@@ -116,7 +116,7 @@
             systemConfigDialogVisible: false,
             configForm: {
                 author: 'wangxian',
-                packageName: 'org.butterfly',
+                packageName: 'org.dshubs.odc',
                 extendsBaseEntity: true,
             },
             generateCodeForm: {
