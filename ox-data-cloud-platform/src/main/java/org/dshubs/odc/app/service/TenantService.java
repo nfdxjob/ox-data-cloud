@@ -1,4 +1,4 @@
-package org.dshubs.odc.service;
+package org.dshubs.odc.app.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.dshubs.odc.domain.entity.Tenant;

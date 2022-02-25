@@ -9,7 +9,7 @@ import org.dshubs.odc.api.vo.PageData;
 import org.dshubs.odc.api.vo.TableInfoGenerateQuery;
 import org.dshubs.odc.domain.entity.generate.TableInfo;
 import org.dshubs.odc.infra.util.JsonResult;
-import org.dshubs.odc.service.generate.TableInfoService;
+import org.dshubs.odc.app.service.generate.TableInfoService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 

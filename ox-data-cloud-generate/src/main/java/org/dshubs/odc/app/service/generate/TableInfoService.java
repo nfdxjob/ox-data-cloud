@@ -1,4 +1,4 @@
-package org.dshubs.odc.service.generate;
+package org.dshubs.odc.app.service.generate;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import freemarker.template.Template;

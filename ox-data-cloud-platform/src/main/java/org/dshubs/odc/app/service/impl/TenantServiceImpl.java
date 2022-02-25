@@ -1,10 +1,10 @@
-package org.dshubs.odc.service.impl;
+package org.dshubs.odc.app.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.dshubs.odc.domain.entity.Tenant;
 import org.dshubs.odc.infra.mapper.TenantMapper;
-import org.dshubs.odc.service.TenantService;
+import org.dshubs.odc.app.service.TenantService;
 import org.springframework.stereotype.Service;
 
 /**
