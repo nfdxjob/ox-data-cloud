@@ -1,6 +1,7 @@
 package org.dshubs.odc.core.exception;
 
 import lombok.extern.slf4j.Slf4j;
+import org.dshubs.odc.core.util.result.IError;
 import org.dshubs.odc.core.util.result.Results;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,8 +15,14 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class ExceptionHandlerController {
 
     @ExceptionHandler(value = Exception.class)
-    public ResponseEntity<?> handlerException(Exception e) {
+    public ResponseEntity<IError> handlerException(Exception e) {
         log.error(e.getMessage(), e);
         return Results.error();
+    }
+
+    @ExceptionHandler(value = CommonException.class)
+    public ResponseEntity<IError> handlerException(CommonException e) {
+        log.error(e.getMessage(), e);
+        return Results.error(e.getCode(), e.getMessage());
     }
 }

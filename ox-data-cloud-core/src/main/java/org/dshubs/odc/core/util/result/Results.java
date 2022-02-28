@@ -38,8 +38,8 @@ public class Results {
         return new ResponseEntity<>(CommonErrorEnum.INTERNAL_SERVICE_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    public static <T> ResponseEntity<T> error(T data) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(data);
+    public static ResponseEntity<IError> error(final String code, final String message) {
+        return new ResponseEntity<>(new ErrorResult(code, message), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     public static <T> ResponseEntity<T> newResult(int code) {
@@ -50,5 +50,38 @@ public class Results {
         return ResponseEntity.status(HttpStatus.valueOf(code)).body(data);
     }
 
+    public static class ErrorResult implements IError {
+
+        private String code;
+
+        private String message;
+
+
+
+        public ErrorResult(String code, String message) {
+            this.code = code;
+            this.message = message;
+        }
+
+
+
+        public void setCode(String code) {
+            this.code = code;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
+        @Override
+        public String getCode() {
+            return null;
+        }
+
+        @Override
+        public String getMessage() {
+            return null;
+        }
+    }
 
 }

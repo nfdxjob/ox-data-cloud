@@ -1,14 +1,15 @@
 package org.dshubs.odc.api.controller.v1;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.dshubs.odc.app.service.TenantService;
 import org.dshubs.odc.core.annotation.Permission;
 import org.dshubs.odc.core.ips.ResourcesLevel;
 import org.dshubs.odc.core.util.result.Results;
 import org.dshubs.odc.domain.entity.Tenant;
-import org.dshubs.odc.app.service.TenantService;
+import org.dshubs.odc.mybatis.infra.pagination.PageData;
+import org.dshubs.odc.mybatis.infra.pagination.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,9 +41,9 @@ public class TenantSiteController {
     @ApiOperation("租户列表")
     @GetMapping("/list")
     @Permission(level = ResourcesLevel.SITE)
-    public ResponseEntity<Page<Tenant>> list(Page<Tenant> page) {
+    public ResponseEntity<PageData<Tenant>> list(PageRequest page, Tenant query) {
         log.info("租户列表");
-        Page<Tenant> tenants = tenantService.page(page);
+        PageData<Tenant> tenants = tenantService.page(page, query);
         return Results.success(tenants);
     }
 
@@ -51,7 +52,6 @@ public class TenantSiteController {
     @Permission(level = ResourcesLevel.SITE)
     public ResponseEntity<Tenant> create(@RequestBody Tenant tenant) {
         log.info("创建租户,tenant:[{}]", tenant);
-        tenantService.save(tenant);
-        return Results.success(tenant);
+        return Results.success(tenantService.insert(tenant));
     }
 }
