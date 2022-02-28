@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.dshubs.odc.core.annotation.Permission;
 import org.dshubs.odc.core.ips.ResourcesLevel;
-import org.dshubs.odc.core.util.Results;
+import org.dshubs.odc.core.util.result.Results;
 import org.dshubs.odc.domain.entity.Tenant;
 import org.dshubs.odc.app.service.TenantService;
 import org.springframework.http.ResponseEntity;

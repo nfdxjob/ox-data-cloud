@@ -3,7 +3,7 @@ package org.dshubs.odc.api.controller.v1;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import org.dshubs.odc.core.util.Results;
+import org.dshubs.odc.core.util.result.Results;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

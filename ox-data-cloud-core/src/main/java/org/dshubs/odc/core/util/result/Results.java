@@ -1,4 +1,4 @@
-package org.dshubs.odc.core.util;
+package org.dshubs.odc.core.util.result;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,15 +27,15 @@ public class Results {
     }
 
     public static <T> ResponseEntity<T> invalid() {
-        return  new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     public static <T> ResponseEntity<T> invalid(T data) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(data);
     }
 
-    public static <T> ResponseEntity<T> error() {
-        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+    public static ResponseEntity<IError> error() {
+        return new ResponseEntity<>(CommonErrorEnum.INTERNAL_SERVICE_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     public static <T> ResponseEntity<T> error(T data) {

@@ -9,16 +9,17 @@ public class CommonException extends RuntimeException{
 
     private final String code;
 
-    private  final transient Object[] params;
+    private final String message;
 
-    public CommonException(String code, Object ... params) {
+    public CommonException(String code,String message) {
         super(code);
         this.code = code;
-        this.params = params;
+        this.message = message;
     }
 
-    public Object[] getParams() {
-        return params;
+    @Override
+    public String  getMessage() {
+        return message;
     }
 
     public String getCode() {

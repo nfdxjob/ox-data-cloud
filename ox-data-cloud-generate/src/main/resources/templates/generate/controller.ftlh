@@ -1,9 +1,9 @@
 package ${packageName}.controller;
-import com.yan.xhr.pojo.entity.${className};
-import com.yan.xhr.pojo.vo.PageData;
-import com.yan.xhr.service.${className}Service;
-import com.yan.xhr.util.IErrorCode;
-import com.yan.xhr.util.JsonResult;
+import ${packageName}.entity.${className};
+import ${packageName}.vo.PageData;
+import ${packageName}.app.service.${className}Service;
+import ${packageName}.infra.util.IErrorCode;
+import ${packageName}.infra.util.JsonResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
