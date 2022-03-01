@@ -21,6 +21,7 @@
         <module>ox-data-cloud-message</module>
         <module>ox-data-cloud-document</module>
         <module>ox-data-cloud-gateway</module>
+        <module>ox-data-cloud-workflow</module>
         <module>ox-data-cloud-generate</module>
     </modules>
 

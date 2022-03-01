@@ -23,6 +23,8 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 public class CustomDataPermissionHandler implements DataPermissionHandler {
+
+
     @Override
     public Expression getSqlSegment(Expression where, String mappedStatementId) {
         log.debug("自定义数据权限处理,id:{},where:{}", mappedStatementId, where);
