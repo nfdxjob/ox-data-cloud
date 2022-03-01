@@ -1,4 +1,5 @@
-package ${packageName}.pojo.entity;
+package ${packageName}.domain.entity;
+import org.dshubs.odc.core.domain.AuditEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -24,7 +25,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper=false)
 @TableName("${tableName}")
 <#if extendsBaseEntity>
-public class ${className} extends BaseEntity {
+public class ${className} extends AuditEntity {
 <#else>
 public class ${className} {
 </#if>

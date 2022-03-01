@@ -151,7 +151,7 @@ public class TableInfoService {
         if ("entity".equalsIgnoreCase(type)) {
             return File.separator + packageName.replace(".", File.separator)
                     + File.separator
-                    + "pojo" +
+                    + "domain" +
                     File.separator
                     + "entity" +
                     File.separator
@@ -160,6 +160,8 @@ public class TableInfoService {
         if ("mapper".equalsIgnoreCase(type)) {
             return File.separator + packageName.replace(".", File.separator)
                     + File.separator
+                    + "infra" +
+                    File.separator
                     + "mapper" +
                     File.separator
                     + className + "Mapper.java";
@@ -167,9 +169,22 @@ public class TableInfoService {
         if ("service".equalsIgnoreCase(type)) {
             return File.separator + packageName.replace(".", File.separator)
                     + File.separator
+                    + "app" +
+                    File.separator
                     + "service" +
                     File.separator
                     + className + "Service.java";
+        }
+        if ("serviceImpl".equalsIgnoreCase(type)) {
+            return File.separator + packageName.replace(".", File.separator)
+                    + File.separator
+                    + "app" +
+                    File.separator
+                    + "impl" +
+                    File.separator
+                    + "service" +
+                    File.separator
+                    + className + "ServiceImpl.java";
         }
         if ("controller".equalsIgnoreCase(type)) {
             return File.separator + packageName.replace(".", File.separator)

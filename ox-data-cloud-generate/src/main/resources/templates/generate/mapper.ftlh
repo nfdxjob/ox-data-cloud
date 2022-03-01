@@ -1,4 +1,4 @@
-package ${packageName}.mapper;
+package ${packageName}.infra.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import ${packageName}.pojo.entity.${className};

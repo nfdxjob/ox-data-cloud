@@ -11,6 +11,7 @@ import org.dshubs.odc.domain.entity.Tenant;
 import org.dshubs.odc.mybatis.infra.pagination.PageData;
 import org.dshubs.odc.mybatis.infra.pagination.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,11 +48,37 @@ public class TenantSiteController {
         return Results.success(tenants);
     }
 
+    @ApiOperation("租户详情")
+    @GetMapping("/{id}")
+    @Permission(level = ResourcesLevel.SITE)
+    public ResponseEntity<Tenant> detail(@PathVariable("id") Long id) {
+        log.info("租户详情,id:{}", id);
+        Tenant tenant = tenantService.selectById(id);
+        return Results.success(tenant);
+    }
+
     @ApiOperation("创建租户")
     @PostMapping
     @Permission(level = ResourcesLevel.SITE)
-    public ResponseEntity<Tenant> create(@RequestBody Tenant tenant) {
+    public ResponseEntity<Tenant> create(@RequestBody @Validated Tenant tenant) {
         log.info("创建租户,tenant:[{}]", tenant);
         return Results.success(tenantService.insert(tenant));
+    }
+
+    @ApiOperation("更新租户")
+    @PutMapping
+    @Permission(level = ResourcesLevel.SITE)
+    public ResponseEntity<Tenant> update(@RequestBody @Validated Tenant tenant) {
+        log.info("更新租户,tenant:[{}]", tenant);
+        return Results.success(tenantService.update(tenant));
+    }
+
+    @ApiOperation("删除租户")
+    @DeleteMapping("/{id}")
+    @Permission(level = ResourcesLevel.SITE)
+    public ResponseEntity<Void> deleteById(@PathVariable("id") Long id) {
+        log.info("删除租户,id:{}", id);
+        tenantService.deleteById(id);
+        return Results.success();
     }
 }

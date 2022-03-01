@@ -10,7 +10,7 @@ import java.util.Map;
 /**
  * 生成代码字段映射配置
  *
- * @author wangxian 2021/3/17
+ * @author wangxian 2022/3/1
  */
 
 @Data
@@ -30,18 +30,19 @@ public class GenerateCodeFiledMappingConfig {
         FIELD_MAPPING_MAP.put("date", "LocalDate");
         FIELD_MAPPING_MAP.put("datetime", "LocalDateTime");
 
-        FIELD_IGNORE_LIST.add("id");
-        FIELD_IGNORE_LIST.add("create_by");
-        FIELD_IGNORE_LIST.add("create_date");
-        FIELD_IGNORE_LIST.add("update_by");
+        FIELD_IGNORE_LIST.add("version");
+        FIELD_IGNORE_LIST.add("creation_date");
+        FIELD_IGNORE_LIST.add("created_by");
+        FIELD_IGNORE_LIST.add("last_update_date");
         FIELD_IGNORE_LIST.add("update_date");
-        FIELD_IGNORE_LIST.add("is_deleted");
+        FIELD_IGNORE_LIST.add("last_updated_by");
 
 
         TEMPLATE_LIST_MAP.put("generate/entity.ftlh", "entity");
         TEMPLATE_LIST_MAP.put("generate/mapper.ftlh", "mapper");
         TEMPLATE_LIST_MAP.put("generate/mapping.ftlh", "mapping");
         TEMPLATE_LIST_MAP.put("generate/service.ftlh", "service");
+        TEMPLATE_LIST_MAP.put("generate/serviceImpl.ftlh", "serviceImpl");
         TEMPLATE_LIST_MAP.put("generate/controller.ftlh", "controller");
     }
 

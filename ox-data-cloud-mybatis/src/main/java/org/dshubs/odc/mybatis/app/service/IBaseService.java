@@ -48,6 +48,13 @@ public interface IBaseService<T> {
     PageData<T> page(PageRequest pageParam, Wrapper<T> queryWrapper);
 
     /**
+     * Select By Primary key
+     * @param primaryKey primary key
+     * @return T
+     */
+    T selectById(Serializable primaryKey);
+
+    /**
      * insert entity
      *
      * @param entity entity

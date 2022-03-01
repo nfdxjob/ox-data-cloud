@@ -1,7 +1,7 @@
-package ${packageName}.service;
-import com.yan.xhr.mapper.${className}Mapper;
-import com.yan.xhr.pojo.entity.${className};
-import org.springframework.stereotype.Service;
+package ${packageName}.app.service;
+import ${packageName}.infra.mapper.${className}Mapper;
+import ${packageName}.domain.entity.${className};
+import org.dshubs.odc.mybatis.app.service.IBaseService;
 
 
 /**
@@ -9,8 +9,7 @@ import org.springframework.stereotype.Service;
  *
  * @author ${author} ${date}
  */
-@Service
-public class ${className}Service extends BaseService<${className}Mapper,${className}> {
+public interface ${className}Service extends IBaseService<${className}Mapper,${className}>  {
 
 }
 

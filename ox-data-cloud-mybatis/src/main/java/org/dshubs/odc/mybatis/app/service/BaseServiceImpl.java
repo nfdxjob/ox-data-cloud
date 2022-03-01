@@ -49,6 +49,11 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements IBa
     }
 
     @Override
+    public T selectById(Serializable primaryKey) {
+        return baseMapper.selectById(primaryKey);
+    }
+
+    @Override
     public T insert(T entity) {
         this.baseMapper.insert(entity);
         return entity;
