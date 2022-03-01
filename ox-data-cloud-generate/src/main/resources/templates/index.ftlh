@@ -76,14 +76,14 @@
                         :visible.sync="systemConfigDialogVisible"
                         width="50%">
                     <div>
-                        <el-form :model="configForm" size="mini" label-width="110px">
+                        <el-form :model="configForm" size="mini" label-width="140px">
                             <el-form-item label="作者">
                                 <el-input v-model="configForm.author" placeholder="请输入作者"></el-input>
                             </el-form-item>
                             <el-form-item label="包名">
                                 <el-input v-model="configForm.packageName" placeholder="请输入基础包名"></el-input>
                             </el-form-item>
-                            <el-form-item label="继承BaseEntity">
+                            <el-form-item label="继承BAuditEntity">
                                 <el-radio v-model="configForm.extendsBaseEntity" :label="true">是</el-radio>
                                 <el-radio v-model="configForm.extendsBaseEntity" :label="false">否</el-radio>
                             </el-form-item>

@@ -189,7 +189,11 @@ public class TableInfoService {
         if ("controller".equalsIgnoreCase(type)) {
             return File.separator + packageName.replace(".", File.separator)
                     + File.separator
-                    + "controller" +
+                    + "api"
+                    + File.separator
+                    + "controller"
+                    + File.separator
+                    + "v1" +
                     File.separator
                     + className + "Controller.java";
         }
