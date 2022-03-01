@@ -1,4 +1,4 @@
-package org.dshubs.odc.core.monitor;
+package org.dshubs.odc.core.monitor.system;
 
 import lombok.Data;
 
