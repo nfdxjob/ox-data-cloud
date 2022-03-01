@@ -1,6 +1,7 @@
 package org.dshubs.odc.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.Version;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -26,6 +27,7 @@ public class Tenant {
     private Boolean enabledFlag;
 
     @ApiModelProperty(value = "数据版本")
+    @Version
     private Long version;
 
     @ApiModelProperty(value = "创建人ID")

@@ -16,7 +16,4 @@ odc:
       enable: true
 logging:
   level:
-    org:
-      butterfly:
-        infra:
-          mapper: debug
+    org.dshubs.odc.infra.mapper: debug

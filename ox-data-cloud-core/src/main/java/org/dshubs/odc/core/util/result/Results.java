@@ -1,5 +1,6 @@
 package org.dshubs.odc.core.util.result;
 
+import lombok.Data;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -35,7 +36,11 @@ public class Results {
     }
 
     public static ResponseEntity<IError> error() {
-        return new ResponseEntity<>(CommonErrorEnum.INTERNAL_SERVICE_ERROR, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(new ErrorResult(CommonErrorEnum.INTERNAL_SERVICE_ERROR), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    public static ResponseEntity<IError> error(IError error) {
+        return new ResponseEntity<>(new ErrorResult(error), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     public static ResponseEntity<IError> error(final String code, final String message) {
@@ -50,6 +55,7 @@ public class Results {
         return ResponseEntity.status(HttpStatus.valueOf(code)).body(data);
     }
 
+    @Data
     public static class ErrorResult implements IError {
 
         private String code;
@@ -57,12 +63,15 @@ public class Results {
         private String message;
 
 
-
         public ErrorResult(String code, String message) {
             this.code = code;
             this.message = message;
         }
 
+        public ErrorResult(IError iError) {
+            this.code = iError.getCode();
+            this.message = iError.getMessage();
+        }
 
 
         public void setCode(String code) {
@@ -75,12 +84,12 @@ public class Results {
 
         @Override
         public String getCode() {
-            return null;
+            return this.code;
         }
 
         @Override
         public String getMessage() {
-            return null;
+            return this.message;
         }
     }
 

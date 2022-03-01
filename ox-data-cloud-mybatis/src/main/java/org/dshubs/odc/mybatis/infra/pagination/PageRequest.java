@@ -1,6 +1,5 @@
 package org.dshubs.odc.mybatis.infra.pagination;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.Data;
 
 /**
@@ -12,7 +11,7 @@ public class PageRequest {
     /**
      * 页码
      */
-    private Long page;
+    private Long page = 1L;
 
 
     /**
@@ -20,11 +19,17 @@ public class PageRequest {
      * Results per page (max 100)
      * Default: 30
      */
-    private Long perPage;
+    private Long perPage = 30L;
 
+
+    private static final Long MAX_PER_PAGE = 100L;
 
     /**
-     * 排序 sort=rank|asc,zip_code|desc
+     * 排序 sort=rank,asc
      */
-    private String sort;
+    private String [] sort;
+
+    public Long getPerPage() {
+        return perPage > MAX_PER_PAGE ? MAX_PER_PAGE : perPage;
+    }
 }

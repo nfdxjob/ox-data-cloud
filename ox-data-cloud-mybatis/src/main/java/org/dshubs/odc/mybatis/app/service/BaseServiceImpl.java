@@ -10,7 +10,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.dshubs.odc.mybatis.infra.pagination.PageData;
 import org.dshubs.odc.mybatis.infra.pagination.PageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ import java.util.List;
  *
  * @author create by wangxian 2022/2/28
  */
-@Service
 public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements IBaseService<T> {
 
     @Autowired
@@ -69,27 +67,22 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements IBa
 
     private Page<T> getPageQuery(PageRequest pageParam) {
         Page<T> page = new Page<>(pageParam.getPage(), pageParam.getPerPage());
-        if (StringUtils.isNotBlank(pageParam.getSort())) {
-            String[] sortProperties = StringUtils.split(pageParam.getSort(), ",");
+        if (pageParam.getSort() != null) {
             List<OrderItem> orderItems = new ArrayList<>();
-            if (sortProperties != null) {
-                for (String sortProperty : sortProperties) {
-                    String sortType = "asc";
-                    if (sortProperty.contains("|")) {
-                        String[] sortArray = StringUtils.split(sortProperty, "|");
-                        if (sortArray.length >= 1) {
-                            sortType = sortArray[1];
-                        }
-                        OrderItem orderItem = new OrderItem(sortArray[0], sortType.equals("asc"));
-                        orderItems.add(orderItem);
+            for (String sortProperty : pageParam.getSort()) {
+                String sortType = "asc";
+                if (sortProperty.contains(",")) {
+                    String[] sortArray = StringUtils.split(sortProperty, ",");
+                    if (sortArray.length >= 1) {
+                        sortType = sortArray[1];
                     }
+                    OrderItem orderItem = new OrderItem(sortArray[0], sortType.equals("asc"));
+                    orderItems.add(orderItem);
                 }
             }
             page.addOrder(orderItems);
-
         }
         return page;
     }
-
 
 }

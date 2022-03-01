@@ -16,13 +16,13 @@ public class ExceptionHandlerController {
 
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<IError> handlerException(Exception e) {
-        log.error(e.getMessage(), e);
+        log.error("Exception Handler", e);
         return Results.error();
     }
 
     @ExceptionHandler(value = CommonException.class)
     public ResponseEntity<IError> handlerException(CommonException e) {
-        log.error(e.getMessage(), e);
+        log.error("Common Exception Handler", e);
         return Results.error(e.getCode(), e.getMessage());
     }
 }

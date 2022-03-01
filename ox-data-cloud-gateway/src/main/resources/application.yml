@@ -16,7 +16,7 @@ spring:
         - id: odc-platform
           uri: lb://odc-platform
           predicates:
-            - Path=/pfmb/**
+            - Path=/opfm/**
           filters:
             - StripPrefix=1
         - id: odc-message

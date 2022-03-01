@@ -12,17 +12,62 @@ import java.util.List;
  */
 public interface IBaseService<T> {
 
+    /**
+     * List all data
+     *
+     * @return List
+     */
     List<T> list();
 
+
+    /**
+     * page query data list
+     *
+     * @param pageParam page
+     * @return PageData
+     */
     PageData<T> page(PageRequest pageParam);
 
+    /**
+     * page query data list
+     *
+     * @param pageParam page
+     * @param condition data filter condition
+     * @return PageData
+     */
     PageData<T> page(PageRequest pageParam, T condition);
 
+
+    /**
+     * page query data list
+     *
+     * @param pageParam    page
+     * @param queryWrapper data filter condition
+     * @return PageData
+     */
     PageData<T> page(PageRequest pageParam, Wrapper<T> queryWrapper);
 
+    /**
+     * insert entity
+     *
+     * @param entity entity
+     * @return entity
+     */
     T insert(T entity);
 
+    /**
+     * update by primary key
+     *
+     * @param entity delete body
+     * @return T
+     */
     T update(T entity);
 
+    /**
+     * delete by primary key
+     *
+     * @param id primary key
+     * @return deleted rows
+     */
     int deleteById(Serializable id);
 }
