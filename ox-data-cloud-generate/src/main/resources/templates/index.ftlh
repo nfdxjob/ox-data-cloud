@@ -83,7 +83,10 @@
                             <el-form-item label="包名">
                                 <el-input v-model="configForm.packageName" placeholder="请输入基础包名"></el-input>
                             </el-form-item>
-                            <el-form-item label="继承BAuditEntity">
+                            <el-form-item label="去除前缀">
+                                <el-input v-model="configForm.prefix" placeholder="请输入前缀内容"></el-input>
+                            </el-form-item>
+                            <el-form-item label="继承AuditEntity">
                                 <el-radio v-model="configForm.extendsBaseEntity" :label="true">是</el-radio>
                                 <el-radio v-model="configForm.extendsBaseEntity" :label="false">否</el-radio>
                             </el-form-item>
@@ -117,6 +120,7 @@
             configForm: {
                 author: 'wangxian',
                 packageName: 'org.dshubs.odc',
+                prefix: '',
                 extendsBaseEntity: true,
             },
             generateCodeForm: {

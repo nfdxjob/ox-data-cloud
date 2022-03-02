@@ -53,6 +53,11 @@ public class GenerateCodeBO {
     private String tableComment;
 
     /**
+     * API Base Path
+     */
+    private String apiBasePath;
+
+    /**
      * 类名,大写开头
      */
     private String className;

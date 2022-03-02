@@ -1,4 +1,5 @@
 package ${packageName}.domain.entity;
+
 import org.dshubs.odc.core.domain.AuditEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;

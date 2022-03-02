@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.dshubs.odc.infra.mapper.EmployeeMapper">
+    <resultMap id="BaseResultMap" type="org.dshubs.odc.domain.entity.Employee">
+        <result column="employee_id" property="employeeId"/>
+        <result column="employee_num" property="employeeNum"/>
+        <result column="employee_name" property="employeeName"/>
+        <result column="org_code" property="orgCode"/>
+        <result column="org_name" property="orgName"/>
+        <result column="email" property="email"/>
+        <result column="phone" property="phone"/>
+        <result column="home_address" property="homeAddress"/>
+        <result column="position_code" property="positionCode"/>
+        <result column="position_name" property="positionName"/>
+        <result column="enabled_flag" property="enabledFlag"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="version" property="version"/>
+        <result column="creation_date" property="creationDate"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="last_update_date" property="lastUpdateDate"/>
+        <result column="last_updated_by" property="lastUpdatedBy"/>
+    </resultMap>
+</mapper>

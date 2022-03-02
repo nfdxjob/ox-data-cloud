@@ -1,7 +1,7 @@
 package ${packageName}.infra.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import ${packageName}.pojo.entity.${className};
+import ${packageName}.domain.entity.${className};
 import org.apache.ibatis.annotations.Mapper;
 
 

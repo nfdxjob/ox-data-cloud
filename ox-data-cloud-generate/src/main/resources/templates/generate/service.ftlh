@@ -1,5 +1,5 @@
 package ${packageName}.app.service;
-import ${packageName}.infra.mapper.${className}Mapper;
+
 import ${packageName}.domain.entity.${className};
 import org.dshubs.odc.mybatis.app.service.IBaseService;
 
@@ -9,7 +9,7 @@ import org.dshubs.odc.mybatis.app.service.IBaseService;
  *
  * @author ${author} ${date}
  */
-public interface ${className}Service extends IBaseService<${className}Mapper,${className}>  {
+public interface ${className}Service extends IBaseService<${className}>  {
 
 }
 

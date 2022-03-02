@@ -24,5 +24,10 @@ public class GenerateCodeVO {
          * 是否继承基类
          */
         private Boolean extendsBaseEntity;
+
+        /**
+         * 前缀
+         */
+        private String prefix;
     }
 }

@@ -5,6 +5,7 @@ import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.dshubs.odc.api.vo.GenerateCodeBO;
 import org.dshubs.odc.api.vo.GenerateCodeVO;
 import org.dshubs.odc.api.vo.PageData;
@@ -92,7 +93,15 @@ public class TableInfoService {
                 generateCodeBO.setDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
                 generateCodeBO.setTableName(tableName);
                 generateCodeBO.setTableComment(tableInfo.getComment());
-                generateCodeBO.setClassName(WordUtils.toCamelCaseFirstUpper(tableName, "_"));
+                String tablePrefix = generateCode.getConfig().getPrefix();
+                if (StringUtils.isNotBlank(tablePrefix)) {
+                    String tmpClassName = tableName.substring(tablePrefix.length());
+                    generateCodeBO.setClassName(WordUtils.toCamelCaseFirstUpper(tmpClassName, "_"));
+                    generateCodeBO.setApiBasePath(StringUtils.replace(tmpClassName, "_", "-") + "s");
+                } else {
+                    generateCodeBO.setClassName(WordUtils.toCamelCaseFirstUpper(tableName, "_"));
+                    generateCodeBO.setApiBasePath(StringUtils.replace(tableName, "_", "-") + "s");
+                }
                 generateCodeBO.setLowerClassName(WordUtils.firstWordToLowerCase(generateCodeBO.getClassName()));
                 generateCodeBO.setPackageName(generateCode.getConfig().getPackageName());
                 generateCodeBO.setHasBigDecimal(hasBigDecimal);
@@ -180,9 +189,9 @@ public class TableInfoService {
                     + File.separator
                     + "app" +
                     File.separator
-                    + "impl" +
-                    File.separator
                     + "service" +
+                    File.separator
+                    + "impl" +
                     File.separator
                     + className + "ServiceImpl.java";
         }

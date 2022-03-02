@@ -1,4 +1,5 @@
 package ${packageName}.api.controller.v1;
+
 import ${packageName}.domain.entity.${className};
 import org.dshubs.odc.mybatis.infra.pagination.PageData;
 import org.dshubs.odc.mybatis.infra.pagination.PageRequest;
@@ -6,7 +7,9 @@ import ${packageName}.app.service.${className}Service;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.dshubs.odc.core.util.result.Results;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +20,7 @@ import java.util.List;
  * @author ${author} ${date}
  */
 @RestController
-@RequestMapping("/api/v1/${tableName}s")
+@RequestMapping("/api/v1/${apiBasePath}")
 @Api(tags = "${tableComment}API")
 @Slf4j
 public class ${className}Controller {
@@ -31,16 +34,16 @@ public class ${className}Controller {
     @GetMapping("/all")
     public ResponseEntity<List<${className}>> list() {
         log.info("所有数据");
-        List<Tenant> tenants = ${lowerClassName}Service.list();
-        return Results.success(tenants);
+        List<${className}> result = ${lowerClassName}Service.list();
+        return Results.success(result);
     }
 
     @ApiOperation("列表查询")
     @GetMapping("/list")
     public ResponseEntity<PageData<${className}>> list(PageRequest page, ${className} query) {
          log.info("列表查询");
-         PageData<Tenant> tenants = ${lowerClassName}Service.page(page, query);
-         return Results.success(tenants);
+         PageData<${className}> result = ${lowerClassName}Service.page(page, query);
+         return Results.success(result);
     }
 
     @GetMapping("{id}")
@@ -60,7 +63,7 @@ public class ${className}Controller {
 
     @PutMapping
     @ApiOperation("更新")
-    public ResponseEntity<${className}> create(@RequestBody @Validated ${className} ${lowerClassName}) {
+    public ResponseEntity<${className}> update(@RequestBody @Validated ${className} ${lowerClassName}) {
         log.info("更新,参数:{}", ${lowerClassName});
         ${className} result = ${lowerClassName}Service.update(${lowerClassName});
         return Results.success(result);
