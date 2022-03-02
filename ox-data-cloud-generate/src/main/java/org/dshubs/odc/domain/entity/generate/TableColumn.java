@@ -28,6 +28,9 @@ public class TableColumn {
     @ApiModelProperty("字段名字")
     private String attrName;
 
+    @ApiModelProperty("是否主键")
+    private Boolean hasPrimaryKey;
+
     /**
      * 是否忽略不渲染
      */

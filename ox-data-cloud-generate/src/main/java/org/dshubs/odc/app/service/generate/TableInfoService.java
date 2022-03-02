@@ -70,6 +70,7 @@ public class TableInfoService {
                 boolean hasLocalDateTime = false;
                 for (TableColumn tableColumn : tableColumns) {
                     String columnName = tableColumn.getColumnName();
+                    tableColumn.setHasPrimaryKey("PRI".equalsIgnoreCase(tableColumn.getColumnKey()));
                     if (generateCode.getConfig().getExtendsBaseEntity()) {
                         if (GenerateCodeFiledMappingConfig.ignoreContains(columnName)) {
                             tableColumn.setIgnore(true);

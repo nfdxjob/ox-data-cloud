@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author create by wangxian 2022/3/1
  */
 @RestController
-@RequestMapping("/v1/operation-logs")
+@RequestMapping("/api/v1/operation-logs")
 @Slf4j
 @Api(tags = "操作日志API")
 public class OperationLogController {

@@ -1,5 +1,6 @@
 package org.dshubs.odc.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import org.dshubs.odc.core.domain.AuditEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -24,6 +25,7 @@ public class Position extends AuditEntity {
      * 
      */
     @ApiModelProperty("")
+    @TableId
     private Long positionId;
 
     /**

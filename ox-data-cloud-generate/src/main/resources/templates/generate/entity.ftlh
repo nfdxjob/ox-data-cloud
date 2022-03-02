@@ -1,6 +1,7 @@
 package ${packageName}.domain.entity;
 
 import org.dshubs.odc.core.domain.AuditEntity;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -38,6 +39,9 @@ public class ${className} {
      * ${column.comment}
      */
     @ApiModelProperty("${column.comment}")
+    <#if column.hasPrimaryKey>
+    @TableId
+    </#if>
     private ${column.attrType} ${column.attrName};
 
     </#if>

@@ -20,7 +20,7 @@ import java.util.List;
  * @author create by wangxian 2022/2/19
  */
 @RestController
-@RequestMapping("/v1/tenants")
+@RequestMapping("/api/v1/tenants")
 @Slf4j
 @Api(tags = "租户管理API")
 public class TenantSiteController {

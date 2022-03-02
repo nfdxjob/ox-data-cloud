@@ -1,5 +1,6 @@
 package org.dshubs.odc.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.Version;
 import io.swagger.annotations.ApiModelProperty;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
 public class Tenant {
 
     @ApiModelProperty(value = "租户ID")
+    @TableId
     private Long tenantId;
 
     @ApiModelProperty(value = "租户编码")
