@@ -23,7 +23,7 @@ public class Employee extends AuditEntity {
     /**
      *
      */
-    @ApiModelProperty("")
+    @ApiModelProperty()
     @TableId
     private Long employeeId;
 

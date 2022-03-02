@@ -3,6 +3,7 @@ package org.dshubs.odc.api.controller.v1;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.dshubs.odc.api.vo.EmployeeListQueryVO;
 import org.dshubs.odc.app.service.EmployeeService;
 import org.dshubs.odc.core.util.result.Results;
 import org.dshubs.odc.domain.entity.Employee;
@@ -40,9 +41,9 @@ public class EmployeeController {
 
     @ApiOperation("列表查询")
     @GetMapping("/list")
-    public ResponseEntity<PageData<Employee>> list(PageRequest page, Employee query) {
+    public ResponseEntity<PageData<Employee>> list(PageRequest page, EmployeeListQueryVO query) {
         log.info("列表查询");
-        PageData<Employee> result = employeeService.page(page, query);
+        PageData<Employee> result = employeeService.listEmployee(page, query);
         return Results.success(result);
     }
 

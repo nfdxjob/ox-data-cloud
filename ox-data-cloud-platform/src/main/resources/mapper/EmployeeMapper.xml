@@ -20,4 +20,18 @@
         <result column="last_update_date" property="lastUpdateDate"/>
         <result column="last_updated_by" property="lastUpdatedBy"/>
     </resultMap>
+    <select id="listEmployee" resultType="org.dshubs.odc.domain.entity.Employee">
+        SELECT oe.*
+        FROM opfm_employee oe
+        left join opfm_organization oo
+        on oe.org_code = oo.org_code
+        <where>
+            <if test="p.orgCodes != null">
+                and oe.org_code in
+                <foreach collection="p.orgCodes" item="orgCode" separator="," open="(" close=")">
+                    #{orgCode}
+                </foreach>
+            </if>
+        </where>
+    </select>
 </mapper>

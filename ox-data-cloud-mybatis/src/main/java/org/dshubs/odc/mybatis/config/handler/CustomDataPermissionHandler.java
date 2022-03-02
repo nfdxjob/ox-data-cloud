@@ -4,10 +4,12 @@ import com.baomidou.mybatisplus.extension.plugins.handler.DataPermissionHandler;
 import com.google.common.collect.Sets;
 import lombok.extern.slf4j.Slf4j;
 import net.sf.jsqlparser.expression.Expression;
+import net.sf.jsqlparser.expression.ExpressionVisitor;
 import net.sf.jsqlparser.expression.StringValue;
 import net.sf.jsqlparser.expression.operators.conditional.AndExpression;
 import net.sf.jsqlparser.expression.operators.relational.ExpressionList;
 import net.sf.jsqlparser.expression.operators.relational.InExpression;
+import net.sf.jsqlparser.parser.SimpleNode;
 import net.sf.jsqlparser.schema.Column;
 import org.apache.commons.lang3.StringUtils;
 import org.dshubs.odc.core.oauth.CustomUserDetails;
@@ -42,7 +44,39 @@ public class CustomDataPermissionHandler implements DataPermissionHandler {
             }
             return new AndExpression(where, inExpression);
         }
+        if (StringUtils.equals("org.dshubs.odc.infra.mapper.EmployeeMapper.listEmployee", mappedStatementId)) {
+            return new CustomSqlExpression("oe.org_code in ('museng','sany')");
+        }
         return where;
 
+    }
+
+    public static class CustomSqlExpression implements Expression {
+
+        private final String sql;
+
+        public CustomSqlExpression(String sql) {
+            this.sql = sql;
+        }
+
+        @Override
+        public void accept(ExpressionVisitor expressionVisitor) {
+
+        }
+
+        @Override
+        public SimpleNode getASTNode() {
+            return null;
+        }
+
+        @Override
+        public void setASTNode(SimpleNode node) {
+
+        }
+
+        @Override
+        public String toString() {
+            return this.sql;
+        }
     }
 }

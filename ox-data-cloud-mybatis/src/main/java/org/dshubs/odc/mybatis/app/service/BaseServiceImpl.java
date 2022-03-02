@@ -3,7 +3,6 @@ package org.dshubs.odc.mybatis.app.service;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.StringUtils;
@@ -33,8 +32,8 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements IBa
 
     @Override
     public PageData<T> page(PageRequest pageParam) {
-        IPage<T> page = baseMapper.selectPage(getPageQuery(pageParam), null);
-        return new PageData<>(page.getRecords(), page.getTotal());
+        Page<T> page = baseMapper.selectPage(getPageQuery(pageParam), null);
+        return this.getPageData(page);
     }
 
     @Override
@@ -44,8 +43,8 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements IBa
 
     @Override
     public PageData<T> page(PageRequest pageParam, Wrapper<T> queryWrapper) {
-        IPage<T> page = baseMapper.selectPage(getPageQuery(pageParam), queryWrapper);
-        return new PageData<>(page.getRecords(), page.getTotal());
+        Page<T> page = baseMapper.selectPage(getPageQuery(pageParam), queryWrapper);
+        return getPageData(page);
     }
 
     @Override
@@ -70,7 +69,11 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements IBa
         return this.baseMapper.deleteById(id);
     }
 
-    private Page<T> getPageQuery(PageRequest pageParam) {
+    protected PageData<T> getPageData(Page<T> page) {
+        return new PageData<>(page.getRecords(), page.getTotal());
+    }
+
+    protected Page<T> getPageQuery(PageRequest pageParam) {
         Page<T> page = new Page<>(pageParam.getPage(), pageParam.getPerPage());
         if (pageParam.getSort() != null) {
             List<OrderItem> orderItems = new ArrayList<>();
