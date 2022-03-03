@@ -12,6 +12,7 @@ import net.sf.jsqlparser.schema.Column;
 import org.apache.commons.lang3.StringUtils;
 import org.dshubs.odc.core.oauth.CustomUserDetails;
 import org.dshubs.odc.core.oauth.DetailsUtils;
+import org.dshubs.odc.mybatis.config.permission.DataPermissionSqlThreadLocal;
 import org.dshubs.odc.mybatis.config.permission.expression.CustomSqlExpression;
 
 import java.util.Set;
@@ -31,6 +32,8 @@ public class CustomDataPermissionHandler implements DataPermissionHandler {
         log.debug("自定义数据权限处理,id:{},where:{}", mappedStatementId, where);
         CustomUserDetails customUserDetails = DetailsUtils.getUserDetails();
         log.debug("当前用户信息:{}", customUserDetails);
+        String annotationSql = DataPermissionSqlThreadLocal.getSql();
+        log.info("注解生成SQL:{}", annotationSql);
         if (StringUtils.equals("org.dshubs.odc.infra.mapper.TenantMapper.selectList", mappedStatementId)) {
             log.debug("自定义数据权限处理");
             Set<String> ids = Sets.newLinkedHashSet();

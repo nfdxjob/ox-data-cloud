@@ -29,4 +29,9 @@ public class CustomSqlExpression implements Expression {
     public void setASTNode(SimpleNode node) {
 
     }
+
+    @Override
+    public String toString() {
+        return this.sql;
+    }
 }
