@@ -1,4 +1,4 @@
-package org.dshubs.odc.mybatis.config.handler;
+package org.dshubs.odc.mybatis.config.permission.handler;
 
 import com.baomidou.mybatisplus.extension.plugins.handler.DataPermissionHandler;
 import com.google.common.collect.Sets;
@@ -12,7 +12,7 @@ import net.sf.jsqlparser.schema.Column;
 import org.apache.commons.lang3.StringUtils;
 import org.dshubs.odc.core.oauth.CustomUserDetails;
 import org.dshubs.odc.core.oauth.DetailsUtils;
-import org.dshubs.odc.mybatis.config.expression.CustomSqlExpression;
+import org.dshubs.odc.mybatis.config.permission.expression.CustomSqlExpression;
 
 import java.util.Set;
 import java.util.stream.Collectors;

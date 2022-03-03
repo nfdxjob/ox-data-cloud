@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.dshubs.odc.api.vo.EmployeeListQueryVO;
 import org.dshubs.odc.domain.entity.Employee;
+import org.dshubs.odc.mybatis.config.permission.annotation.DataPermission;
+import org.dshubs.odc.mybatis.config.permission.annotation.PermissionColumn;
 
 
 /**
@@ -17,9 +19,16 @@ import org.dshubs.odc.domain.entity.Employee;
 public interface EmployeeMapper extends BaseMapper<Employee> {
     /**
      * List employee
-     * @param page page
+     *
+     * @param page  page
      * @param param search condition
      * @return Page
      */
+    @DataPermission(
+            columns = {@PermissionColumn(
+                    alias = "oe",
+                    column = "org_code"
+            )}
+    )
     Page<Employee> listEmployee(Page<Employee> page, @Param("p") EmployeeListQueryVO param);
 }

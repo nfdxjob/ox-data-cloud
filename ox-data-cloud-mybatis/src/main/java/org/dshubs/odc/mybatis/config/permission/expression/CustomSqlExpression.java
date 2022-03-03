@@ -1,4 +1,4 @@
-package org.dshubs.odc.mybatis.config.expression;
+package org.dshubs.odc.mybatis.config.permission.expression;
 
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.ExpressionVisitor;
