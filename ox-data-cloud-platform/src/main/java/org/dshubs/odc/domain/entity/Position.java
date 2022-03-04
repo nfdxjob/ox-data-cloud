@@ -1,30 +1,29 @@
 package org.dshubs.odc.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
-import org.dshubs.odc.core.domain.AuditEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import java.time.LocalDateTime;
+import org.dshubs.odc.core.domain.AuditEntity;
 
 /**
-* 岗位
-*
-* @author wangxian 2022-03-02
-*/
+ * 岗位
+ *
+ * @author wangxian 2022-03-02
+ */
 @Data
 @ApiModel("岗位模型")
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @TableName("opfm_position")
 public class Position extends AuditEntity {
 
 
     /**
-     * 
+     *
      */
-    @ApiModelProperty("")
+    @ApiModelProperty("ID")
     @TableId
     private Long positionId;
 

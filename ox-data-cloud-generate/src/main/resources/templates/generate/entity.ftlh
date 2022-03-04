@@ -18,10 +18,10 @@ import java.time.LocalDateTime;
 </#if>
 
 /**
-* ${tableComment}
-*
-* @author ${author} ${date}
-*/
+ * ${tableComment}
+ *
+ * @author ${author} ${date}
+ */
 @Data
 @ApiModel("${tableComment}模型")
 @EqualsAndHashCode(callSuper=false)

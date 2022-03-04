@@ -1,30 +1,29 @@
 package org.dshubs.odc.domain.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
-import org.dshubs.odc.core.domain.AuditEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import java.time.LocalDateTime;
+import org.dshubs.odc.core.domain.AuditEntity;
 
 /**
-* 组织部门
-*
-* @author wangxian 2022-03-02
-*/
+ * 组织部门
+ *
+ * @author wangxian 2022-03-02
+ */
 @Data
 @ApiModel("组织部门模型")
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @TableName("opfm_organization")
 public class Organization extends AuditEntity {
 
 
     /**
-     * 
+     *
      */
-    @ApiModelProperty("")
+    @ApiModelProperty("组织ID")
     @TableId
     private Long orgId;
 
@@ -40,11 +39,20 @@ public class Organization extends AuditEntity {
     @ApiModelProperty("组织名称")
     private String orgName;
 
+
     /**
      * 父级编码
      */
     @ApiModelProperty("父级编码")
     private String parentCode;
+
+
+    /**
+     * 同级别排序
+     */
+    @ApiModelProperty("同级别排序")
+    private Integer sort;
+
 
     /**
      * 组织级别

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.dshubs.odc.infra.mapper.AuditOperationLogDetailMapper">
+    <resultMap id="BaseResultMap" type="org.dshubs.odc.domain.entity.AuditOperationLogDetail">
+        <result column="id" property="id"/>
+        <result column="log_id" property="logId"/>
+        <result column="params" property="params"/>
+        <result column="result" property="result"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="version" property="version"/>
+        <result column="creation_date" property="creationDate"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="last_update_date" property="lastUpdateDate"/>
+        <result column="last_updated_by" property="lastUpdatedBy"/>
+    </resultMap>
+</mapper>
