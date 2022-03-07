@@ -10,21 +10,20 @@ public class DetailsUtils {
     public static CustomUserDetails getUserDetails() {
         if (SecurityContextHolder.getContext() != null && SecurityContextHolder.getContext().getAuthentication() != null) {
             Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            CustomUserDetails customUserDetails = null;
             if (principal instanceof CustomUserDetails) {
-                return (CustomUserDetails)principal;
+                customUserDetails = (CustomUserDetails) principal;
             } else {
                 Object details = SecurityContextHolder.getContext().getAuthentication().getDetails();
                 if (details instanceof OAuth2AuthenticationDetails) {
-                    Object decodedDetails = ((OAuth2AuthenticationDetails)details).getDecodedDetails();
+                    Object decodedDetails = ((OAuth2AuthenticationDetails) details).getDecodedDetails();
                     if (decodedDetails instanceof CustomUserDetails) {
-                        return (CustomUserDetails)decodedDetails;
+                        customUserDetails = (CustomUserDetails) decodedDetails;
                     }
                 }
-
-                return null;
             }
-        } else {
-            return null;
+            return customUserDetails;
         }
+        return null;
     }
 }
