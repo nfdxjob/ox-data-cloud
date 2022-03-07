@@ -35,10 +35,11 @@
 
 - 基础框架 Spring Boot 2.4.12
 - 微服务框架 Spring Cloud 2020.0.4
+  - Gateway,Feign
 - 持久层框架 Mybatis Plus 3.5.1
 - 安全框架 Spring Security,Oauth2
 - 缓存 Redis
-- 数据库 MYSQL 5.7
+- 数据库 MySQL 5.7
 - 其他依赖 logback, common-lang3, google-guava,swagger,lombok
 
 ### 开发文档

@@ -6,7 +6,19 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: xxx
     password: xxx
+  boot:
+    admin:
+      client:
+        url: http://localhost:8768
 
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 server:
   port: 8030
 

@@ -1,22 +1,20 @@
 package org.dshubs.odc;
 
-import org.dshubs.odc.core.resource.annoation.EnableButterflyResourceServer;
+import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
- * 平台基础
- *
  * @author wangxian
  */
 @SpringBootApplication
+@EnableAdminServer
 @EnableDiscoveryClient
-@EnableButterflyResourceServer
-public class OdcPlatformApplication {
+public class OdcAdminApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(OdcPlatformApplication.class, args);
+        SpringApplication.run(OdcAdminApplication.class, args);
     }
 
 }

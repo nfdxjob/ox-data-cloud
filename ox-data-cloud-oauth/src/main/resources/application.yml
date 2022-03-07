@@ -14,6 +14,14 @@ server:
   port: 8010
   servlet:
     context-path: /oauth
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 
 odc:
   oauth:
