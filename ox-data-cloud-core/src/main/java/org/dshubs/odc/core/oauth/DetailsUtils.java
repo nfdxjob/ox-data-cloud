@@ -1,11 +1,13 @@
 package org.dshubs.odc.core.oauth;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.provider.authentication.OAuth2AuthenticationDetails;
 
 /**
  * @author create by wangxian 2021/12/5
  */
+@Slf4j
 public class DetailsUtils {
     public static CustomUserDetails getUserDetails() {
         if (SecurityContextHolder.getContext() != null && SecurityContextHolder.getContext().getAuthentication() != null) {

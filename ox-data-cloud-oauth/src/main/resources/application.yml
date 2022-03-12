@@ -29,3 +29,6 @@ odc:
   resource:
     server:
       enable: true
+logging:
+  level:
+    org.dshubs.odc: debug
