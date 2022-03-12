@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.4.12</version>
+        <version>2.3.7.RELEASE</version>
     </parent>
     <groupId>org.dshubs</groupId>
     <artifactId>ox-data-cloud-parent</artifactId>
@@ -15,9 +15,11 @@
     <packaging>pom</packaging>
     <properties>
         <java.version>1.8</java.version>
+        <spring-boot.version>2.3.7.RELEASE</spring-boot.version>
         <commons-collections4.version>4.4</commons-collections4.version>
         <springfox.version>3.0.0</springfox.version>
-        <spring-cloud.version>2020.0.4</spring-cloud.version>
+        <spring-cloud.version>Hoxton.SR9</spring-cloud.version>
+        <spring-cloud-alibaba.version>2.2.2.RELEASE</spring-cloud-alibaba.version>
         <spring-boot-admin.version>2.5.5</spring-boot-admin.version>
         <mysql.version>8.0.26</mysql.version>
     </properties>
@@ -30,6 +32,14 @@
         <dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-starter-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -57,12 +67,20 @@
                 <scope>import</scope>
             </dependency>
             <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-dependencies</artifactId>
                 <version>${spring-boot-admin.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>
