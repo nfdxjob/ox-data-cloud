@@ -84,7 +84,7 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements IBa
                     if (sortArray.length >= 1) {
                         sortType = sortArray[1];
                     }
-                    OrderItem orderItem = new OrderItem(sortArray[0], sortType.equals("asc"));
+                    OrderItem orderItem = new OrderItem(sortArray[0], "asc".equals(sortType));
                     orderItems.add(orderItem);
                 }
             }

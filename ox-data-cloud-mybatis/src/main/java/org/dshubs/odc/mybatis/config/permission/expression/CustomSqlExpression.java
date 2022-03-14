@@ -5,6 +5,8 @@ import net.sf.jsqlparser.expression.ExpressionVisitor;
 import net.sf.jsqlparser.parser.SimpleNode;
 
 /**
+ * 自定义SQL
+ *
  * @author create by wangxian 2022/3/3
  */
 public class CustomSqlExpression implements Expression {

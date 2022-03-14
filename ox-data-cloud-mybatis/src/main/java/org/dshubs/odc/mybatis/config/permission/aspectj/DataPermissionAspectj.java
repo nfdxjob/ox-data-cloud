@@ -46,36 +46,41 @@ public class DataPermissionAspectj {
         try {
             MethodSignature signature = (MethodSignature) point.getSignature();
             Method method = signature.getMethod();
-            log.info("application name:{},method:{}", applicationName, method.getName());
+            log.debug("application name:{},method:{}", applicationName, method.getName());
             DataPermission annotation = method.getAnnotation(DataPermission.class);
             if (annotation != null) {
+                //类型,可根据不同类型做不同处理
                 DataPermissionType type = annotation.type();
                 //注解上的描述
                 PermissionColumn[] permissionColumns = annotation.columns();
-                log.info("permission size:{}", permissionColumns.length);
+                log.debug("permission type:{}", type.getValue());
                 if (ArrayUtils.isNotEmpty(permissionColumns)) {
-                    StringBuilder sql = new StringBuilder();
+                    StringBuilder tmpSql = new StringBuilder();
                     int count = 0;
                     for (PermissionColumn pc : permissionColumns) {
                         String alias = pc.alias();
-                        log.info("alias:{},column:{}", alias, pc.column());
+                        String column = pc.column();
+                        log.info("alias:{},column:{}", alias, column);
                         if (StringUtils.isNotBlank(alias)) {
                             alias += ".";
                         }
                         if (count != 0) {
-                            sql.append(" AND ");
+                            tmpSql.append(" AND ");
                         }
-                        sql.append(" ").append(pc.alias()).append(pc.column());
+                        tmpSql.append(" ").append(alias).append(column);
                         count++;
                     }
-                    DataPermissionSqlThreadLocal.setSql(sql.toString());
+                    String sql = tmpSql.toString();
+                    log.debug("SQL:{}", sql);
+                    DataPermissionSqlThreadLocal.setSql(sql);
                 }
 
 
             }
+            //可以做数据审计
             Object result = point.proceed();
             DataPermissionSqlThreadLocal.clear();
-            log.info("result:{}", JsonUtils.getInstance().toJson(result));
+            log.debug("SQL执行结果,result:{}", JsonUtils.getInstance().toJson(result));
             return result;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
