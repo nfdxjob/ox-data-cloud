@@ -1,8 +1,6 @@
 server:
   port: 8030
 management:
-  server:
-    port: 8031
   endpoints:
     web:
       exposure:
