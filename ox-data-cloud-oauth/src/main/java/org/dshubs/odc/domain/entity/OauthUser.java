@@ -72,6 +72,11 @@ public class OauthUser extends AuditEntity {
     private String avatarAddress;
 
     /**
+     * 是否管理员
+     */
+    @ApiModelProperty("是否管理员")
+    private Boolean isAdmin;
+    /**
      * 最后登录时间
      */
     @ApiModelProperty("最后登录时间")

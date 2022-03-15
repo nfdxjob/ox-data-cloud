@@ -26,6 +26,11 @@ public class CustomUserDetails extends User implements Serializable {
     private String realName;
 
     /**
+     * 昵称
+     */
+    private String nickname;
+
+    /**
      * 邮箱
      */
     private String email;

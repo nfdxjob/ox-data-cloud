@@ -4,11 +4,11 @@ import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.dshubs.odc.app.service.OauthUserService;
 import org.dshubs.odc.core.oauth.CustomUserDetails;
+import org.dshubs.odc.domain.entity.OauthUser;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,12 +17,10 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class CustomUserDetailsService implements UserDetailsService {
-    private final PasswordEncoder passwordEncoder;
 
     private final OauthUserService oauthUserService;
 
-    public CustomUserDetailsService(PasswordEncoder passwordEncoder, OauthUserService oauthUserService) {
-        this.passwordEncoder = passwordEncoder;
+    public CustomUserDetailsService(OauthUserService oauthUserService) {
         this.oauthUserService = oauthUserService;
     }
 
@@ -30,6 +28,17 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         log.info("login name:{}", s);
 
-        return new CustomUserDetails(s, passwordEncoder.encode("123456"), Lists.newArrayList(new SimpleGrantedAuthority("admin")));
+        OauthUser oauthUser = oauthUserService.findByUsernameOrEmail(s);
+        if (oauthUser == null) {
+            throw new UsernameNotFoundException("用户名或密码错误");
+        }
+        CustomUserDetails customUserDetails = new CustomUserDetails(s, oauthUser.getPassword(), Lists.newArrayList(new SimpleGrantedAuthority("admin")));
+        customUserDetails.setOrganizationId(oauthUser.getTenantId());
+        customUserDetails.setEmail(oauthUser.getEmail());
+        customUserDetails.setIsAdmin(oauthUser.getIsAdmin());
+        customUserDetails.setRealName(oauthUser.getRealName());
+        customUserDetails.setUserId(oauthUser.getUserId());
+        customUserDetails.setNickname(oauthUser.getNickName());
+        return customUserDetails;
     }
 }
