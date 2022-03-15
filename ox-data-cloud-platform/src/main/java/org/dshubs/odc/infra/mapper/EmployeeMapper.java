@@ -31,4 +31,11 @@ public interface EmployeeMapper extends BaseMapper<Employee> {
             )}
     )
     Page<Employee> listEmployee(Page<Employee> page, @Param("p") EmployeeListQueryVO param);
+
+    /**
+     * 匹配域账号存在个数
+     * @param domainAccount 域账号
+     * @return count
+     */
+    int countLeftDomainAccount(@Param("domainAccount") String domainAccount);
 }

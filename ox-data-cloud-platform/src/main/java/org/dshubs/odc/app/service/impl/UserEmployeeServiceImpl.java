@@ -51,7 +51,7 @@ public class UserEmployeeServiceImpl extends BaseServiceImpl<UserEmployeeMapper,
         Employee employee = employeeService.selectById(employeeId);
         if (employee != null) {
             OauthUser oauthUser = new OauthUser();
-            oauthUser.setUsername(employee.getEmployeeNum());
+            oauthUser.setUsername(employee.getDomainAccount());
             oauthUser.setEmail(employee.getEmail());
             oauthUser.setRealName(employee.getEmployeeName());
             oauthUser.setPhone(employee.getPhone());

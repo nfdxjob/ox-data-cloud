@@ -27,12 +27,28 @@ import static com.google.common.io.Files.write;
 @Slf4j
 public class PinyinUtilsTest {
 
+
     @Test
     public void toPinyinTest() throws BadHanyuPinyinOutputFormatCombination {
         HanyuPinyinOutputFormat format = new HanyuPinyinOutputFormat();
         String result = PinyinHelper.toHanYuPinyinString("汉", format, "", true);
         System.out.println(result);
         Assertions.assertEquals(result, "han4");
+    }
+
+    @Test
+    public void toPinyinTest1() throws BadHanyuPinyinOutputFormatCombination {
+       generateDomainAccount("王贤");
+    }
+
+    public static void generateDomainAccount(String username) throws BadHanyuPinyinOutputFormatCombination {
+        HanyuPinyinOutputFormat format = new HanyuPinyinOutputFormat();
+        char [] array = username.toCharArray();
+        for (char a:array){
+            String result = PinyinHelper.toHanYuPinyinString(a+"", format, "", true);
+            System.out.println(result);
+
+        }
     }
 
     @Test

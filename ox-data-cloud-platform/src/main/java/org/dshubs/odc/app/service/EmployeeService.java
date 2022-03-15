@@ -23,5 +23,11 @@ public interface EmployeeService extends IBaseService<Employee> {
      */
     PageData<Employee> listEmployee(PageRequest page, EmployeeListQueryVO param);
 
+    /**
+     * 创建员工
+     * @param employee 员工信息
+     * @return Employee
+     */
+    Employee createEmployee(Employee employee);
 }
 

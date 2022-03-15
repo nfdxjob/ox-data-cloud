@@ -34,6 +34,12 @@ public class Employee extends AuditEntity {
     private String employeeNum;
 
     /**
+     * 域账号
+     */
+    @ApiModelProperty("域账号")
+    private String domainAccount;
+
+    /**
      * 员工名称
      */
     @ApiModelProperty("员工名称")

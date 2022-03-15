@@ -64,7 +64,7 @@ public class EmployeeController {
     @ApiOperation("创建")
     public ResponseEntity<Employee> create(@RequestBody @Validated Employee employee) {
         log.info("创建,参数:{}", employee);
-        Employee result = employeeService.insert(employee);
+        Employee result = employeeService.createEmployee(employee);
         return Results.success(result);
     }
 

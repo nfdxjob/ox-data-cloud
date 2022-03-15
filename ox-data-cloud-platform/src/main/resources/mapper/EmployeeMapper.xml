@@ -4,6 +4,7 @@
     <resultMap id="BaseResultMap" type="org.dshubs.odc.domain.entity.Employee">
         <result column="employee_id" property="employeeId"/>
         <result column="employee_num" property="employeeNum"/>
+        <result column="domain_account" property="domainAccount"/>
         <result column="employee_name" property="employeeName"/>
         <result column="org_code" property="orgCode"/>
         <result column="org_name" property="orgName"/>
@@ -33,5 +34,10 @@
                 </foreach>
             </if>
         </where>
+    </select>
+    <select id="countLeftDomainAccount" resultType="java.lang.Integer">
+        SELECT COUNT(*)
+        FROM opfm_employee
+        WHERE domain_account LIKE CONCAT(#{domainAccount}, '%')
     </select>
 </mapper>
