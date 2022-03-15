@@ -20,7 +20,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import java.lang.reflect.Method;
 
 /**
- * 权限拦截切面
+ * 权限拦截切面拦截,可自定义权限
  *
  * @author wangxian
  */
