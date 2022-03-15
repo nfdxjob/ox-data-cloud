@@ -26,8 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        log.info("login name:{}", s);
-
+        log.debug("login name is:{}", s);
         OauthUser oauthUser = oauthUserService.findByUsernameOrEmail(s);
         if (oauthUser == null) {
             throw new UsernameNotFoundException("用户名或密码错误");

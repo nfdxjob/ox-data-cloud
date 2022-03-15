@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,11 +30,12 @@ import java.util.List;
  *
  * @author create by wangxian 2021/12/5
  */
-@ConditionalOnProperty(name = "odc.resource.server.enable",matchIfMissing = true)
+@ConditionalOnProperty(name = "odc.resource.server.enable", matchIfMissing = true)
 @Slf4j
 @AllArgsConstructor
 @Configuration
 @EnableResourceServer
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class ButterflyResourceServerConfiguration extends ResourceServerConfigurerAdapter {
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
@@ -88,7 +90,8 @@ public class ButterflyResourceServerConfiguration extends ResourceServerConfigur
                         "/*/api-docs",
                         "/actuator/**",
                         "/oauth/**",
-                        "/users/load-by-username"
+                        "/login",
+                        "/"
                 ).permitAll()
                 .antMatchers(HttpMethod.OPTIONS)
                 .permitAll()
