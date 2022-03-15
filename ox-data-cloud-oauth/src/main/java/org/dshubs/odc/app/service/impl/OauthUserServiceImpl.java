@@ -15,5 +15,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class OauthUserServiceImpl extends BaseServiceImpl<OauthUserMapper,OauthUser> implements OauthUserService {
 
+    @Override
+    public OauthUser findByUsernameOrEmail(String username) {
+        return baseMapper.selectByUsernameOrEmail(username);
+    }
 }
 

@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 /**
  * 核心配置
+ *
  * @author create by wangxian 2021/12/5
  */
 @ConfigurationProperties(prefix = OdcCoreProperties.CORE_PROPERTIES_PREFIX)
@@ -25,7 +26,7 @@ public class OdcCoreProperties {
 
     private Resource resource;
 
-
+    private Platform platform;
 
     @Data
     public static class Resource {
@@ -33,4 +34,19 @@ public class OdcCoreProperties {
 
         private String ignorePath = "/public/*";
     }
+
+    @Data
+    public static class Platform {
+        /**
+         * 用户默认密码
+         */
+        private String userDefaultPassword;
+
+        /**
+         * 用户默认租户
+         */
+        private Long userDefaultTenantId;
+
+    }
+
 }

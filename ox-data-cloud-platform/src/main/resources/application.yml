@@ -21,6 +21,9 @@ odc:
   resource:
     server:
       enable: true
+  platform:
+    user-default-password: 123123123
+    user-default-tenant-id: 1
 logging:
   level:
     org.dshubs.odc.infra.mapper: debug

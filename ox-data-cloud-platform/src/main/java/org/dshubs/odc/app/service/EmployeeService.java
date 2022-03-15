@@ -16,7 +16,8 @@ public interface EmployeeService extends IBaseService<Employee> {
 
     /**
      * List employee
-     * @param page page
+     *
+     * @param page  page
      * @param param search condition
      * @return Page
      */

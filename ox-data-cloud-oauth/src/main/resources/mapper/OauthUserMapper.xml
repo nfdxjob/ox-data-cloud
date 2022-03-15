@@ -22,4 +22,11 @@
         <result column="last_update_date" property="lastUpdateDate"/>
         <result column="last_updated_by" property="lastUpdatedBy"/>
     </resultMap>
+    <select id="selectByUsernameOrEmail" resultType="org.dshubs.odc.domain.entity.OauthUser">
+        SELECT *
+        FROM oauth_user
+        where username = #{username}
+           or email = #{username}
+        limit 1
+    </select>
 </mapper>

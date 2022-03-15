@@ -18,9 +18,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class EmployeeServiceImpl extends BaseServiceImpl<EmployeeMapper, Employee> implements EmployeeService {
 
+
     @Override
     public PageData<Employee> listEmployee(PageRequest page, EmployeeListQueryVO param) {
         return this.getPageData(this.baseMapper.listEmployee(getPageQuery(page), param));
     }
+
 }
 

@@ -2,6 +2,7 @@ package org.dshubs.odc.custom;
 
 import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
+import org.dshubs.odc.app.service.OauthUserService;
 import org.dshubs.odc.core.oauth.CustomUserDetails;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,14 +19,17 @@ import org.springframework.stereotype.Service;
 public class CustomUserDetailsService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
+    private final OauthUserService oauthUserService;
 
-    public CustomUserDetailsService(PasswordEncoder passwordEncoder) {
+    public CustomUserDetailsService(PasswordEncoder passwordEncoder, OauthUserService oauthUserService) {
         this.passwordEncoder = passwordEncoder;
+        this.oauthUserService = oauthUserService;
     }
 
     @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         log.info("login name:{}", s);
+
         return new CustomUserDetails(s, passwordEncoder.encode("123456"), Lists.newArrayList(new SimpleGrantedAuthority("admin")));
     }
 }

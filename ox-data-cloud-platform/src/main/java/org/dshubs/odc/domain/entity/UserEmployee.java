@@ -36,7 +36,7 @@ public class UserEmployee extends AuditEntity {
      * 员工ID
      */
     @ApiModelProperty("员工ID")
-    private String employeeId;
+    private Long employeeId;
 
     /**
      * 用户名

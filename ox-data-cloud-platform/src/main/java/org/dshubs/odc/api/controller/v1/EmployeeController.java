@@ -5,8 +5,10 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.dshubs.odc.api.vo.EmployeeListQueryVO;
 import org.dshubs.odc.app.service.EmployeeService;
+import org.dshubs.odc.app.service.UserEmployeeService;
 import org.dshubs.odc.core.util.result.Results;
 import org.dshubs.odc.domain.entity.Employee;
+import org.dshubs.odc.domain.entity.OauthUser;
 import org.dshubs.odc.mybatis.infra.pagination.PageData;
 import org.dshubs.odc.mybatis.infra.pagination.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +29,12 @@ import java.util.List;
 public class EmployeeController {
     private final EmployeeService employeeService;
 
-    public EmployeeController(EmployeeService employeeService) {
+    private final UserEmployeeService userEmployeeService;
+
+    public EmployeeController(EmployeeService employeeService,
+                              UserEmployeeService userEmployeeService) {
         this.employeeService = employeeService;
+        this.userEmployeeService = userEmployeeService;
     }
 
     @ApiOperation("所有数据")
@@ -75,5 +81,13 @@ public class EmployeeController {
     public ResponseEntity<Void> deleteById(@PathVariable("id") Long employeeId) {
         employeeService.deleteById(employeeId);
         return Results.success();
+    }
+
+
+    @PostMapping("/convert-user/{id}")
+    @ApiOperation("将员工转换成系统用户")
+    public ResponseEntity<OauthUser> convertToUser(@PathVariable("id") Long id) {
+        OauthUser oauthUser = userEmployeeService.employeeConvertToUser(id);
+        return Results.success(oauthUser);
     }
 }

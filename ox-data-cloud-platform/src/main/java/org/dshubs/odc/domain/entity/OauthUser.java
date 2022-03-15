@@ -1,5 +1,6 @@
 package org.dshubs.odc.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -25,6 +26,7 @@ public class OauthUser extends AuditEntity {
      *
      */
     @ApiModelProperty("ID")
+    @TableId
     private Long userId;
 
     /**
@@ -50,6 +52,27 @@ public class OauthUser extends AuditEntity {
      */
     @ApiModelProperty("手机号")
     private String phone;
+
+
+    /**
+     * 真实姓名
+     */
+    @ApiModelProperty("真实姓名")
+    private String realName;
+
+
+    /**
+     * 昵称
+     */
+    @ApiModelProperty("昵称")
+    private String nickName;
+
+
+    /**
+     * 头像地址
+     */
+    @ApiModelProperty("头像地址")
+    private String avatarAddress;
 
     /**
      * 最后登录时间

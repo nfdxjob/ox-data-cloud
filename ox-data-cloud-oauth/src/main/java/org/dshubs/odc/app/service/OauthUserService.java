@@ -11,5 +11,12 @@ import org.dshubs.odc.mybatis.app.service.IBaseService;
  */
 public interface OauthUserService extends IBaseService<OauthUser>  {
 
+
+    /**
+     * select user by username or email
+     * @param username username or email
+     * @return OauthUser
+     */
+    OauthUser findByUsernameOrEmail(String username);
 }
 

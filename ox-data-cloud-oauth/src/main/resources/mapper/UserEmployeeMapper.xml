@@ -14,10 +14,4 @@
         <result column="last_update_date" property="lastUpdateDate"/>
         <result column="last_updated_by" property="lastUpdatedBy"/>
     </resultMap>
-    <select id="selectByEmployeeId" resultType="org.dshubs.odc.domain.entity.UserEmployee">
-        SELECT * FROM user_employee WHERE employee_id = #{employeeId} limit 1
-    </select>
-    <select id="selectByUserId" resultType="org.dshubs.odc.domain.entity.UserEmployee">
-        SELECT * FROM user_employee WHERE user_id = #{userId}
-    </select>
 </mapper>
