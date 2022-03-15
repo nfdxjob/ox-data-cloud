@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * @author wangxian 2022-03-04
  */
 @Service
-public class UserEmployeeServiceImpl extends BaseServiceImpl<UserEmployeeMapper,UserEmployee> implements UserEmployeeService {
+public class UserEmployeeServiceImpl extends BaseServiceImpl<UserEmployeeMapper, UserEmployee> implements UserEmployeeService {
 
 }
 
