@@ -10,6 +10,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author create by wangxian 2021/12/29
@@ -32,7 +37,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         String[] permitPaths = ArrayUtils.addAll(PERMIT_PATHS);
-        http.authorizeRequests().antMatchers(permitPaths).permitAll().and().authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests().antMatchers(permitPaths).permitAll().and().authorizeRequests().anyRequest().authenticated().and().exceptionHandling().authenticationEntryPoint(new AuthenticationEntryPoint() {
+            @Override
+            public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) {
+                log.error(e.getMessage(), e);
+            }
+        });
     }
 
     @Bean
@@ -40,4 +50,5 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+
 }
