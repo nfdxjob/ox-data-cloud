@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: odc-file
+server:
+  port: 8200
+butterfly:
+  resource:
+    server:
+      enable: false

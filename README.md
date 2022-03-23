@@ -6,6 +6,20 @@
 
 **ox-data-cloud,以下简称odc用于企业解决项目开发微服务框架搭建需求,提供快速开发平台,为公司节省开发成本,让开发人员只需要关心具体业务开发**
 
+### 服务预览
+
+|        服务名称        | 端口 | 描述 | 数据库 |
+| :--------------------: | :--: | :--: | :----: |
+| ox-data-cloud-platform |      |      |        |
+|  ox-data-cloud-oauth   |      |      |        |
+| ox-data-cloud-message  |      |      |        |
+| ox-data-cloud-document |      |      |        |
+|   ox-data-cloud-file   |      |      |        |
+| ox-data-cloud-workflow |      |      |        |
+|  ox-data-cloud-gateay  |      |      |        |
+
+
+
 ### 快速使用
 
 - 获取源代码
