@@ -32,7 +32,7 @@ public class PositionController {
 
     @ApiOperation("所有数据")
     @GetMapping("/all")
-    public ResponseEntity<List<Position>> list() {
+    public ResponseEntity<List<Position>> all() {
         log.info("所有数据");
         List<Position> result = positionService.list();
         return Results.success(result);

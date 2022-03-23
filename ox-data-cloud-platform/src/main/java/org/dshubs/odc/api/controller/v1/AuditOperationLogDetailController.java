@@ -32,7 +32,7 @@ public class AuditOperationLogDetailController {
 
     @ApiOperation("所有数据")
     @GetMapping("/all")
-    public ResponseEntity<List<AuditOperationLogDetail>> list() {
+    public ResponseEntity<List<AuditOperationLogDetail>> all() {
         log.info("所有数据");
         List<AuditOperationLogDetail> result = auditOperationLogDetailService.list();
         return Results.success(result);

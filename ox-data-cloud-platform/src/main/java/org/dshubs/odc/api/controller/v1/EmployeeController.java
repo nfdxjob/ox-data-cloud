@@ -39,7 +39,7 @@ public class EmployeeController {
 
     @ApiOperation("所有数据")
     @GetMapping("/all")
-    public ResponseEntity<List<Employee>> list() {
+    public ResponseEntity<List<Employee>> all() {
         log.info("所有数据");
         List<Employee> result = employeeService.list();
         return Results.success(result);

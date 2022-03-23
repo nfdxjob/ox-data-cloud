@@ -49,7 +49,7 @@ public class MailServerController {
     @GetMapping("{id}")
     @ApiOperation("根据ID获取")
     public ResponseEntity<MailServer> detail(@PathVariable("id") Long mailServerId) {
-        return Results.success(mailServerService.getMailServer(mailServerId));
+        return Results.success(mailServerService.selectById(mailServerId));
     }
 
 

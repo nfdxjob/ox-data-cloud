@@ -32,7 +32,7 @@ public class OrganizationController {
 
     @ApiOperation("所有数据")
     @GetMapping("/all")
-    public ResponseEntity<List<Organization>> list() {
+    public ResponseEntity<List<Organization>> all() {
         log.info("所有数据");
         List<Organization> result = organizationService.list();
         return Results.success(result);

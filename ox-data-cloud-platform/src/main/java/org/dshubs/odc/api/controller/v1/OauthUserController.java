@@ -32,7 +32,7 @@ public class OauthUserController {
 
     @ApiOperation("所有数据")
     @GetMapping("/all")
-    public ResponseEntity<List<OauthUser>> list() {
+    public ResponseEntity<List<OauthUser>> all() {
         log.info("所有数据");
         List<OauthUser> result = oauthUserService.list();
         return Results.success(result);

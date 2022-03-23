@@ -32,7 +32,7 @@ public class CustomDataPermissionController {
 
     @ApiOperation("所有数据")
     @GetMapping("/all")
-    public ResponseEntity<List<CustomDataPermission>> list() {
+    public ResponseEntity<List<CustomDataPermission>> all() {
         log.info("所有数据");
         List<CustomDataPermission> result = customDataPermissionService.list();
         return Results.success(result);

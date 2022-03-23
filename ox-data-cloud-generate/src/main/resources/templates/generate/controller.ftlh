@@ -30,14 +30,6 @@ public class ${className}Controller {
         this.${lowerClassName}Service = ${lowerClassName}Service;
     }
 
-    @ApiOperation("所有数据")
-    @GetMapping("/all")
-    public ResponseEntity<List<${className}>> list() {
-        log.info("所有数据");
-        List<${className}> result = ${lowerClassName}Service.list();
-        return Results.success(result);
-    }
-
     @ApiOperation("列表查询")
     @GetMapping("/list")
     public ResponseEntity<PageData<${className}>> list(PageRequest page, ${className} query) {

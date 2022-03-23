@@ -32,7 +32,7 @@ public class OauthUserRoleController {
 
     @ApiOperation("所有数据")
     @GetMapping("/all")
-    public ResponseEntity<List<OauthUserRole>> list() {
+    public ResponseEntity<List<OauthUserRole>> all() {
         log.info("所有数据");
         List<OauthUserRole> result = oauthUserRoleService.list();
         return Results.success(result);
