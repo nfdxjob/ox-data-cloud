@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.dshubs.odc.infra.mapper.UserMessageMapper">
+    <resultMap id="BaseResultMap" type="org.dshubs.odc.domain.entity.UserMessage">
+        <result column="user_message_id" property="userMessageId"/>
+        <result column="user_id" property="userId"/>
+        <result column="message_id" property="messageId"/>
+        <result column="read_flag" property="readFlag"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="from_tenant_id" property="fromTenantId"/>
+        <result column="object_version_number" property="objectVersionNumber"/>
+        <result column="creation_date" property="creationDate"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="last_updated_by" property="lastUpdatedBy"/>
+        <result column="last_update_date" property="lastUpdateDate"/>
+    </resultMap>
+</mapper>

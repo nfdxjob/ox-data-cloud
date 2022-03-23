@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.dshubs.odc.infra.mapper.NoticeMapper">
+    <resultMap id="BaseResultMap" type="org.dshubs.odc.domain.entity.Notice">
+        <result column="notice_id" property="noticeId"/>
+        <result column="title" property="title"/>
+        <result column="notice_body" property="noticeBody"/>
+        <result column="receiver_type_code" property="receiverTypeCode"/>
+        <result column="notice_editor_type" property="noticeEditorType"/>
+        <result column="receiver_source_id" property="receiverSourceId"/>
+        <result column="start_date" property="startDate"/>
+        <result column="end_date" property="endDate"/>
+        <result column="published_by" property="publishedBy"/>
+        <result column="published_date" property="publishedDate"/>
+        <result column="sticky_flag" property="stickyFlag"/>
+        <result column="notice_status" property="noticeStatus"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="version" property="version"/>
+        <result column="creation_date" property="creationDate"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="last_updated_by" property="lastUpdatedBy"/>
+        <result column="last_update_date" property="lastUpdateDate"/>
+    </resultMap>
+</mapper>

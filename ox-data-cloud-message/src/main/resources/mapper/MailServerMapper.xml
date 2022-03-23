@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.dshubs.odc.infra.mapper.MailServerMapper">
+    <resultMap id="BaseResultMap" type="org.dshubs.odc.domain.entity.MailServer">
+        <result column="server_id" property="serverId"/>
+        <result column="server_code" property="serverCode"/>
+        <result column="server_name" property="serverName"/>
+        <result column="host" property="host"/>
+        <result column="port" property="port"/>
+        <result column="try_times" property="tryTimes"/>
+        <result column="username" property="username"/>
+        <result column="password_encrypted" property="passwordEncrypted"/>
+        <result column="sender" property="sender"/>
+        <result column="enabled_flag" property="enabledFlag"/>
+        <result column="protocol" property="protocol"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="version" property="version"/>
+        <result column="creation_date" property="creationDate"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="last_updated_by" property="lastUpdatedBy"/>
+        <result column="last_update_date" property="lastUpdateDate"/>
+    </resultMap>
+</mapper>

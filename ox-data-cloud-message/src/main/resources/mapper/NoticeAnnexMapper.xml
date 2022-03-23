@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.dshubs.odc.infra.mapper.NoticeAnnexMapper">
+    <resultMap id="BaseResultMap" type="org.dshubs.odc.domain.entity.NoticeAnnex">
+        <result column="annex_id" property="annexId"/>
+        <result column="notice_id" property="noticeId"/>
+        <result column="directory" property="directory"/>
+        <result column="file_url" property="fileUrl"/>
+        <result column="file_type" property="fileType"/>
+        <result column="file_name" property="fileName"/>
+        <result column="file_size" property="fileSize"/>
+        <result column="bucket_name" property="bucketName"/>
+        <result column="server_code" property="serverCode"/>
+        <result column="version" property="version"/>
+        <result column="creation_date" property="creationDate"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="last_updated_by" property="lastUpdatedBy"/>
+        <result column="last_update_date" property="lastUpdateDate"/>
+    </resultMap>
+</mapper>

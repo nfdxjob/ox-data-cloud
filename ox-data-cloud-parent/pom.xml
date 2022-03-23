@@ -22,6 +22,7 @@
         <spring-cloud-alibaba.version>2.2.2.RELEASE</spring-cloud-alibaba.version>
         <spring-boot-admin.version>2.5.5</spring-boot-admin.version>
         <mysql.version>8.0.26</mysql.version>
+        <aliyun-java-sdk-core.version>4.5.16</aliyun-java-sdk-core.version>
     </properties>
     <dependencies>
         <dependency>
@@ -79,6 +80,12 @@
                 <version>${spring-boot-admin.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.aliyun</groupId>
+                <artifactId>aliyun-java-sdk-core</artifactId>
+                <version>${aliyun-java-sdk-core.version}</version>
             </dependency>
 
         </dependencies>
