@@ -15,56 +15,43 @@ import java.util.List;
 public interface ProcessInstanceService {
     /**
      * 查询单一流程实例
-     *
-     * @param processInstanceId
-     * @return
      */
     ProcessInstance getProcessInstanceById(String processInstanceId);
 
     /**
      * 查询单一历史流程实例
-     *
-     * @param processInstanceId
-     * @return
      */
     HistoricProcessInstance getHistoricProcessInstanceById(String processInstanceId);
 
     /**
      * 启动流程实例
-     *
-     * @param processInstanceRequest
      */
     String start(ProcessInstanceRequest processInstanceRequest);
 
     /**
      * 删除流程实例
-     *
-     * @param processInstanceId
-     * @param cascade
-     * @param deleteReason
      */
     void delete(String processInstanceId, boolean cascade, String deleteReason);
 
     /**
      * 激活流程实例
-     *
-     * @param processInstanceId
      */
     void activate(String processInstanceId);
 
     /**
      * 挂起流程实例
-     *
-     * @param processInstanceId
      */
     void suspend(String processInstanceId);
 
     /**
      * 查询我的流程汇总信息
-     *
-     * @param processInstanceQueryVo
      */
-    List listMyInvolvedSummary(ProcessInstanceQueryVo processInstanceQueryVo);
+    List<Object> listMyInvolvedSummary(ProcessInstanceQueryVo processInstanceQueryVo);
 
+    /**
+     * 根据流程实例ID获取任务信息
+     *
+     * @param processInstanceId 实例ID
+     */
     String getTask(String processInstanceId);
 }

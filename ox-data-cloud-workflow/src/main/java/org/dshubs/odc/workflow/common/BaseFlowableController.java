@@ -1,33 +1,27 @@
 package org.dshubs.odc.workflow.common;
 
-import org.apache.commons.lang3.ObjectUtils;
+import org.dshubs.odc.workflow.common.utils.ObjectUtils;
 import org.dshubs.odc.workflow.common.utils.SpringContextUtils;
 import org.dshubs.odc.workflow.entity.query.BaseQueryVo;
 import org.dshubs.odc.workflow.service.FlowableTaskService;
 import org.dshubs.odc.workflow.service.PermissionService;
-import org.dshubs.odc.workflow.common.FlowablePage.Order;
-import org.dshubs.odc.workflow.common.FlowablePage.Direction;
-import org.dshubs.odc.workflow.wapper.IListWrapper;
+import org.dshubs.odc.workflow.wrapper.IListWrapper;
 import org.flowable.bpmn.model.ExtensionElement;
+import org.flowable.bpmn.model.Process;
 import org.flowable.bpmn.model.ValuedDataObject;
 import org.flowable.common.engine.api.FlowableIllegalArgumentException;
 import org.flowable.common.engine.api.query.Query;
 import org.flowable.common.engine.api.query.QueryProperty;
 import org.flowable.engine.*;
-import org.flowable.bpmn.model.Process;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.dshubs.odc.workflow.common.FlowablePage.Order;
+import org.dshubs.odc.workflow.common.FlowablePage.Direction;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Flowable基础Controller类
- *
- * @author 湖南牛数商智信息科技有限公司
- */
-@SuppressWarnings({"rawtypes"})
 public abstract class BaseFlowableController {
     @Autowired
     protected ResponseFactory responseFactory;
@@ -49,7 +43,7 @@ public abstract class BaseFlowableController {
     protected TaskService taskService;
 
     protected FlowablePage getFlowablePage(BaseQueryVo baseQueryVo) {
-        int current = baseQueryVo.getCurrent();
+        int current = baseQueryVo.getCurrent() ;
         int size = baseQueryVo.getSize();
         if (current < 0) {
             return null;
@@ -70,9 +64,9 @@ public abstract class BaseFlowableController {
                     String orderColumn = rule[0];
                     Order orderTmp = null;
                     if (rule.length == 2 && "DESC".equals(rule[1].toUpperCase())) {
-                        orderTmp = new Order(orderColumn, FlowablePage.Direction.DESC);
+                        orderTmp = new Order(orderColumn, Direction.DESC);
                     } else {
-                        orderTmp = new Order(orderColumn, FlowablePage.Direction.ASC);
+                        orderTmp = new Order(orderColumn, Direction.ASC);
                     }
                     orders.add(orderTmp);
                 }
