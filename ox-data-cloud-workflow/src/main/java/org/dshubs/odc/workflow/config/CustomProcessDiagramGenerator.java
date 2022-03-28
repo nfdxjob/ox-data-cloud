@@ -1,7 +1,7 @@
 package org.dshubs.odc.workflow.config;
 
-import org.flowable.bpmn.model.*;
 import org.flowable.bpmn.model.Process;
+import org.flowable.bpmn.model.*;
 import org.flowable.image.impl.DefaultProcessDiagramGenerator;
 
 import java.awt.*;
@@ -10,11 +10,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 /**
- * @Description： Flowable生成流程图
- * @GithubAuthor : zhanglinfu2012
- * @Date: 2022-03-15 22:05
- * @Version: 1.0.0
- * @Copyright: 湖南牛数商智信息科技有限公司
+ * Flowable生成流程图
+ *
+ * @author 湖南牛数商智信息科技有限公司
  */
 public class CustomProcessDiagramGenerator extends DefaultProcessDiagramGenerator {
 

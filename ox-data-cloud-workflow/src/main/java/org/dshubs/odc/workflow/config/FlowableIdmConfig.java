@@ -9,11 +9,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @Description： Flowable Idm配置
- * @GithubAuthor : zhanglinfu2012
- * @Date: 2022-03-15 22:05
- * @Version: 1.0.0
- * @Copyright: 湖南牛数商智信息科技有限公司
+ * Flowable Idm配置
+ *
+ * @author 湖南牛数商智信息科技有限公司
  */
 @Configuration
 public class FlowableIdmConfig implements EngineConfigurationConfigurer<SpringIdmEngineConfiguration> {

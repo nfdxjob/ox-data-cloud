@@ -5,10 +5,6 @@ import lombok.Data;
 
 import java.util.Date;
 
-/**
- * @author guodong
- * @date 2020年3月24日
- */
 @Data
 public class HistoricProcessInstanceResponse {
     protected String id;

@@ -8,11 +8,9 @@ import org.flowable.task.service.impl.persistence.entity.TaskEntity;
 import org.springframework.stereotype.Component;
 
 /**
- * @Description： 任务节点前置监听处理类
- * @GithubAuthor : zhanglinfu2012
- * @Date: 2022-03-15 22:05
- * @Version: 1.0.0
- * @Copyright: 湖南牛数商智信息科技有限公司
+ * 任务节点前置监听处理类
+ *
+ * @author 湖南牛数商智信息科技有限公司
  */
 @Component
 public class TaskBeforeListener implements FlowableEventListener {

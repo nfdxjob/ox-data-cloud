@@ -1,11 +1,9 @@
 package org.dshubs.odc.workflow.common.constant;
 
 /**
- * @Description： Flowable 常用标量
- * @GithubAuthor : zhanglinfu2012
- * @Date: 2022-03-15 22:05
- * @Version: 1.0.0
- * @Copyright: 湖南牛数商智信息科技有限公司
+ * Flowable 常用标量
+ *
+ * @author 湖南牛数商智信息科技有限公司
  */
 public class FlowableConstant {
     /**

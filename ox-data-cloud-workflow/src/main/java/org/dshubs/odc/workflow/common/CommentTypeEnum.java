@@ -1,11 +1,9 @@
 package org.dshubs.odc.workflow.common;
 
 /**
- * @Description： Flowable处理枚举
- * @GithubAuthor : zhanglinfu2012
- * @Date: 2022-03-15 22:05
- * @Version: 1.0.0
- * @Copyright: 湖南牛数商智信息科技有限公司
+ * Flowable处理枚举
+ *
+ * @author 湖南牛数商智信息科技有限公司
  */
 public enum CommentTypeEnum {
     /**
@@ -28,7 +26,7 @@ public enum CommentTypeEnum {
         return "";
     }
 
-    private CommentTypeEnum(String name) {
+    CommentTypeEnum(String name) {
         this.name = name;
     }
 

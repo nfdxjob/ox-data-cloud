@@ -4,11 +4,9 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * @Description： Flowable分页
- * @GithubAuthor : zhanglinfu2012
- * @Date: 2022-03-15 22:05
- * @Version: 1.0.0
- * @Copyright: 湖南牛数商智信息科技有限公司
+ * Flowable分页
+ *
+ * @author 湖南牛数商智信息科技有限公司
  */
 @SuppressWarnings({"rawtypes"})
 public class FlowablePage implements Serializable {

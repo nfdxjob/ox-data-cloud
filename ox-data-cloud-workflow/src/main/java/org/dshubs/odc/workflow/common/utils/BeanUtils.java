@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 /**
  * Bean 工具类
  *
- * @author hnrc
+ * @author 湖南牛数商智信息科技有限公司
  */
 public class BeanUtils extends org.springframework.beans.BeanUtils {
     /**

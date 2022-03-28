@@ -12,7 +12,7 @@ import java.util.Map;
 /**
  * 流程表单Mapper
  *
- * @author guodong
+ * @author 湖南牛数商智信息科技有限公司
  */
 @Mapper
 public interface FlowableFormMapper extends BaseMapper<FlowableForm> {
@@ -26,5 +26,5 @@ public interface FlowableFormMapper extends BaseMapper<FlowableForm> {
     public List<FlowableForm> list(IPage<FlowableForm> page, @Param("entity") FlowableForm entity);
 
 
-    List<Map<String,String>> getUserList();
+    List<Map<String, String>> getUserList();
 }

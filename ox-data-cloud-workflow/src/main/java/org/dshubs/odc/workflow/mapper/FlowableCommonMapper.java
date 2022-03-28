@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * 流程公共查询Mapper，用于解耦系统sys模块
  *
- * @author guodong
+ * @author 湖南牛数商智信息科技有限公司
  */
 @Mapper
 public interface FlowableCommonMapper {

@@ -14,11 +14,8 @@ import org.flowable.engine.repository.ProcessDefinition;
 import java.io.Serializable;
 
 /**
- * @Description： GetProcessDefinitionInfoCmd
- * @GithubAuthor : zhanglinfu2012
- * @Date: 2022-03-15 22:05
- * @Version: 1.0.0
- * @Copyright: 湖南牛数商智信息科技有限公司
+ * GetProcessDefinitionInfoCmd
+ * @author 湖南牛数商智信息科技有限公司
  */
 public class GetProcessDefinitionInfoCmd implements Command<ProcessDefinition>, Serializable {
 

@@ -10,14 +10,13 @@ import org.flowable.engine.impl.persistence.entity.*;
 import org.flowable.engine.impl.util.CommandContextUtil;
 import org.flowable.engine.impl.util.IdentityLinkUtil;
 import org.springframework.util.StringUtils;
+
 import java.io.Serializable;
 
 /**
- * @Description： AddCcIdentityLinkCmd
- * @GithubAuthor : zhanglinfu2012
- * @Date: 2022-03-15 22:05
- * @Version: 1.0.0
- * @Copyright: 湖南牛数商智信息科技有限公司
+ * AddCcIdentityLinkCmd
+ *
+ * @author 湖南牛数商智信息科技有限公司
  */
 public class AddCcIdentityLinkCmd implements Command<Void>, Serializable {
     private static final long serialVersionUID = 1L;
@@ -74,7 +73,7 @@ public class AddCcIdentityLinkCmd implements Command<Void>, Serializable {
         comment.setTime(CommandContextUtil.getProcessEngineConfiguration(commandContext).getClock().getCurrentTime());
         comment.setTaskId(taskId);
         comment.setAction("AddCcTo");
-        String ccToStr = StringUtils.arrayToCommaDelimitedString((Object [])ccToVos);
+        String ccToStr = StringUtils.arrayToCommaDelimitedString((Object[]) ccToVos);
         comment.setMessage(ccToStr);
         comment.setFullMessage(ccToStr);
         commentEntityManager.insert(comment);

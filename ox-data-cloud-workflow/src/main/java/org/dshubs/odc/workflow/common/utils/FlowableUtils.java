@@ -2,7 +2,7 @@ package org.dshubs.odc.workflow.common.utils;
 
 import com.google.common.collect.Sets;
 import org.dshubs.odc.workflow.common.constant.FlowableConstant;
-import org.dshubs.odc.workflow.common.model.ZjmzxfzhlUserTask;
+import org.dshubs.odc.workflow.common.model.HnnsUserTask;
 import org.flowable.bpmn.model.Process;
 import org.flowable.bpmn.model.*;
 import org.flowable.common.engine.api.FlowableException;
@@ -19,8 +19,9 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
- * @author guodong
- * @date 2020年3月24日
+ * 流程工具类
+ *
+ * @author 湖南牛数商智信息科技有限公司
  */
 public class FlowableUtils {
 
@@ -420,8 +421,8 @@ public class FlowableUtils {
         return element.getExtensionElements().get(name);
     }
 
-    public static ZjmzxfzhlUserTask getZjmzxfzhlUserTask(UserTask userTask) {
-        ZjmzxfzhlUserTask zjmzxfzhlUserTask = new ZjmzxfzhlUserTask();
+    public static HnnsUserTask getZjmzxfzhlUserTask(UserTask userTask) {
+        HnnsUserTask zjmzxfzhlUserTask = new HnnsUserTask();
         BeanUtils.copyProperties(userTask, zjmzxfzhlUserTask, FlowableConstant.BUTTONS);
         zjmzxfzhlUserTask.setButtons(getFlowableAttributeValue(userTask, FlowableConstant.BUTTONS));
         return zjmzxfzhlUserTask;

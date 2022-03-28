@@ -12,10 +12,6 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author guodong
- * @date 2020年3月24日
- */
 public class CustomGroupEntityManager extends GroupEntityManagerImpl {
     @Resource
     private FlowableCommonMapper flowableCommonMapper;

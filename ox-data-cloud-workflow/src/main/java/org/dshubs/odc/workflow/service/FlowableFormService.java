@@ -8,22 +8,21 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Description： Flowable 流程表单Service
- * @GithubAuthor : zhanglinfu2012
- * @Date: 2022-03-15 22:05
- * @Version: 1.0.0
- * @Copyright: 湖南牛数商智信息科技有限公司
+ * Flowable 流程表单Service
+ *
+ * @author : 湖南牛数商智信息科技有限公司
  */
 public interface FlowableFormService extends IService<FlowableForm> {
     /**
      * 分页查询流程表单
      *
-     * @param page
-     * @param flowableForm
-     * @return
+     * @param page         分页参数
+     * @param flowableForm Flowable
+     * @return Ipage
      */
     IPage<FlowableForm> list(IPage<FlowableForm> page, FlowableForm flowableForm);
 
 
-    List<Map<String,String>> getUserList();
+    List<Map<String, String>> getUserList();
+
 }

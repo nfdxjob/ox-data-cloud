@@ -10,8 +10,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @author guodong
- * @date 2020年3月22日
+ * 公共工具类
+ *
+ * @author 湖南牛数商智信息科技有限公司
  */
 public class CommonUtil {
 

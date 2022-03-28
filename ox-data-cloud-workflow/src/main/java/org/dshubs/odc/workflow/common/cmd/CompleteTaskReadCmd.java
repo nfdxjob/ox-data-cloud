@@ -1,4 +1,5 @@
 package org.dshubs.odc.workflow.common.cmd;
+
 import org.dshubs.odc.workflow.common.CommentTypeEnum;
 import org.dshubs.odc.workflow.common.constant.FlowableConstant;
 import org.flowable.common.engine.api.FlowableException;
@@ -10,11 +11,9 @@ import org.flowable.engine.impl.util.TaskHelper;
 import org.flowable.task.service.impl.persistence.entity.TaskEntity;
 
 /**
- * @Description： CompleteTaskReadCmd
- * @GithubAuthor : zhanglinfu2012
- * @Date: 2022-03-15 22:05
- * @Version: 1.0.0
- * @Copyright: 湖南牛数商智信息科技有限公司
+ * CompleteTaskReadCmd
+ *
+ * @author 湖南牛数商智信息科技有限公司
  */
 public class CompleteTaskReadCmd extends NeedsActiveTaskCmd<Void> {
 

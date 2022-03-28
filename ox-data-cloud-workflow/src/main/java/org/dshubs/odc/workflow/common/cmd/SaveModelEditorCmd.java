@@ -18,11 +18,9 @@ import java.io.*;
 import java.util.Collections;
 
 /**
- * @Description： SaveModelEditorCmd
- * @GithubAuthor : zhanglinfu2012
- * @Date: 2022-03-15 22:05
- * @Version: 1.0.0
- * @Copyright: 湖南牛数商智信息科技有限公司
+ * SaveModelEditorCmd
+ *
+ * @author 湖南牛数商智信息科技有限公司
  */
 public class SaveModelEditorCmd implements Command<String>, Serializable {
 
@@ -45,8 +43,7 @@ public class SaveModelEditorCmd implements Command<String>, Serializable {
     private byte[] editor;
     private String tenantId;
 
-    public SaveModelEditorCmd(String type, String modelId, String key, String name, String category,
-                              String description, byte[] editor, String tenantId) {
+    public SaveModelEditorCmd(String type, String modelId, String key, String name, String category, String description, byte[] editor, String tenantId) {
         this.type = type;
         this.modelId = modelId;
         this.key = key;
@@ -72,8 +69,7 @@ public class SaveModelEditorCmd implements Command<String>, Serializable {
         if (modelId == null || modelId.length() == 0 || editor == null || editor.length == 0) {
             throw new FlowableException("ModelId or editor is null");
         }
-        ProcessEngineConfiguration processEngineConfiguration =
-                CommandContextUtil.getProcessEngineConfiguration(commandContext);
+        ProcessEngineConfiguration processEngineConfiguration = CommandContextUtil.getProcessEngineConfiguration(commandContext);
         RepositoryService repositoryService = processEngineConfiguration.getRepositoryService();
 
         Model model = repositoryService.getModel(modelId);
@@ -103,8 +99,7 @@ public class SaveModelEditorCmd implements Command<String>, Serializable {
 
         repositoryService.saveModel(model);
 
-        addModelEditorSourceAndSourceExtra(processEngineConfiguration, repositoryService, editor, bpmnModel,
-                model.getId());
+        addModelEditorSourceAndSourceExtra(processEngineConfiguration, repositoryService, editor, bpmnModel, model.getId());
 
         return model.getId();
     }
@@ -113,8 +108,7 @@ public class SaveModelEditorCmd implements Command<String>, Serializable {
         if (editor == null || editor.length == 0) {
             throw new FlowableException("editor is null");
         }
-        ProcessEngineConfiguration processEngineConfiguration =
-                CommandContextUtil.getProcessEngineConfiguration(commandContext);
+        ProcessEngineConfiguration processEngineConfiguration = CommandContextUtil.getProcessEngineConfiguration(commandContext);
         RepositoryService repositoryService = processEngineConfiguration.getRepositoryService();
 
         BpmnModel bpmnModel = generateBpmnModel(editor);
@@ -160,8 +154,7 @@ public class SaveModelEditorCmd implements Command<String>, Serializable {
 
         repositoryService.saveModel(saveModel);
 
-        addModelEditorSourceAndSourceExtra(processEngineConfiguration, repositoryService, editor, bpmnModel,
-                saveModel.getId());
+        addModelEditorSourceAndSourceExtra(processEngineConfiguration, repositoryService, editor, bpmnModel, saveModel.getId());
 
         return saveModel.getId();
     }
@@ -179,17 +172,12 @@ public class SaveModelEditorCmd implements Command<String>, Serializable {
         return bpmnModel;
     }
 
-    private void addModelEditorSourceAndSourceExtra(ProcessEngineConfiguration processEngineConfiguration,
-                                                    RepositoryService repositoryService, byte[] bytes,
-                                                    BpmnModel bpmnModel, String modelId) {
+    private void addModelEditorSourceAndSourceExtra(ProcessEngineConfiguration processEngineConfiguration, RepositoryService repositoryService, byte[] bytes, BpmnModel bpmnModel, String modelId) {
         if (bytes != null) {
             repositoryService.addModelEditorSource(modelId, bytes);
 
             ProcessDiagramGenerator diagramGenerator = processEngineConfiguration.getProcessDiagramGenerator();
-            InputStream resource = diagramGenerator.generateDiagram(bpmnModel, "png", Collections.emptyList(),
-                    Collections.emptyList(), processEngineConfiguration.getActivityFontName(),
-                    processEngineConfiguration.getLabelFontName(), processEngineConfiguration.getAnnotationFontName()
-                    , processEngineConfiguration.getClassLoader(), 1.0, true);
+            InputStream resource = diagramGenerator.generateDiagram(bpmnModel, "png", Collections.emptyList(), Collections.emptyList(), processEngineConfiguration.getActivityFontName(), processEngineConfiguration.getLabelFontName(), processEngineConfiguration.getAnnotationFontName(), processEngineConfiguration.getClassLoader(), 1.0, true);
 
             try {
                 repositoryService.addModelEditorSourceExtra(modelId, IOUtils.toByteArray(resource));

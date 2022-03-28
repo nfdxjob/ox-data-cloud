@@ -6,6 +6,7 @@
         <groupId>org.dshubs</groupId>
         <artifactId>ox-data-cloud-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath/>
     </parent>
     <artifactId>ox-data-cloud-admin</artifactId>
     <version>0.0.1-SNAPSHOT</version>

@@ -23,11 +23,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @Description： Flowable基础Controller类
- * @GithubAuthor : zhanglinfu2012
- * @Date: 2022-03-15 22:05
- * @Version: 1.0.0
- * @Copyright: 湖南牛数商智信息科技有限公司
+ * Flowable基础Controller类
+ *
+ * @author 湖南牛数商智信息科技有限公司
  */
 @SuppressWarnings({"rawtypes"})
 public abstract class BaseFlowableController {
@@ -51,7 +49,7 @@ public abstract class BaseFlowableController {
     protected TaskService taskService;
 
     protected FlowablePage getFlowablePage(BaseQueryVo baseQueryVo) {
-        int current = baseQueryVo.getCurrent() ;
+        int current = baseQueryVo.getCurrent();
         int size = baseQueryVo.getSize();
         if (current < 0) {
             return null;

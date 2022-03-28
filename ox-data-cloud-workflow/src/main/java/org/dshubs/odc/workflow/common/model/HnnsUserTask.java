@@ -6,8 +6,13 @@ import org.flowable.bpmn.model.MultiInstanceLoopCharacteristics;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 湖南牛数用户任务
+ *
+ * @author 湖南牛数商智信息科技有限公司
+ */
 @Data
-public class ZjmzxfzhlUserTask {
+public class HnnsUserTask {
     private String id;
     private String name;
     private String documentation;

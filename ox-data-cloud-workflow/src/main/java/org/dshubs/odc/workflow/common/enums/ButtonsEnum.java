@@ -9,11 +9,9 @@ import java.util.EnumSet;
 import java.util.HashMap;
 
 /**
- * @Description： 按钮枚举
- * @GithubAuthor : zhanglinfu2012
- * @Date: 2022-03-15 22:05
- * @Version: 1.0.0
- * @Copyright: 湖南牛数商智信息科技有限公司
+ * 按钮枚举
+ *
+ * @author 湖南牛数商智信息科技有限公司
  */
 @Getter
 @AllArgsConstructor

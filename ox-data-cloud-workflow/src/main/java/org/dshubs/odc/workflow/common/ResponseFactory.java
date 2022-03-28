@@ -29,11 +29,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * @Description： ResponseFactory
- * @GithubAuthor : zhanglinfu2012
- * @Date: 2022-03-15 22:05
- * @Version: 1.0.0
- * @Copyright: 湖南牛数商智信息科技有限公司
+ * 返回结果对象封装
+ *
+ * @author 湖南牛数商智信息科技有限公司
  */
 @Component
 public class ResponseFactory {
@@ -47,7 +45,7 @@ public class ResponseFactory {
     }
 
     @Autowired
-    public ResponseFactory(IdentityService identityService, FormService formService, HistoryService historyService,ObjectMapper objectMapper) {
+    public ResponseFactory(IdentityService identityService, FormService formService, HistoryService historyService, ObjectMapper objectMapper) {
         this.identityService = identityService;
         this.formService = formService;
         this.historyService = historyService;
@@ -115,13 +113,13 @@ public class ResponseFactory {
     }
 
     public List<HistoricProcessInstanceResponse> createHistoricProcessInstanceResponseList(List<HistoricProcessInstance> processInstances) {
-        List<Map<String,String>> userList = flowableFormService.getUserList();
+        List<Map<String, String>> userList = flowableFormService.getUserList();
         List<HistoricProcessInstanceResponse> responseList = new ArrayList<>();
         for (HistoricProcessInstance instance : processInstances) {
             responseList.add(createHistoricProcessInstanceResponse(instance));
         }
-        for(HistoricProcessInstanceResponse historicProcessInstanceResponse:responseList){
-            List<Map<String,String>> filterList = userList.stream().filter(item -> String.valueOf(item.get("id")).equals(historicProcessInstanceResponse.getStartUserId())).collect(Collectors.toList());
+        for (HistoricProcessInstanceResponse historicProcessInstanceResponse : responseList) {
+            List<Map<String, String>> filterList = userList.stream().filter(item -> String.valueOf(item.get("id")).equals(historicProcessInstanceResponse.getStartUserId())).collect(Collectors.toList());
             historicProcessInstanceResponse.setStartUserName(filterList.size() == 0 ? "" : filterList.get(0).get("realname"));
         }
         return responseList;
@@ -163,7 +161,7 @@ public class ResponseFactory {
     }
 
     public List<TaskResponse> createTaskResponseList(List<TaskInfo> tasks) {
-        List<Map<String,String>> userList = flowableFormService.getUserList();
+        List<Map<String, String>> userList = flowableFormService.getUserList();
         Map<String, String> processInstanceNames = new HashMap<>(16);
         Set<String> processInstanceIds = new HashSet<>();
         for (TaskInfo task : tasks) {
@@ -179,9 +177,9 @@ public class ResponseFactory {
             TaskResponse result = new TaskResponse(task, processInstanceNames.get(task.getProcessInstanceId()));
             responseList.add(result);
         }
-        for(TaskResponse taskResponse:responseList){
-            if(taskResponse.getAssignee() != null){
-                List<Map<String,String>> filterList = userList.stream().filter(item -> String.valueOf(item.get("id")).equals(taskResponse.getAssignee())).collect(Collectors.toList());
+        for (TaskResponse taskResponse : responseList) {
+            if (taskResponse.getAssignee() != null) {
+                List<Map<String, String>> filterList = userList.stream().filter(item -> String.valueOf(item.get("id")).equals(taskResponse.getAssignee())).collect(Collectors.toList());
                 taskResponse.setAssigneeName((filterList.size() == 0) ? "" : filterList.get(0).get("realname"));
             }
             taskResponse.setDurationStr(this.millisToStringShort(taskResponse.getDurationInMillis()));
@@ -190,7 +188,7 @@ public class ResponseFactory {
     }
 
     public String millisToStringShort(Long l) {
-        if(l == null){
+        if (l == null) {
             return "";
         }
         StringBuffer sb = new StringBuffer();
@@ -199,13 +197,13 @@ public class ResponseFactory {
         long minutes = 60 * seconds;
         long hours = 60 * minutes;
         long days = 24 * hours;
-        if (l / days >= 1){
+        if (l / days >= 1) {
             sb.append((int) (l / days) + "天");
         }
-        if (l % days / hours >= 1){
+        if (l % days / hours >= 1) {
             sb.append((int) (l % days / hours) + "小时");
         }
-        if (l % days % hours / minutes >= 1){
+        if (l % days % hours / minutes >= 1) {
             sb.append((int) (l % days % hours / minutes) + "分钟");
         }
 //        if (l % days % hours % minutes / seconds >= 1){
@@ -278,7 +276,7 @@ public class ResponseFactory {
     public List<CommentResponse> createCommentResponseList(List<Comment> comments) {
         List<CommentResponse> responseList = new ArrayList<>();
         for (Comment comment : comments) {
-            if(CommonUtil.isNotEmptyAfterTrim(comment.getTaskId())){
+            if (CommonUtil.isNotEmptyAfterTrim(comment.getTaskId())) {
                 responseList.add(createCommentResponse(comment));
             }
         }

@@ -11,10 +11,6 @@ import org.flowable.idm.engine.impl.persistence.entity.data.UserDataManager;
 import javax.annotation.Resource;
 import java.util.List;
 
-/**
- * @author guodong
- * @date 2020年3月24日
- */
 public class CustomUserEntityManager extends UserEntityManagerImpl {
 
     @Resource

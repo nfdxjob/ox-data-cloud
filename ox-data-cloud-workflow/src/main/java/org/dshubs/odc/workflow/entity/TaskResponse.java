@@ -13,10 +13,6 @@ import org.flowable.task.api.history.HistoricTaskInstance;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @author guodong
- * @date 2020年3月24日
- */
 @Data
 public class TaskResponse {
     protected String id;

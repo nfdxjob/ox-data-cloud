@@ -4,6 +4,7 @@ import com.google.common.collect.Sets;
 import org.dshubs.odc.workflow.common.constant.FlowableConstant;
 import org.dshubs.odc.workflow.common.utils.FlowableUtils;
 import org.flowable.bpmn.model.FlowNode;
+import org.flowable.bpmn.model.Process;
 import org.flowable.bpmn.model.UserTask;
 import org.flowable.common.engine.api.FlowableException;
 import org.flowable.common.engine.api.FlowableObjectNotFoundException;
@@ -19,16 +20,16 @@ import org.flowable.task.api.Task;
 import org.flowable.task.service.impl.persistence.entity.TaskEntity;
 
 import java.io.Serializable;
-import java.util.*;
-import org.flowable.bpmn.model.Process;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * @Description： BackUserTaskCmd
- * @GithubAuthor : zhanglinfu2012
- * @Date: 2022-03-15 22:05
- * @Version: 1.0.0
- * @Copyright: 湖南牛数商智信息科技有限公司
+ * BackUserTaskCmd
+ *
+ * @author 湖南牛数商智信息科技有限公司
  */
 public class BackUserTaskCmd implements Command<String>, Serializable {
 

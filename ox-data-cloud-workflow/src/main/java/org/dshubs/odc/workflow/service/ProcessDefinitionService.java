@@ -8,11 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 
 
 /**
- * @Description： Flowable 流程定义Service
- * @GithubAuthor : zhanglinfu2012
- * @Date: 2022-03-15 22:05
- * @Version: 1.0.0
- * @Copyright: 湖南牛数商智信息科技有限公司
+ * Flowable 流程定义Service
+ *
+ * @author 湖南牛数商智信息科技有限公司
  */
 public interface ProcessDefinitionService {
 

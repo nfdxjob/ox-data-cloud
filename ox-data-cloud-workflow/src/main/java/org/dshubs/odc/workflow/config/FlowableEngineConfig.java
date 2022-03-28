@@ -14,11 +14,9 @@ import org.springframework.context.annotation.Configuration;
 import java.util.*;
 
 /**
- * @Description： Flowable流程引擎配置
- * @GithubAuthor : zhanglinfu2012
- * @Date: 2022-03-15 22:05
- * @Version: 1.0.0
- * @Copyright: 湖南牛数商智信息科技有限公司
+ * Flowable流程引擎配置
+ *
+ * @author 湖南牛数商智信息科技有限公司
  */
 @Configuration
 public class FlowableEngineConfig implements EngineConfigurationConfigurer<SpringProcessEngineConfiguration> {
@@ -42,7 +40,7 @@ public class FlowableEngineConfig implements EngineConfigurationConfigurer<Sprin
         return new CustomProcessDiagramGenerator();
     }
 
-    private Map<String, List<FlowableEventListener>> customFlowableListeners () {
+    private Map<String, List<FlowableEventListener>> customFlowableListeners() {
         Map<String, List<FlowableEventListener>> listenerMap = Maps.newHashMap();
         listenerMap.put(FlowableEngineEventType.TASK_CREATED.name(),
                 new ArrayList<>(Collections.singletonList(taskBeforeListener)));

@@ -2,9 +2,6 @@ package org.dshubs.odc.workflow.entity.query;
 
 import lombok.Data;
 
-/**
- * @author guodong
- */
 @Data
 public class ModelQueryVo extends BaseQueryVo{
     private String modelId;

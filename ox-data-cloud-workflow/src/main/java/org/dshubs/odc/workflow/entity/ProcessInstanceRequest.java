@@ -4,10 +4,6 @@ import lombok.Data;
 
 import java.util.Map;
 
-/**
- * @author guodong
- * @date 2020年3月24日
- */
 @Data
 public class ProcessInstanceRequest {
     private String processDefinitionId;
