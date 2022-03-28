@@ -11,6 +11,8 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>ox-data-cloud-workflow</name>
     <description>ox-data-cloud-workflow</description>
+    <packaging>pom</packaging>
+
     <properties>
         <java.version>1.8</java.version>
     </properties>

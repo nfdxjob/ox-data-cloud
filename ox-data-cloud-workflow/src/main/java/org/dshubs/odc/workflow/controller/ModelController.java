@@ -32,7 +32,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -111,15 +110,15 @@ public class ModelController extends BaseFlowableController {
         return AjaxResult.success(page);
     }
 
-    @GetMapping("getuuid")
-    @ApiOperation("获取uuid")
-    public AjaxResult getuuid() throws Exception {
+    @GetMapping("getUUID")
+    @ApiOperation("获取UUID")
+    public AjaxResult getuuid() {
         String uuid = UUID.randomUUID().toString().trim().replaceAll("-", "");
         return AjaxResult.success(uuid);
     }
 
     @GetMapping(value = "/queryById")
-    public AjaxResult queryById(@RequestParam String id) throws UnsupportedEncodingException {
+    public AjaxResult queryById(@RequestParam String id) {
         Model model = getModelById(id);
         ModelResponse modelResponse = responseFactory.createModelResponse(model);
         if (model.hasEditorSource()) {
@@ -199,7 +198,7 @@ public class ModelController extends BaseFlowableController {
         for (String id : idsArr) {
             Model model = getModelById(id);
             if (cascade && model.getDeploymentId() != null) {
-                repositoryService.deleteDeployment(model.getDeploymentId(), cascade);
+                repositoryService.deleteDeployment(model.getDeploymentId(), true);
             }
             repositoryService.deleteModel(model.getId());
         }
