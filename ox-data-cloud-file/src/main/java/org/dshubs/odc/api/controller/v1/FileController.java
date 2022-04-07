@@ -1,16 +1,15 @@
 package org.dshubs.odc.api.controller.v1;
 
-import io.minio.BucketExistsArgs;
-import io.minio.MakeBucketArgs;
-import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.dshubs.odc.app.service.FileService;
+import org.dshubs.odc.core.util.result.Results;
+import org.dshubs.odc.dto.DownloadDTO;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 文件操作
@@ -23,24 +22,21 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 public class FileController {
 
-    private final MinioClient minioClient;
+    private final FileService minioFileService;
 
-    public FileController(MinioClient minioClient) {
-        this.minioClient = minioClient;
+    public FileController(FileService minioFileService) {
+        this.minioFileService = minioFileService;
     }
 
     @PostMapping("/upload")
-    public String upload(@RequestParam("file") MultipartFile file) throws Exception{
-//        minioClient.putObject("test", "test.png", file.getInputStream(), new PutObjectOptions(file.getSize(),
-//                PutObjectOptions.MIN_MULTIPART_SIZE));
-        if (!minioClient.bucketExists(BucketExistsArgs.builder().bucket("test").build())) {
-            minioClient.makeBucket(MakeBucketArgs.builder().bucket("test").build());
-        }
-        minioClient.putObject(PutObjectArgs.builder().bucket("test").object(file.getOriginalFilename()).stream(
-                        file.getInputStream(), file.getSize(), -1)
-                .contentType(file.getContentType())
-                .build());
-        return "OK";
+    public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file,
+                                         @RequestParam("bucket") String bucket,
+                                         @RequestParam("fileName") String fileName) throws Exception{
+        return Results.success(minioFileService.upload(file, bucket, fileName));
     }
 
+    @PostMapping("/download")
+    public void download(@RequestBody DownloadDTO downloadParam, HttpServletResponse response) throws Exception {
+        minioFileService.download(downloadParam, response);
+    }
 }

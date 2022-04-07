@@ -11,5 +11,12 @@ import org.dshubs.odc.mybatis.app.service.IBaseService;
  */
 public interface FileResourceService extends IBaseService<FileResource>  {
 
+    /**
+     * 根据fileKey获取文件信息
+     *
+     * @param fileKey fileKey
+     * @return 文件信息
+     */
+    FileResource queryByFileKey(String fileKey);
 }
 
