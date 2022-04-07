@@ -3,17 +3,16 @@ package org.dshubs.odc.api.controller.v1;
 import io.minio.MinioClient;
 import io.minio.PutObjectOptions;
 import io.minio.errors.*;
+import io.minio.messages.Bucket;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 /**
  * 文件操作
@@ -32,10 +31,12 @@ public class FileController {
         this.minioClient = minioClient;
     }
 
-    @GetMapping("/upload")
-    public String upload(@RequestParam("file") MultipartFile file) throws IOException, InvalidBucketNameException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
-        minioClient.putObject("test", "test", file.getInputStream(), new PutObjectOptions(file.getSize(),
+    @PostMapping("/upload")
+    public String upload(@RequestParam("file") MultipartFile file) throws IOException, InvalidBucketNameException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException, RegionConflictException {
+        List<Bucket> buckets = minioClient.listBuckets();
+        minioClient.putObject("test", "test.png", file.getInputStream(), new PutObjectOptions(file.getSize(),
                 PutObjectOptions.MIN_MULTIPART_SIZE));
+
         return "OK";
     }
 }

@@ -18,6 +18,6 @@ public class MinioConfig {
     @Bean
     public MinioClient minioClient(FileStorageConfigService fileStorageConfigService) throws InvalidPortException, InvalidEndpointException {
         FileStorageConfig fileStore = fileStorageConfigService.getFileStoreByType(StorageType.MINIO.getType());
-        return new MinioClient(fileStore.getEndPoint(), fileStore.getAccessKey(), fileStore.getAccessKeySecret());
+        return new MinioClient(fileStore.getEndPoint(), 9000, fileStore.getAccessKey(), fileStore.getAccessKeySecret());
     }
 }
