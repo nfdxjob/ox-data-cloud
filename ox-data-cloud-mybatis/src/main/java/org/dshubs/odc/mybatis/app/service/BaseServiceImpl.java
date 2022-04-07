@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.StringUtils;
+import org.dshubs.odc.core.exception.CommonException;
+import org.dshubs.odc.core.util.result.CommonErrorEnum;
 import org.dshubs.odc.mybatis.infra.pagination.PageData;
 import org.dshubs.odc.mybatis.infra.pagination.PageRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +62,11 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements IBa
 
     @Override
     public T update(T entity) {
-        this.baseMapper.updateById(entity);
-        return entity;
+        int count = this.baseMapper.updateById(entity);
+        if (count > 0) {
+            return entity;
+        }
+        throw new CommonException(CommonErrorEnum.DATA_UPDATE_ERROR);
     }
 
     @Override

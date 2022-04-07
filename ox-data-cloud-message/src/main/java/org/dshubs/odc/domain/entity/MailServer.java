@@ -1,14 +1,13 @@
 package org.dshubs.odc.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.dshubs.odc.core.domain.AuditEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import java.time.LocalDateTime;
+import org.dshubs.odc.mybatis.domain.AuditEntity;
 
 /**
  * 邮件服务
@@ -17,7 +16,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @ApiModel("邮件服务模型")
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @TableName("omsg_mail_server")
 public class MailServer extends AuditEntity {
 

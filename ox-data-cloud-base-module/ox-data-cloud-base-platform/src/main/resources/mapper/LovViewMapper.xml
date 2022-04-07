@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.dshubs.odc.infra.mapper.LovViewMapper">
+    <resultMap id="BaseResultMap" type="org.dshubs.odc.domain.entity.LovView">
+        <result column="lov_view_id" property="lovViewId"/>
+        <result column="lov_view_code" property="lovViewCode"/>
+        <result column="view_name" property="viewName"/>
+        <result column="lov_id" property="lovId"/>
+        <result column="value_field" property="valueField"/>
+        <result column="display_field" property="displayField"/>
+        <result column="title" property="title"/>
+        <result column="width" property="width"/>
+        <result column="height" property="height"/>
+        <result column="page_size" property="pageSize"/>
+        <result column="enabled_flag" property="enabledFlag"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="version" property="version"/>
+        <result column="creation_date" property="creationDate"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="last_update_date" property="lastUpdateDate"/>
+        <result column="last_updated_by" property="lastUpdatedBy"/>
+    </resultMap>
+</mapper>

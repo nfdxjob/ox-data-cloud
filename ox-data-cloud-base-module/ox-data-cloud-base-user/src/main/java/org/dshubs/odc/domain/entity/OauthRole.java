@@ -1,11 +1,12 @@
 package org.dshubs.odc.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.dshubs.odc.core.domain.AuditEntity;
+import org.dshubs.odc.mybatis.domain.AuditEntity;
 
 /**
 * 角色
@@ -23,6 +24,7 @@ public class OauthRole extends AuditEntity {
      * 
      */
     @ApiModelProperty("ID")
+    @TableId
     private Long roleId;
 
     /**

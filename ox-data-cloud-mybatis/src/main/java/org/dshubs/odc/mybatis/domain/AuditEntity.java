@@ -1,7 +1,7 @@
-package org.dshubs.odc.domain.entity;
+package org.dshubs.odc.mybatis.domain;
 
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.Version;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -9,32 +9,18 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 /**
- * @author create by wangxian 2022/2/19
+ * 基类
+ *
+ * @author create by wangxian 2021/12/4
  */
-@TableName(value = "tenant")
 @Data
-public class Tenant {
-
-    @ApiModelProperty(value = "租户ID")
-    @TableId
-    private Long tenantId;
-
-    @ApiModelProperty(value = "租户编码")
-    private String tenantCode;
-
-    @ApiModelProperty(value = "租户名称")
-    private String tenantName;
-
-    @ApiModelProperty(value = "是否启用")
-    private Boolean enabledFlag;
-
+public abstract class AuditEntity {
     @ApiModelProperty(value = "数据版本")
     @Version
     private Long version;
 
     @ApiModelProperty(value = "创建人ID")
     private Long createdBy;
-
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime creationDate;
 
@@ -42,5 +28,8 @@ public class Tenant {
     private Long lastUpdatedBy;
 
     @ApiModelProperty(value = "更新时间")
+    @TableField(
+            fill = FieldFill.INSERT_UPDATE
+    )
     private LocalDateTime lastUpdateDate;
 }
