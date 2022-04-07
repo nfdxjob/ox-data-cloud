@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.dshubs.odc.infra.mapper.LovMapper">
+    <resultMap id="BaseResultMap" type="org.dshubs.odc.domain.entity.Lov">
+        <result column="lov_id" property="lovId"/>
+        <result column="lov_code" property="lovCode"/>
+        <result column="lov_type_code" property="lovTypeCode"/>
+        <result column="route_name" property="routeName"/>
+        <result column="lov_name" property="lovName"/>
+        <result column="description" property="description"/>
+        <result column="parent_lov_code" property="parentLovCode"/>
+        <result column="parent_tenant_id" property="parentTenantId"/>
+        <result column="custom_sql" property="customSql"/>
+        <result column="custom_url" property="customUrl"/>
+        <result column="value_field" property="valueField"/>
+        <result column="display_field" property="displayField"/>
+        <result column="must_page_flag" property="mustPageFlag"/>
+        <result column="translation_sql" property="translationSql"/>
+        <result column="public_flag" property="publicFlag"/>
+        <result column="encrypt_field" property="encryptField"/>
+        <result column="decrypt_field" property="decryptField"/>
+        <result column="request_method" property="requestMethod"/>
+        <result column="enabled_flag" property="enabledFlag"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="version" property="version"/>
+        <result column="creation_date" property="creationDate"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="last_update_date" property="lastUpdateDate"/>
+        <result column="last_updated_by" property="lastUpdatedBy"/>
+    </resultMap>
+</mapper>

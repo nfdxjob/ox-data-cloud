@@ -6,7 +6,7 @@
         from information_schema.tables
         where table_schema = (select database())
         <if test="params.tableName!=null and params.tableName!=''">
-            and TABLE_NAME = #{params.tableName}
+            and TABLE_NAME like concat ('%',#{params.tableName},'%')
         </if>
         <if test="params.comment!=null and params.comment!=''">
             and TABLE_COMMENT like concat('%',#{params.comment},'%')
