@@ -14,6 +14,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>ox-data-cloud-core</module>
+        <module>ox-data-cloud-redis</module>
+        <module>ox-data-cloud-lock</module>
         <module>ox-data-cloud-mybatis</module>
         <module>ox-data-cloud-base-user</module>
         <module>ox-data-cloud-base-platform</module>
