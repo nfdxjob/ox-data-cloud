@@ -1,8 +1,9 @@
-package org.dshubs.odc.core.domain;
+package org.dshubs.odc.mybatis.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.Version;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.springframework.data.annotation.Version;
 
 import java.time.LocalDateTime;
 
@@ -19,7 +20,6 @@ public abstract class AuditEntity {
 
     @ApiModelProperty(value = "创建人ID")
     private Long createdBy;
-
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime creationDate;
 
@@ -27,5 +27,8 @@ public abstract class AuditEntity {
     private Long lastUpdatedBy;
 
     @ApiModelProperty(value = "更新时间")
+    @TableField(
+            update = "now()"
+    )
     private LocalDateTime lastUpdateDate;
 }

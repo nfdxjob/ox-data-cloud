@@ -6,7 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import org.dshubs.odc.core.domain.AuditEntity;
+import org.dshubs.odc.mybatis.domain.AuditEntity;
 
 /**
 * 角色

@@ -1,13 +1,12 @@
 package org.dshubs.odc.domain.entity;
 
-import org.dshubs.odc.core.domain.AuditEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import java.time.LocalDateTime;
+import org.dshubs.odc.mybatis.domain.AuditEntity;
 
 /**
  * 值集
@@ -16,13 +15,13 @@ import java.time.LocalDateTime;
  */
 @Data
 @ApiModel("值集模型")
-@EqualsAndHashCode(callSuper=false)
+@EqualsAndHashCode(callSuper = false)
 @TableName("opfm_lov")
 public class Lov extends AuditEntity {
 
 
     /**
-     * 
+     *
      */
     @ApiModelProperty("主键")
     @TableId
@@ -59,7 +58,7 @@ public class Lov extends AuditEntity {
     private String description;
 
     /**
-     * 
+     *
      */
     @ApiModelProperty("")
     private String parentLovCode;
