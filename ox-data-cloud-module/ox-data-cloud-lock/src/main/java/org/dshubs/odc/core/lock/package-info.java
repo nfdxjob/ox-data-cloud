@@ -4,4 +4,4 @@
  *
  * @author create by wangxian 2021/12/8
  */
-package org.dshubs.odc.lock;
+package org.dshubs.odc.core.lock;
