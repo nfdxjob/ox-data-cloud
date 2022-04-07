@@ -9,10 +9,12 @@
     </parent>
     <artifactId>ox-data-cloud-base-module</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ox-data-cloud-base-module</name>
-    <description>ox-data-cloud-base-module</description>
+    <name>ox-data-cloud-module</name>
+    <description>ox-data-cloud-module</description>
     <packaging>pom</packaging>
     <modules>
+        <module>ox-data-cloud-core</module>
+        <module>ox-data-cloud-mybatis</module>
         <module>ox-data-cloud-base-user</module>
         <module>ox-data-cloud-base-platform</module>
         <module>ox-data-cloud-base-message</module>
