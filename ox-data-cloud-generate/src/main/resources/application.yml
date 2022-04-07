@@ -4,10 +4,10 @@ spring:
   application:
     name: odc-generate
   datasource:
-    url: xxx
+    url: jdbc:mysql://122.51.145.136:30606/odc_platform?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+    username: odc
+    password: 123456!QAZ
     driver-class-name: com.mysql.cj.jdbc.Driver
-    username: xxx
-    password: xxx
     hikari:
       minimum-idle: 5
       maximum-pool-size: 15

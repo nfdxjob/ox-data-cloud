@@ -91,7 +91,8 @@ public class ButterflyResourceServerConfiguration extends ResourceServerConfigur
                         "/actuator/**",
                         "/oauth/**",
                         "/login",
-                        "/"
+                        "/",
+                        "/**"
                 ).permitAll()
                 .antMatchers(HttpMethod.OPTIONS)
                 .permitAll()

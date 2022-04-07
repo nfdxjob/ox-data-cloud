@@ -17,3 +17,7 @@ spring:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
         namespace: ${spring.cloud.nacos.discovery.namespace}
         enabled: false
+
+logging:
+  level:
+    org.dshubs.odc: debug
