@@ -1,15 +1,14 @@
 package org.dshubs.odc.domain.entity;
 
-import org.dshubs.odc.core.domain.AuditEntity;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.dshubs.odc.mybatis.domain.AuditEntity;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * 文件资源

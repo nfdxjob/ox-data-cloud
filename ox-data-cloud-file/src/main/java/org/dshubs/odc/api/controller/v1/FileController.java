@@ -1,18 +1,16 @@
 package org.dshubs.odc.api.controller.v1;
 
+import io.minio.BucketExistsArgs;
+import io.minio.MakeBucketArgs;
 import io.minio.MinioClient;
-import io.minio.PutObjectOptions;
-import io.minio.errors.*;
-import io.minio.messages.Bucket;
+import io.minio.PutObjectArgs;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-import java.util.List;
 
 /**
  * 文件操作
@@ -32,11 +30,17 @@ public class FileController {
     }
 
     @PostMapping("/upload")
-    public String upload(@RequestParam("file") MultipartFile file) throws IOException, InvalidBucketNameException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException, RegionConflictException {
-        List<Bucket> buckets = minioClient.listBuckets();
-        minioClient.putObject("test", "test.png", file.getInputStream(), new PutObjectOptions(file.getSize(),
-                PutObjectOptions.MIN_MULTIPART_SIZE));
-
+    public String upload(@RequestParam("file") MultipartFile file) throws Exception{
+//        minioClient.putObject("test", "test.png", file.getInputStream(), new PutObjectOptions(file.getSize(),
+//                PutObjectOptions.MIN_MULTIPART_SIZE));
+        if (!minioClient.bucketExists(BucketExistsArgs.builder().bucket("test").build())) {
+            minioClient.makeBucket(MakeBucketArgs.builder().bucket("test").build());
+        }
+        minioClient.putObject(PutObjectArgs.builder().bucket("test").object(file.getOriginalFilename()).stream(
+                        file.getInputStream(), file.getSize(), -1)
+                .contentType(file.getContentType())
+                .build());
         return "OK";
     }
+
 }
