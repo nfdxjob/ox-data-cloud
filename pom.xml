@@ -13,9 +13,7 @@
     </properties>
     <modules>
         <module>ox-data-cloud-parent</module>
-        <module>ox-data-cloud-core</module>
-        <module>ox-data-cloud-base-module</module>
-        <module>ox-data-cloud-mybatis</module>
+        <module>ox-data-cloud-module</module>
         <module>ox-data-cloud-register</module>
         <module>ox-data-cloud-oauth</module>
         <module>ox-data-cloud-platform</module>
