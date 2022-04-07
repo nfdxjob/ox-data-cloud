@@ -25,5 +25,8 @@ public interface FileStorageConfigService extends IBaseService<FileStorageConfig
      * @return 文件配置
      */
     FileStorageConfig getFileStoreByType(String storageType);
+
+    String hello();
+
 }
 

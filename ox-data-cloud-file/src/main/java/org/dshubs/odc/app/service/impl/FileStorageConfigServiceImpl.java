@@ -29,5 +29,11 @@ public class FileStorageConfigServiceImpl extends BaseServiceImpl<FileStorageCon
     public FileStorageConfig getFileStoreByType(String storageType) {
         return this.baseMapper.selectOne(new QueryWrapper<FileStorageConfig>().eq("storage_type", storageType));
     }
+
+    @Override
+    @Cacheable(value = CacheConstant.FILE_STORAGE_CONFIG, key = "#root.methodName")
+    public String hello() {
+        return "hello";
+    }
 }
 

@@ -25,7 +25,7 @@
     </resultMap>
 
     <select id="selectDefaultFileStore" resultType="org.dshubs.odc.domain.entity.FileStorageConfig">
-        select * from ofile_storage_config where default_flag = 1 and enabled_flag = 1
+        select * from ofile_storage_config where default_flag = 1 and enabled_flag = 1 order by storage_config_id limit 1
     </select>
 
 </mapper>

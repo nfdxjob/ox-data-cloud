@@ -1,14 +1,19 @@
 package org.dshubs.odc.api.controller.v1;
 
+import io.minio.MinioClient;
+import io.minio.PutObjectOptions;
+import io.minio.errors.*;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
-import org.dshubs.odc.app.service.FileStorageConfigService;
-import org.dshubs.odc.constant.enums.StorageType;
-import org.dshubs.odc.domain.entity.FileStorageConfig;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * 文件操作
@@ -21,16 +26,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class FileController {
 
-    @Autowired
-    private FileStorageConfigService fileStorageConfigService;
+    private final MinioClient minioClient;
 
-    @GetMapping("/hello")
-    public FileStorageConfig hello() {
-       return fileStorageConfigService.getFileStoreByType(StorageType.MINIO.getType());
+    public FileController(MinioClient minioClient) {
+        this.minioClient = minioClient;
     }
 
-    @GetMapping("/hello2")
-    public FileStorageConfig hello2() {
-       return fileStorageConfigService.getDefaultFileStore();
+    @GetMapping("/upload")
+    public String upload(@RequestParam("file") MultipartFile file) throws IOException, InvalidBucketNameException, InsufficientDataException, ErrorResponseException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException {
+        minioClient.putObject("test", "test", file.getInputStream(), new PutObjectOptions(file.getSize(),
+                PutObjectOptions.MIN_MULTIPART_SIZE));
+        return "OK";
     }
 }
