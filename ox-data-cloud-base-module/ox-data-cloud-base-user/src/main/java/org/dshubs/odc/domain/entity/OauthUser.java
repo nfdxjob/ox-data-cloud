@@ -1,5 +1,6 @@
 package org.dshubs.odc.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -25,6 +26,7 @@ public class OauthUser extends AuditEntity {
      *
      */
     @ApiModelProperty("ID")
+    @TableId
     private Long userId;
 
     /**
