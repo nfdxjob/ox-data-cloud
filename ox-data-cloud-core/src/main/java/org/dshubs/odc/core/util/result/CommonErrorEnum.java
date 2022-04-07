@@ -11,7 +11,11 @@ public enum CommonErrorEnum implements IError {
     /**
      * 内部服务错误
      */
-    INTERNAL_SERVICE_ERROR("INTERNAL.SERVER.ERROR", "程序出现错误,请稍后重试");
+    INTERNAL_SERVICE_ERROR("INTERNAL.SERVER.ERROR", "程序出现错误,请稍后重试"),
+    /**
+     * 数据版本不一致,更新失败
+     */
+    DATA_UPDATE_ERROR("DATA.UPDATE.ERROR", "数据版本不一致,请重新操作");
 
     private final String code;
 

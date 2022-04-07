@@ -2,13 +2,17 @@ package org.dshubs.odc.mybatis.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.autoconfigure.ConfigurationCustomizer;
+import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.DataPermissionInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import org.apache.ibatis.reflection.MetaObject;
 import org.dshubs.odc.mybatis.config.permission.handler.CustomDataPermissionHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.time.LocalDateTime;
 
 /**
  * @author create by wangxian 2022/2/19
@@ -35,4 +39,23 @@ public class MybatisConfig {
 //            configuration.addInterceptor(new DataScopeIntercept());
         };
     }
+
+    @Bean
+    public MetaObjectHandler metaObjectHandler() {
+        return new MetaObjectHandler() {
+            @Override
+            public void insertFill(MetaObject metaObject) {
+                this.strictInsertFill(metaObject, "lastUpdateDate", LocalDateTime.class, LocalDateTime.now());
+
+            }
+
+            @Override
+            public void updateFill(MetaObject metaObject) {
+                this.strictUpdateFill(metaObject, "lastUpdateDate", LocalDateTime.class, LocalDateTime.now());
+
+            }
+        };
+    }
+
+
 }

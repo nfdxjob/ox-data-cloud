@@ -1,5 +1,6 @@
 package org.dshubs.odc.mybatis.domain;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.Version;
 import io.swagger.annotations.ApiModelProperty;
@@ -28,7 +29,7 @@ public abstract class AuditEntity {
 
     @ApiModelProperty(value = "更新时间")
     @TableField(
-            update = "now()"
+            fill = FieldFill.INSERT_UPDATE
     )
     private LocalDateTime lastUpdateDate;
 }
