@@ -39,7 +39,7 @@ public class DefaultLockServiceImpl implements LockService {
     @Override
     public boolean isLock() {
         LockInfo lockInfo = this.getLockInfo();
-        RLock rLock = this.redissonClient.getFairLock(lockInfo.getLockId());
+        RLock rLock = this.redissonClient.getFairLock(lockInfo.getName());
         try {
             return rLock.tryLock(lockInfo.getWaitTime(), lockInfo.getLeaseTime(), lockInfo.getTimeUnit());
         } catch (Exception e) {
@@ -51,7 +51,7 @@ public class DefaultLockServiceImpl implements LockService {
     @Override
     public void releaseLock() {
         LockInfo lockInfo = this.getLockInfo();
-        RLock rLock = this.redissonClient.getFairLock(lockInfo.getLockId());
+        RLock rLock = this.redissonClient.getFairLock(lockInfo.getName());
         if (rLock.isHeldByCurrentThread()) {
             rLock.unlockAsync();
         }

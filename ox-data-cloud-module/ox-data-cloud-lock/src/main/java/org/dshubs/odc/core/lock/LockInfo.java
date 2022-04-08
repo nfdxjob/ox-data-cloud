@@ -13,7 +13,7 @@ public class LockInfo {
     /**
      * 锁的key
      */
-    private String lockId;
+    private String name;
 
     /**
      * 等待时间
@@ -31,8 +31,8 @@ public class LockInfo {
     private TimeUnit timeUnit;
 
 
-    public LockInfo(String lockId, long waitTime, long leaseTime, TimeUnit timeUnit) {
-        this.lockId = lockId;
+    public LockInfo(String name, long waitTime, long leaseTime, TimeUnit timeUnit) {
+        this.name = name;
         this.waitTime = waitTime;
         this.leaseTime = leaseTime;
         this.timeUnit = timeUnit;
