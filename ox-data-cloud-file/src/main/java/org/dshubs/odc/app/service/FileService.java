@@ -1,6 +1,6 @@
 package org.dshubs.odc.app.service;
 
-import org.dshubs.odc.dto.DownloadDTO;
+import org.dshubs.odc.vo.FileInfoVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -14,10 +14,30 @@ public interface FileService {
      * 上传文件
      * @param file 文件
      * @param bucket 桶名称
+     * @param directory 目录
      * @param fileName 文件名
      * @throws Exception 异常
+     * @return FileInfoVO 文件信息
      */
-    String upload(MultipartFile file, String bucket, String fileName) throws Exception ;
+    FileInfoVO uploadFile(MultipartFile file, String bucket, String directory, String fileName) throws Exception;
 
-    void download(DownloadDTO downloadDTO, HttpServletResponse response) throws Exception;
+    /**
+     * 上传文件
+     * @param file 文件
+     * @param bucket 桶名称
+     * @param directory 目录
+     * @param fileName 文件名
+     * @throws Exception 异常
+     * @return FileInfoVO 文件信息
+     */
+    FileInfoVO uploadFileWithMd5(MultipartFile file, String bucket, String directory, String fileName) throws Exception;
+
+    /**
+     * 根据fileKey下载
+     * @param fileKey fileKey
+     * @param response 响应
+     * @throws Exception 异常
+     */
+    void download(String fileKey, HttpServletResponse response) throws Exception;
+
 }

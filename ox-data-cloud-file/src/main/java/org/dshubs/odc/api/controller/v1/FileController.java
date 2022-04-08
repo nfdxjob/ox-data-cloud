@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.dshubs.odc.app.service.FileService;
 import org.dshubs.odc.core.util.result.Results;
 import org.dshubs.odc.dto.DownloadDTO;
+import org.dshubs.odc.vo.FileInfoVO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,21 +23,30 @@ import javax.servlet.http.HttpServletResponse;
 @RestController
 public class FileController {
 
-    private final FileService minioFileService;
+    private final FileService fileService;
 
-    public FileController(FileService minioFileService) {
-        this.minioFileService = minioFileService;
+    public FileController(FileService fileService) {
+        this.fileService = fileService;
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<String> upload(@RequestParam("file") MultipartFile file,
-                                         @RequestParam("bucket") String bucket,
-                                         @RequestParam("fileName") String fileName) throws Exception{
-        return Results.success(minioFileService.upload(file, bucket, fileName));
+    public ResponseEntity<FileInfoVO> upload(@RequestParam("file") MultipartFile file,
+                                             @RequestParam("bucket") String bucket,
+                                             @RequestParam("directory") String directory,
+                                             @RequestParam("fileName") String fileName) throws Exception{
+        return Results.success(fileService.uploadFile(file, bucket, directory, fileName));
     }
 
-    @PostMapping("/download")
-    public void download(@RequestBody DownloadDTO downloadParam, HttpServletResponse response) throws Exception {
-        minioFileService.download(downloadParam, response);
+    @PostMapping("/upload/with-md5")
+    public ResponseEntity<FileInfoVO> uploadWithMd5(@RequestParam("file") MultipartFile file,
+                                             @RequestParam("bucket") String bucket,
+                                             @RequestParam("directory") String directory,
+                                             @RequestParam("fileName") String fileName) throws Exception{
+        return Results.success(fileService.uploadFileWithMd5(file, bucket, directory, fileName));
+    }
+
+    @PostMapping("/download/by-file-key")
+    public void downloadByFileKey(@RequestBody DownloadDTO downloadParam, HttpServletResponse response) throws Exception {
+        fileService.download(downloadParam.getFileKey(), response);
     }
 }

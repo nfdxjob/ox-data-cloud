@@ -35,4 +35,12 @@ public enum StorageType {
 
     private final String type;
 
+    public static StorageType getStoryType(String type) {
+        for (StorageType value : values()) {
+            if (value.getType().equals(type)) {
+                return value;
+            }
+        }
+        return null;
+    }
 }

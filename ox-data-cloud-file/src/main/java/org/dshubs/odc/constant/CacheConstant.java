@@ -1,4 +1,4 @@
-package org.dshubs.odc.constant.enums;
+package org.dshubs.odc.constant;
 
 /**
  * @author Mr.zhou 2022/4/6
