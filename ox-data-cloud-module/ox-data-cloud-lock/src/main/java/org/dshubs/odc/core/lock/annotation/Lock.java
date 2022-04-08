@@ -5,7 +5,6 @@ import java.lang.annotation.Target;
 import java.util.concurrent.TimeUnit;
 
 /**
- *
  * 分布式锁注解,用在方法
  *
  * @author create by wangxian 2022/4/7
@@ -15,10 +14,11 @@ import java.util.concurrent.TimeUnit;
 public @interface Lock {
     /**
      * 锁的key
+     *
      * @return key
      */
     String name() default "";
-
+    
     long waitTime() default 60L;
 
     long leaseTime() default 60L;

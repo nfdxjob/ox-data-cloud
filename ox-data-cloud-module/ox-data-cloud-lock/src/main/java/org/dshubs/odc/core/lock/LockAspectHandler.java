@@ -3,8 +3,10 @@ package org.dshubs.odc.core.lock;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
+import org.dshubs.odc.core.exception.CommonException;
 import org.dshubs.odc.core.lock.annotation.Lock;
 import org.dshubs.odc.core.lock.app.service.LockService;
+import org.dshubs.odc.core.util.result.CommonErrorEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -25,21 +27,17 @@ public class LockAspectHandler {
 
     @Around("@annotation(lock)")
     public Object lock(ProceedingJoinPoint pjp, Lock lock) throws Throwable {
-
         LockInfo lockInfo = lockInfoProvider.getLockInfo(pjp, lock);
-
         if (lockService.getLockInfo() != null) {
-
             return pjp.proceed();
         }
         Object result;
         boolean lockSuccess = false;
         try {
-
             lockService.setLockInfo(lockInfo);
             boolean lockResult = lockService.isLock();
             if (!lockResult) {
-
+                throw new CommonException(CommonErrorEnum.GET_LOCK_FAILED);
             }
             lockSuccess = true;
             result = pjp.proceed();
@@ -48,7 +46,6 @@ public class LockAspectHandler {
                 lockService.releaseLock();
             }
         }
-
         return result;
 
     }
