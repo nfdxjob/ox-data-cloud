@@ -13,6 +13,10 @@ public enum CommonErrorEnum implements IError {
      */
     INTERNAL_SERVICE_ERROR("INTERNAL.SERVER.ERROR", "程序出现错误,请稍后重试"),
     /**
+     * 获取分布式锁失败
+     */
+    GET_LOCK_FAILED("GET.LOCK.FAILED", "获取锁失败,请稍后重试"),
+    /**
      * 数据版本不一致,更新失败
      */
     DATA_UPDATE_ERROR("DATA.UPDATE.ERROR", "数据版本不一致,请重新操作");
