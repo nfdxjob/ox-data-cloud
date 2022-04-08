@@ -1,5 +1,6 @@
 package org.dshubs.odc.app.service.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.dshubs.odc.app.service.FileAbstractService;
 import org.dshubs.odc.app.service.FileResourceService;
 import org.dshubs.odc.app.service.FileService;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author Mr.zhou 2022/4/8
  **/
 @Service
+@Slf4j
 public class FileServiceImpl implements FileService {
 
     private final FileServiceFactory fileServiceFactory;
@@ -52,4 +54,21 @@ public class FileServiceImpl implements FileService {
         FileAbstractService fileService = fileServiceFactory.build(fileResource.getStorageCode());
         fileService.download(fileResource.getBucketName(), fileResource.getFileKey(), fileResource.getFileName(), response);
     }
+
+    @Override
+    public void deleteByFileKey(String fileKey) {
+        FileResource fileResource = fileResourceService.queryByFileKey(fileKey);
+        if (fileResource == null) {
+            throw new CommonException(new Results.ErrorResult("500", "无效fileKey"));
+        }
+        FileAbstractService fileService = fileServiceFactory.build(null);
+        try {
+            fileService.delete(fileResource.getBucketName(), fileResource.getFileKey());
+        } catch (Exception e) {
+            log.error("删除文件失败！");
+            log.error(e.getMessage(), e);
+        }
+        fileResourceService.deleteById(fileResource.getFileResourceId());
+    }
+
 }

@@ -32,9 +32,9 @@ public class FileServiceFactory {
         FileStorageConfig fileStoreByType;
         if (StringUtils.isBlank(storageCode)) {
             fileStoreByType = fileStorageConfigService.getDefaultFileStore();
+            storageCode = fileStoreByType.getStorageType();
         } else {
             fileStoreByType = fileStorageConfigService.getFileStoreByType(storageCode);
-            storageCode = fileStoreByType.getStorageCode();
         }
 
         if (StringUtils.isBlank(storageCode)) {

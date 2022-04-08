@@ -40,4 +40,10 @@ public interface FileService {
      */
     void download(String fileKey, HttpServletResponse response) throws Exception;
 
+    /**
+     * 根据fileKey删除文件
+     *
+     * @param fileKey fileKey
+     */
+    void deleteByFileKey(String fileKey);
 }

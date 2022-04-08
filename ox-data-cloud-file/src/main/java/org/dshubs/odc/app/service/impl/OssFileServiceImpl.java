@@ -22,4 +22,9 @@ public class OssFileServiceImpl extends FileAbstractService {
     public void download(String bucket, String fileKey, String fileName, HttpServletResponse response) throws Exception {
 
     }
+
+    @Override
+    public void delete(String bucketName, String fileKey) throws Exception {
+
+    }
 }

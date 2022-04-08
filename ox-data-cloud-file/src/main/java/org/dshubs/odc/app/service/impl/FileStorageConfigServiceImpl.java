@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 public class FileStorageConfigServiceImpl extends BaseServiceImpl<FileStorageConfigMapper,FileStorageConfig> implements FileStorageConfigService {
 
     @Override
-    @Cacheable(value = CacheConstant.FILE_STORAGE_CONFIG, key = "default")
+    @Cacheable(value = CacheConstant.FILE_STORAGE_CONFIG, key = "#root.methodName")
     public FileStorageConfig getDefaultFileStore() {
         return this.baseMapper.selectDefaultFileStore();
     }

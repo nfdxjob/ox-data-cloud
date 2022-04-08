@@ -36,7 +36,8 @@ public class MinioFileServiceImpl extends FileAbstractService {
         String realBucket = realBucket(bucket);
         this.makeBucket(realBucket);
         String fileNamePre = UuidUtils.generateUuid().replaceAll("-", "") + "@";
-        String uploadFileName = fileNamePre + (StringUtils.isNotBlank(fileName) ? fileName : file.getOriginalFilename());
+        String newFileName = StringUtils.isNotBlank(fileName) ? fileName : file.getOriginalFilename();
+        String uploadFileName = fileNamePre + newFileName;
         String fileKey = StringUtils.isBlank(directory) ? uploadFileName : String.format("%s/%s", directory, uploadFileName);
         minioClient.putObject(PutObjectArgs.builder()
                 .bucket(realBucket)
@@ -51,11 +52,11 @@ public class MinioFileServiceImpl extends FileAbstractService {
                 .setFileKey(fileKey)
                 .setFileDirectory(directory)
                 .setFileType(file.getContentType())
-                .setFileName(file.getOriginalFilename())
+                .setFileName(newFileName)
                 .setFileSize(file.getSize())
                 .setBucketName(bucket)
                 .setFileMd5(DigestUtils.md5DigestAsHex(file.getInputStream()))
-                .setStorageCode(super.fileStorageConfig.getStorageCode());
+                .setStorageCode(super.fileStorageConfig.getStorageType());
 
         fileResourceService.insert(fileResource);
 
@@ -71,6 +72,11 @@ public class MinioFileServiceImpl extends FileAbstractService {
                         .build())) {
             buildResponse(is, response, fileName);
         }
+    }
+
+    @Override
+    public void delete(String bucketName, String fileKey) throws Exception {
+        minioClient.removeObject(RemoveObjectArgs.builder().bucket(bucketName).object(fileKey).build());
     }
 
     private void makeBucket(String bucket) throws Exception {

@@ -39,6 +39,14 @@ public abstract class FileAbstractService {
      */
     public abstract void download(String bucket, String fileKey, String fileName, HttpServletResponse response) throws Exception;
 
+    /**
+     * 根据fileKey删除文件
+     * @param bucketName 桶名称
+     * @param fileKey fileKey
+     * @throws Exception 异常
+     */
+    public abstract void delete(String bucketName, String fileKey) throws Exception;
+
     public void initStorageConfig(FileStorageConfig fileStorageConfig) {
         this.fileStorageConfig = fileStorageConfig;
     }
