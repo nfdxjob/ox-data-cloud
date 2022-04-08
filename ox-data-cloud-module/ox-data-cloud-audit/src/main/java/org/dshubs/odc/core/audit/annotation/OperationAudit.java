@@ -1,16 +1,19 @@
-package org.dshubs.odc.core.monitor.audit;
+package org.dshubs.odc.core.audit.annotation;
 
 import java.lang.annotation.*;
 
 /**
- * API操作日志
+ * 操作审计
  *
  * @author create by wangxian 2022/3/1
  */
 @Target({ElementType.TYPE, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface ApiOperationLog {
+public @interface OperationAudit {
 
     String value();
+
+    String description() default "";
+
 }
