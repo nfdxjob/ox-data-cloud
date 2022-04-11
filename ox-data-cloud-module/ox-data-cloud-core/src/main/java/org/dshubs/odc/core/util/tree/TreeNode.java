@@ -14,7 +14,7 @@ public interface TreeNode<T> extends Serializable {
      *
      * @return id
      */
-    Long getId();
+    Serializable getId();
 
 
     /**
@@ -22,7 +22,7 @@ public interface TreeNode<T> extends Serializable {
      *
      * @return Long
      */
-    Long getParentId();
+    Serializable getParentId();
 
 
     /**

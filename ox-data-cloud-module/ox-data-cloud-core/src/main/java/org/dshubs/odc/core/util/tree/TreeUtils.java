@@ -1,5 +1,6 @@
 package org.dshubs.odc.core.util.tree;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class TreeUtils {
      * @param <T>  泛型
      * @return 树形结构
      */
-    public static <T extends TreeNode<T>> T buildTree(List<T> list, Long root) {
+    public static <T extends TreeNode<T>> T buildTree(List<T> list, Serializable root) {
         return TreeUtils.buildTree(list, root, null);
     }
 
@@ -27,7 +28,7 @@ public class TreeUtils {
      * @param <T>      泛型
      * @return 树形结构
      */
-    public static <T extends TreeNode<T>> List<T> buildTreeList(List<T> list, Long parentId) {
+    public static <T extends TreeNode<T>> List<T> buildTreeList(List<T> list, Serializable parentId) {
         List<T> treeList = new ArrayList<>();
         for (T node : list) {
             if (node.getParentId().equals(parentId)) {
@@ -39,7 +40,7 @@ public class TreeUtils {
     }
 
 
-    private static <T extends TreeNode<T>> T buildTree(List<T> list, Long root, T rootNode) {
+    private static <T extends TreeNode<T>> T buildTree(List<T> list, Serializable root, T rootNode) {
         if (rootNode == null) {
             for (T node : list) {
                 if (node.getId().equals(root)) {

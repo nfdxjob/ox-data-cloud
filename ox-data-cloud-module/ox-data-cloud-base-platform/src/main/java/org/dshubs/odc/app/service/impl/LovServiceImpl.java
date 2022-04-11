@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import org.dshubs.odc.api.vo.LovValueVO;
 import org.dshubs.odc.app.service.LovService;
 import org.dshubs.odc.app.service.LovValueService;
+import org.dshubs.odc.core.util.ConvertUtils;
 import org.dshubs.odc.domain.entity.Lov;
 import org.dshubs.odc.domain.entity.LovValue;
 import org.dshubs.odc.infra.mapper.LovMapper;
@@ -40,7 +41,7 @@ public class LovServiceImpl extends BaseServiceImpl<LovMapper, Lov> implements L
             return Lists.newArrayList();
         }
         List<LovValue> lovValues = this.lovValueService.listByLovId(lov.getLovId());
-        return null;
+        return ConvertUtils.convertList(lovValues, LovValueVO.class);
     }
 }
 
