@@ -83,6 +83,17 @@
                             <el-form-item label="包名">
                                 <el-input v-model="configForm.packageName" placeholder="请输入基础包名"></el-input>
                             </el-form-item>
+                            <el-form-item label="层级">
+                                <el-select v-model="configForm.level" placeholder="请选择层级">
+                                    <el-option
+                                            v-for="item in options"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
+
+                            </el-form-item>
                             <el-form-item label="去除前缀">
                                 <el-input v-model="configForm.prefix" placeholder="请输入前缀内容"></el-input>
                             </el-form-item>
@@ -122,11 +133,30 @@
                 packageName: 'org.dshubs.odc',
                 prefix: '',
                 extendsBaseEntity: true,
+                level: 'tenant', // 层级,默认为租户,可选值:tenant,site,user,project
             },
             generateCodeForm: {
                 config: {},
                 tables: [],
-            }
+            },
+            options: [
+                {
+                    "value": "tenant",
+                    "label": "租户"
+                },
+                {
+                    "value": "site",
+                    "label": "平台"
+                },
+                {
+                    "value": "user",
+                    "label": "用户"
+                },
+                {
+                    "value": "project",
+                    "label": "项目"
+                }
+            ]
         },
         created: function () {
             this.pageQueryTable()

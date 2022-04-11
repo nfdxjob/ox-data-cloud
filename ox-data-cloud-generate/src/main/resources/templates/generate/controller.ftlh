@@ -20,7 +20,11 @@ import java.util.List;
  * @author ${author} ${date}
  */
 @RestController
+<#if level ==  "tenant">
+@RequestMapping("/api/v1/{organizationId}/${apiBasePath}")
+<#else>
 @RequestMapping("/api/v1/${apiBasePath}")
+</#if>
 @Api(tags = "${tableComment}API")
 @Slf4j
 public class ${className}Controller {
@@ -32,7 +36,11 @@ public class ${className}Controller {
 
     @ApiOperation("列表查询")
     @GetMapping("/list")
+<#if level ==  "tenant">
+    public ResponseEntity<PageData<${className}>> list(@PathVariable("organizationId") Long organizationId, PageRequest page, ${className} query) {
+<#else>
     public ResponseEntity<PageData<${className}>> list(PageRequest page, ${className} query) {
+</#if>
          log.info("列表查询");
          PageData<${className}> result = ${lowerClassName}Service.page(page, query);
          return Results.success(result);
@@ -40,14 +48,22 @@ public class ${className}Controller {
 
     @GetMapping("{id}")
     @ApiOperation("根据ID获取")
+<#if level ==  "tenant">
+    public ResponseEntity<${className}> detail(@PathVariable("organizationId") Long organizationId, @PathVariable("id") Long ${lowerClassName}Id) {
+<#else>
     public ResponseEntity<${className}> detail(@PathVariable("id") Long ${lowerClassName}Id) {
+</#if>
         return Results.success(${lowerClassName}Service.selectById(${lowerClassName}Id));
     }
 
 
     @PostMapping
     @ApiOperation("创建")
+<#if level ==  "tenant">
+    public ResponseEntity<${className}> create(@PathVariable("organizationId") Long organizationId, @RequestBody @Validated ${className} ${lowerClassName}) {
+<#else>
     public ResponseEntity<${className}> create(@RequestBody @Validated ${className} ${lowerClassName}) {
+</#if>
         log.info("创建,参数:{}", ${lowerClassName});
         ${className} result = ${lowerClassName}Service.insert(${lowerClassName});
         return Results.success(result);
@@ -55,7 +71,11 @@ public class ${className}Controller {
 
     @PutMapping
     @ApiOperation("更新")
+<#if level ==  "tenant">
+    public ResponseEntity<${className}> update(@PathVariable("organizationId") Long organizationId, @RequestBody @Validated ${className} ${lowerClassName}) {
+<#else>
     public ResponseEntity<${className}> update(@RequestBody @Validated ${className} ${lowerClassName}) {
+</#if>
         log.info("更新,参数:{}", ${lowerClassName});
         ${className} result = ${lowerClassName}Service.update(${lowerClassName});
         return Results.success(result);
@@ -63,7 +83,11 @@ public class ${className}Controller {
 
     @DeleteMapping("/{id}")
     @ApiOperation("根据ID删除")
+<#if level ==  "tenant">
+    public ResponseEntity<Void> deleteById(@PathVariable("organizationId") Long organizationId, @PathVariable("id") Long ${lowerClassName}Id) {
+<#else>
     public ResponseEntity<Void> deleteById(@PathVariable("id") Long ${lowerClassName}Id) {
+</#if>
         ${lowerClassName}Service.deleteById(${lowerClassName}Id);
         return Results.success();
     }

@@ -69,5 +69,7 @@ public class GenerateCodeBO {
 
     private Boolean extendsBaseEntity;
 
+    private String level;
+
 
 }

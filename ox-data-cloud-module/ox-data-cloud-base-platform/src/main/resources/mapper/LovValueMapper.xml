@@ -8,7 +8,7 @@
         <result column="value" property="value"/>
         <result column="meaning" property="meaning"/>
         <result column="tag" property="tag"/>
-        <result column="descirption" property="descirption"/>
+        <result column="description" property="description"/>
         <result column="order_seq" property="orderSeq"/>
         <result column="enabled_flag" property="enabledFlag"/>
         <result column="tenant_id" property="tenantId"/>
@@ -18,4 +18,28 @@
         <result column="last_update_date" property="lastUpdateDate"/>
         <result column="last_updated_by" property="lastUpdatedBy"/>
     </resultMap>
+    <select id="listByLovId" resultType="org.dshubs.odc.domain.entity.LovValue">
+        SELECT
+            lov_value_id,
+            lov_id,
+            lov_code,
+            value,
+            meaning,
+            tag,
+            description,
+            order_seq,
+            enabled_flag,
+            tenant_id,
+            version,
+            creation_date,
+            created_by,
+            last_update_date,
+            last_updated_by
+        FROM
+            opfm_lov_value
+        WHERE
+            lov_id = #{lovId}
+        ORDER BY
+            order_seq
+    </select>
 </mapper>

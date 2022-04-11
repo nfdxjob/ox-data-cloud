@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: odc-import
+server:
+  port: 8150
+butterfly:
+  resource:
+    server:
+      enable: false

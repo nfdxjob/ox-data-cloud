@@ -19,6 +19,7 @@
         <module>ox-data-cloud-platform</module>
         <module>ox-data-cloud-message</module>
         <module>ox-data-cloud-document</module>
+        <module>ox-data-cloud-import</module>
         <module>ox-data-cloud-file</module>
         <module>ox-data-cloud-gateway</module>
         <module>ox-data-cloud-workflow</module>

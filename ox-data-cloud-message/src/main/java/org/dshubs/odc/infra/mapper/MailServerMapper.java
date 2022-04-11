@@ -1,7 +1,7 @@
 package org.dshubs.odc.infra.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.dshubs.odc.domain.entity.MailServer;
+import org.dshubs.odc.domain.entity.EmailServer;
 import org.apache.ibatis.annotations.Mapper;
 
 
@@ -11,6 +11,6 @@ import org.apache.ibatis.annotations.Mapper;
 * @author daisicheng 2022-03-21
 */
 @Mapper
-public interface MailServerMapper extends BaseMapper<MailServer> {
+public interface MailServerMapper extends BaseMapper<EmailServer> {
 
 }

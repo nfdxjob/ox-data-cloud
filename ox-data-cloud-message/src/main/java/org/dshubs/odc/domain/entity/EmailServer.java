@@ -17,8 +17,8 @@ import org.dshubs.odc.mybatis.domain.AuditEntity;
 @Data
 @ApiModel("邮件服务模型")
 @EqualsAndHashCode(callSuper = false)
-@TableName("omsg_mail_server")
-public class MailServer extends AuditEntity {
+@TableName("omsg_email_server")
+public class EmailServer extends AuditEntity {
 
 
     /**

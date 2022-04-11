@@ -28,4 +28,10 @@
         <result column="last_update_date" property="lastUpdateDate"/>
         <result column="last_updated_by" property="lastUpdatedBy"/>
     </resultMap>
+    <select id="selectByLovCode" resultType="org.dshubs.odc.domain.entity.Lov">
+        SELECT *
+        FROM opfm_lov
+        WHERE lov_code = #{lovCode}
+        LIMIT 1
+    </select>
 </mapper>
