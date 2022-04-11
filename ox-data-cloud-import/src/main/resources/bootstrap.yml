@@ -1,8 +1,8 @@
 server:
-  port: 8100
+  port: 8150
 management:
   server:
-    port: 8101
+    port: 8151
   endpoints:
     web:
       exposure:

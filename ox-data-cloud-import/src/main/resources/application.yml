@@ -1,8 +1,8 @@
 spring:
   application:
-    name: odc-document
+    name: odc-import
 server:
-  port: 8100
+  port: 8150
 butterfly:
   resource:
     server:
