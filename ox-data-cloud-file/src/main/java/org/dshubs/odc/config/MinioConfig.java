@@ -16,7 +16,6 @@ public class MinioConfig {
     @Bean
     public MinioClient minioClient(FileStorageConfigService fileStorageConfigService)  {
         FileStorageConfig fileStore = fileStorageConfigService.getFileStoreByType(StorageType.MINIO.getType());
-//        return new MinioClient(fileStore.getEndPoint(), 9000, fileStore.getAccessKey(), fileStore.getAccessKeySecret());
         return MinioClient.builder()
                 .endpoint(fileStore.getEndPoint(), 9000, false)
                 .credentials(fileStore.getAccessKey(), fileStore.getAccessKeySecret())

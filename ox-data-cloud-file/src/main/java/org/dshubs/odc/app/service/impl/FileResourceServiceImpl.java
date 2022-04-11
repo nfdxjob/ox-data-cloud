@@ -20,5 +20,10 @@ public class FileResourceServiceImpl extends BaseServiceImpl<FileResourceMapper,
     public FileResource queryByFileKey(String fileKey) {
         return this.baseMapper.selectOne(new QueryWrapper<FileResource>().eq("file_key", fileKey));
     }
+
+    @Override
+    public FileResource queryByMd5(String md5) {
+        return this.baseMapper.selectOne(new QueryWrapper<FileResource>().eq("file_md5", md5));
+    }
 }
 

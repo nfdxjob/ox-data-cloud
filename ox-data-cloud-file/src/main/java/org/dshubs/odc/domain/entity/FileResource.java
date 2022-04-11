@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 import org.dshubs.odc.mybatis.domain.AuditEntity;
 
 import java.io.Serializable;
@@ -19,6 +20,7 @@ import java.io.Serializable;
 @ApiModel("文件资源模型")
 @EqualsAndHashCode(callSuper=false)
 @TableName("ofile_resource")
+@Accessors(chain = true)
 public class FileResource extends AuditEntity implements Serializable {
 
 

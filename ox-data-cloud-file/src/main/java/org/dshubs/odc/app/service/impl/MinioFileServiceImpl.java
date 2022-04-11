@@ -2,27 +2,24 @@ package org.dshubs.odc.app.service.impl;
 
 import com.alibaba.nacos.common.utils.UuidUtils;
 import io.minio.*;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.dshubs.odc.app.service.FileAbstractService;
 import org.dshubs.odc.app.service.FileResourceService;
-import org.dshubs.odc.app.service.FileService;
-import org.dshubs.odc.core.exception.CommonException;
-import org.dshubs.odc.core.util.result.Results;
 import org.dshubs.odc.domain.entity.FileResource;
-import org.dshubs.odc.dto.DownloadDTO;
+import org.dshubs.odc.vo.FileInfoVO;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.InputStream;
-import java.net.URLEncoder;
 
 /**
  * @author Mr.zhou 2022/4/7
  **/
 @Service
-public class MinioFileServiceImpl implements FileService {
+public class MinioFileServiceImpl extends FileAbstractService {
 
     private final MinioClient minioClient;
     private final FileResourceService fileResourceService;
@@ -34,45 +31,52 @@ public class MinioFileServiceImpl implements FileService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public String upload(MultipartFile file, String bucket, String fileName) throws Exception {
-        this.makeBucket(bucket);
+    public FileInfoVO upload(MultipartFile file, String bucket, String directory, String fileName) throws Exception {
+
+        String realBucket = realBucket(bucket);
+        this.makeBucket(realBucket);
         String fileNamePre = UuidUtils.generateUuid().replaceAll("-", "") + "@";
-        String newFileName = fileNamePre + (StringUtils.isNotBlank(fileName) ? fileName : file.getOriginalFilename());
-        minioClient.putObject(PutObjectArgs.builder().bucket(bucket)
-                .object(newFileName)
+        String newFileName = StringUtils.isNotBlank(fileName) ? fileName : file.getOriginalFilename();
+        String uploadFileName = fileNamePre + newFileName;
+        String fileKey = StringUtils.isBlank(directory) ? uploadFileName : String.format("%s/%s", directory, uploadFileName);
+        minioClient.putObject(PutObjectArgs.builder()
+                .bucket(realBucket)
+                .object(fileKey)
                 .stream(file.getInputStream(), file.getSize(), -1)
                 .contentType(file.getContentType())
                 .build());
 
-        String fileKey = bucket + "/" + newFileName;
-        FileResource fileResource = new FileResource();
-        fileResource.setFileUrl(fileKey);
-        fileResource.setFileKey(fileKey);
-        fileResource.setFileDirectory(newFileName);
-        fileResource.setFileType(file.getContentType());
-        fileResource.setFileName(file.getOriginalFilename());
-        fileResource.setFileSize(file.getSize());
-        fileResource.setBucketName(bucket);
+        String url = String.format("%s/%s", realPreUrl(bucket), fileKey);
+        FileResource fileResource = new FileResource()
+                .setFileUrl(url)
+                .setFileKey(fileKey)
+                .setFileDirectory(directory)
+                .setFileType(file.getContentType())
+                .setFileName(newFileName)
+                .setFileSize(file.getSize())
+                .setBucketName(bucket)
+                .setFileMd5(DigestUtils.md5DigestAsHex(file.getInputStream()))
+                .setStorageCode(super.fileStorageConfig.getStorageType());
 
         fileResourceService.insert(fileResource);
 
-        return fileKey;
+        return new FileInfoVO().setFileKey(fileKey).setFileName(fileResource.getFileName());
     }
 
     @Override
-    public void download(DownloadDTO downloadDTO, HttpServletResponse response) throws Exception {
-        FileResource fileResource = fileResourceService.queryByFileKey(downloadDTO.getFileKey());
-        if (fileResource == null) {
-            throw new CommonException(new Results.ErrorResult("500", "无效fileKey"));
-        }
+    public void download(String bucket, String fileKey, String fileName, HttpServletResponse response) throws Exception {
         try (InputStream is = minioClient.getObject(
                 GetObjectArgs.builder()
-                        .bucket(fileResource.getBucketName())
-                        .object(fileResource.getFileDirectory())
+                        .bucket(bucket)
+                        .object(fileKey)
                         .build())) {
-            IOUtils.copy(is, response.getOutputStream());
-            response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(fileResource.getFileName(), "UTF-8"));
+            buildResponse(is, response, fileName);
         }
+    }
+
+    @Override
+    public void delete(String bucketName, String fileKey) throws Exception {
+        minioClient.removeObject(RemoveObjectArgs.builder().bucket(bucketName).object(fileKey).build());
     }
 
     private void makeBucket(String bucket) throws Exception {
