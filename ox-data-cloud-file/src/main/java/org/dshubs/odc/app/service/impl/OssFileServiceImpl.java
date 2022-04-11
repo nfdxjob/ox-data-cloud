@@ -1,6 +1,7 @@
 package org.dshubs.odc.app.service.impl;
 
 import org.dshubs.odc.app.service.FileAbstractService;
+import org.dshubs.odc.domain.entity.FileResource;
 import org.dshubs.odc.vo.FileInfoVO;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,8 +26,13 @@ public class OssFileServiceImpl extends FileAbstractService {
     }
 
     @Override
-    public void download(String bucket, String fileKey, String fileName, HttpServletResponse response) throws Exception {
+    public void download(String bucket, String fileKey, String fileName, HttpServletResponse response) {
 
+    }
+
+    @Override
+    public FileInfoVO update(FileResource fileResource, MultipartFile file, String bucketName, String directory) {
+        return null;
     }
 
     @Override

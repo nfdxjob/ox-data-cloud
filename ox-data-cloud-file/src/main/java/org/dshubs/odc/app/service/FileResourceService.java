@@ -26,5 +26,6 @@ public interface FileResourceService extends IBaseService<FileResource>  {
      * @return 文件信息
      */
     FileResource queryByMd5(String md5);
+
 }
 

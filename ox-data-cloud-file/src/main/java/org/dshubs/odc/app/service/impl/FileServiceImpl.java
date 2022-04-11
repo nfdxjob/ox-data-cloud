@@ -1,19 +1,21 @@
 package org.dshubs.odc.app.service.impl;
 
 import lombok.extern.slf4j.Slf4j;
-import org.dshubs.odc.app.service.FileAbstractService;
-import org.dshubs.odc.app.service.FileResourceService;
-import org.dshubs.odc.app.service.FileService;
-import org.dshubs.odc.app.service.FileServiceFactory;
+import org.dshubs.odc.app.service.*;
 import org.dshubs.odc.core.exception.CommonException;
 import org.dshubs.odc.core.util.result.Results;
+import org.dshubs.odc.domain.entity.FileEditLog;
 import org.dshubs.odc.domain.entity.FileResource;
+import org.dshubs.odc.dto.UpdateDTO;
 import org.dshubs.odc.vo.FileInfoVO;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 /**
@@ -25,10 +27,20 @@ public class FileServiceImpl implements FileService {
 
     private final FileServiceFactory fileServiceFactory;
     private final FileResourceService fileResourceService;
+    private final FileEditLogService fileEditLogService;
 
-    public FileServiceImpl(FileServiceFactory fileServiceFactory, FileResourceService fileResourceService) {
+    public FileServiceImpl(FileServiceFactory fileServiceFactory, FileResourceService fileResourceService, FileEditLogService fileEditLogService) {
         this.fileServiceFactory = fileServiceFactory;
         this.fileResourceService = fileResourceService;
+        this.fileEditLogService = fileEditLogService;
+    }
+
+    private FileResource existsFileKey(String fileKey) {
+        FileResource fileResource = fileResourceService.queryByFileKey(fileKey);
+        if (fileResource == null) {
+            throw new CommonException(new Results.ErrorResult("500", "无效fileKey"));
+        }
+        return fileResource;
     }
 
     @Override
@@ -51,22 +63,16 @@ public class FileServiceImpl implements FileService {
         return fileServiceFactory.build(null).postPolicy(bucket);
     }
 
+
     @Override
-    public void download(String fileKey, HttpServletResponse response) throws Exception {
-        FileResource fileResource = fileResourceService.queryByFileKey(fileKey);
-        if (fileResource == null) {
-            throw new CommonException(new Results.ErrorResult("500", "无效fileKey"));
-        }
-        FileAbstractService fileService = fileServiceFactory.build(fileResource.getStorageCode());
-        fileService.download(fileResource.getBucketName(), fileResource.getFileKey(), fileResource.getFileName(), response);
+    public FileInfoVO updateByFileKey(UpdateDTO updateDTO) {
+        FileResource fileResource = this.existsFileKey(updateDTO.getFileKey());
+        return fileServiceFactory.build(fileResource.getStorageCode()).update(fileResource, updateDTO.getFile(), fileResource.getBucketName(), LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd")));
     }
 
     @Override
     public void deleteByFileKey(String fileKey) {
-        FileResource fileResource = fileResourceService.queryByFileKey(fileKey);
-        if (fileResource == null) {
-            throw new CommonException(new Results.ErrorResult("500", "无效fileKey"));
-        }
+        FileResource fileResource = existsFileKey(fileKey);
         FileAbstractService fileService = fileServiceFactory.build(fileResource.getStorageCode());
         try {
             fileService.delete(fileResource.getBucketName(), fileResource.getFileKey());
@@ -77,4 +83,17 @@ public class FileServiceImpl implements FileService {
         fileResourceService.deleteById(fileResource.getFileResourceId());
     }
 
+    @Override
+    public void download(String fileKey, HttpServletResponse response) {
+        FileResource fileResource = this.existsFileKey(fileKey);
+        FileAbstractService fileService = fileServiceFactory.build(fileResource.getStorageCode());
+        fileService.download(fileResource.getBucketName(), fileResource.getFileKey(), fileResource.getFileName(), response);
+    }
+
+    @Override
+    public void download(Long fileResourceId, String fileVersion, HttpServletResponse response) {
+        FileEditLog fileEditLog = fileEditLogService.queryByVersion(fileResourceId, fileVersion);
+        Assert.notNull(fileEditLog, "不存在该文件版本");
+        fileServiceFactory.build(fileEditLog.getStorageCode()).download(fileEditLog.getBucketName(), fileEditLog.getFileKey(), fileEditLog.getFileName(), response);
+    }
 }

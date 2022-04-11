@@ -6,6 +6,7 @@ import org.dshubs.odc.app.service.FileService;
 import org.dshubs.odc.core.util.result.Results;
 import org.dshubs.odc.dto.DeleteDTO;
 import org.dshubs.odc.dto.DownloadDTO;
+import org.dshubs.odc.dto.UpdateDTO;
 import org.dshubs.odc.vo.FileInfoVO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,8 +59,18 @@ public class FileController {
         return Results.success();
     }
 
+    @PutMapping("/update/by-file-key")
+    public ResponseEntity<FileInfoVO> updateByFileKey(UpdateDTO updateDTO) {
+        return Results.success(fileService.updateByFileKey(updateDTO));
+    }
+
     @PostMapping("/download/by-file-key")
-    public void downloadByFileKey(@RequestBody DownloadDTO downloadParam, HttpServletResponse response) throws Exception {
+    public void downloadByFileKey(@RequestBody DownloadDTO downloadParam, HttpServletResponse response) {
         fileService.download(downloadParam.getFileKey(), response);
+    }
+
+    @PostMapping("/download/{fileResourceId}/{fileVersion}")
+    public void downloadByVersion(@PathVariable("fileResourceId") Long fileResourceId,@PathVariable("fileVersion") String fileVersion, HttpServletResponse response) {
+        fileService.download(fileResourceId, fileVersion, response);
     }
 }

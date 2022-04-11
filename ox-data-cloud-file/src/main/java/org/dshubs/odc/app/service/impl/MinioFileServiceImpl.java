@@ -77,9 +77,11 @@ public class MinioFileServiceImpl extends FileAbstractService {
         FileResource insertFileResource = fileResourceService.insert(fileResource);
         FileEditLog fileEditLog = new FileEditLog();
         BeanUtils.copyProperties(insertFileResource, fileEditLog);
+        String version = UuidUtils.generateUuid().replaceAll("-", "");
+        fileEditLog.setFileVersion(version);
         fileEditLogService.insert(fileEditLog);
 
-        return new FileInfoVO().setFileKey(fileKey).setFileName(fileResource.getFileName());
+        return new FileInfoVO().setFileResourceId(insertFileResource.getFileResourceId()).setFileKey(fileKey).setFileName(fileResource.getFileName()).setFileVersion(version);
     }
 
     @Override
@@ -106,13 +108,49 @@ public class MinioFileServiceImpl extends FileAbstractService {
     }
 
     @Override
-    public void download(String bucket, String fileKey, String fileName, HttpServletResponse response) throws Exception {
+    public void download(String bucket, String fileKey, String fileName, HttpServletResponse response) {
         try (InputStream is = minioClient.getObject(
                 GetObjectArgs.builder()
                         .bucket(bucket)
                         .object(fileKey)
                         .build())) {
             buildResponse(is, response, fileName);
+        } catch (Exception e) {
+            log.error("文件下载错误，fileKey -> {}", fileKey);
+            log.error(e.getMessage(), e);
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public FileInfoVO update(FileResource fileResource, MultipartFile file, String bucketName, String directory) {
+        String realBucket = realBucket(bucketName);
+        this.makeBucket(realBucket);
+        String fileNamePre = UuidUtils.generateUuid().replaceAll("-", "") + "@";
+        String fileName = file.getOriginalFilename();
+        String uploadFileName = fileNamePre + fileName;
+        String fileKey = StringUtils.isBlank(directory) ? uploadFileName : String.format("%s/%s", directory, uploadFileName);
+        try {
+            minioClient.putObject(PutObjectArgs.builder()
+                    .bucket(realBucket)
+                    .object(fileKey)
+                    .stream(file.getInputStream(), file.getSize(), -1)
+                    .contentType(file.getContentType())
+                    .build());
+
+            // 更新
+            fileResource.setFileKey(fileKey);
+            fileResourceService.update(fileResource);
+            // 增加一个文件版本
+            FileEditLog fileEditLog = new FileEditLog();
+            BeanUtils.copyProperties(fileResource, fileEditLog);
+            fileEditLog.setFileVersion(UuidUtils.generateUuid().replaceAll("-", ""));
+            fileEditLogService.insert(fileEditLog);
+
+            return new FileInfoVO().setFileResourceId(fileResource.getFileResourceId()).setFileName(fileResource.getFileName()).setFileKey(fileResource.getFileKey()).setFileVersion(fileEditLog.getFileVersion());
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+            throw new CommonException(new Results.ErrorResult("500", "更新文件失败"));
         }
     }
 

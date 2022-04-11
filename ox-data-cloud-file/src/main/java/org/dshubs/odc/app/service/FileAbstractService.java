@@ -2,6 +2,7 @@ package org.dshubs.odc.app.service;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.dshubs.odc.domain.entity.FileResource;
 import org.dshubs.odc.domain.entity.FileStorageConfig;
 import org.dshubs.odc.vo.FileInfoVO;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,9 +44,19 @@ public abstract class FileAbstractService {
      * @param fileKey fileKey
      * @param fileName 文件名
      * @param response 响应
-     * @throws Exception 异常
      */
-    public abstract void download(String bucket, String fileKey, String fileName, HttpServletResponse response) throws Exception;
+    public abstract void download(String bucket, String fileKey, String fileName, HttpServletResponse response);
+
+    /**
+     * 文件更改
+     *
+     * @param fileResource 原来的文件信息
+     * @param file 文件
+     * @param bucketName 桶名称
+     * @param directory 目录
+     * @return 文件信息
+     */
+    public abstract FileInfoVO update(FileResource fileResource, MultipartFile file, String bucketName, String directory);
 
     /**
      * 根据fileKey删除文件

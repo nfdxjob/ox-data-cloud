@@ -1,5 +1,6 @@
 package org.dshubs.odc.app.service;
 
+import org.dshubs.odc.dto.UpdateDTO;
 import org.dshubs.odc.vo.FileInfoVO;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -41,12 +42,12 @@ public interface FileService {
     Map<String, String> getPostPolicy(String bucket);
 
     /**
-     * 根据fileKey下载
-     * @param fileKey fileKey
-     * @param response 响应
-     * @throws Exception 异常
+     * 根据fileKey更新文件
+     *
+     * @param updateDTO 参数
+     * @return FileInfoVO 文件信息
      */
-    void download(String fileKey, HttpServletResponse response) throws Exception;
+    FileInfoVO updateByFileKey(UpdateDTO updateDTO);
 
     /**
      * 根据fileKey删除文件
@@ -55,4 +56,20 @@ public interface FileService {
      */
     void deleteByFileKey(String fileKey);
 
+    /**
+     * 根据fileKey下载
+     * @param fileKey fileKey
+     * @param response 响应
+     * @throws Exception 异常
+     */
+    void download(String fileKey, HttpServletResponse response);
+
+    /**
+     * 根据版本下载
+     *
+     * @param fileResourceId fileId
+     * @param fileVersion 版本
+     * @param response 响应
+     */
+    void download(Long fileResourceId, String fileVersion, HttpServletResponse response);
 }

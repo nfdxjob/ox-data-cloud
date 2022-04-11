@@ -13,7 +13,7 @@ public class FileInfoVO {
     /**
      * 文件id
      */
-    private String fileResourceId;
+    private Long fileResourceId;
     /**
      * 文件fileKey
      */
@@ -22,4 +22,8 @@ public class FileInfoVO {
      * 文件名
      */
     private String fileName;
+    /**
+     * 文件版本
+     */
+    private String fileVersion;
 }
