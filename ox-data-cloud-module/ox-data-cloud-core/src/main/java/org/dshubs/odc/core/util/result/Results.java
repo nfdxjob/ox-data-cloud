@@ -1,6 +1,7 @@
 package org.dshubs.odc.core.util.result;
 
 import lombok.Data;
+import org.dshubs.odc.core.infra.threadlocal.HttpRequestThreadLocal;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -62,15 +63,19 @@ public class Results {
 
         private String message;
 
+        private String requestId;
+
 
         public ErrorResult(String code, String message) {
             this.code = code;
             this.message = message;
+            this.requestId = HttpRequestThreadLocal.getRequestId();
         }
 
         public ErrorResult(IError iError) {
             this.code = iError.getCode();
             this.message = iError.getMessage();
+            this.requestId = HttpRequestThreadLocal.getRequestId();
         }
 
 
