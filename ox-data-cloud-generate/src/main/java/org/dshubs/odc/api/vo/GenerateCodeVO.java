@@ -21,6 +21,11 @@ public class GenerateCodeVO {
         private String packageName;
 
         /**
+         * 层级
+         */
+        private String level;
+
+        /**
          * 是否继承基类
          */
         private Boolean extendsBaseEntity;
