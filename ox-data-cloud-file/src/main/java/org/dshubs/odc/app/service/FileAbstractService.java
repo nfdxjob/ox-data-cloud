@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
+import java.util.Map;
 
 /**
  * @author Mr.zhou 2022/4/8
@@ -28,6 +29,13 @@ public abstract class FileAbstractService {
      * @throws Exception 异常
      */
     public abstract FileInfoVO upload(MultipartFile file, String bucket, String directory, String fileName) throws Exception;
+
+    /**
+     * PostPolicy 策略
+     * @param bucket 桶名称
+     * @return policy
+     */
+    public abstract Map<String, String> postPolicy(String bucket);
 
     /**
      * 文件下载

@@ -4,6 +4,7 @@ import org.dshubs.odc.vo.FileInfoVO;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  * @author Mr.zhou 2022/4/7
@@ -33,6 +34,13 @@ public interface FileService {
     FileInfoVO uploadFileWithMd5(MultipartFile file, String bucket, String directory, String fileName) throws Exception;
 
     /**
+     * 前端文件上传无需走内部服务器，直接走文件服务器（MinIO、OSS）
+     * @param bucket 桶名称
+     * @return PostPolicy 策略
+     */
+    Map<String, String> getPostPolicy(String bucket);
+
+    /**
      * 根据fileKey下载
      * @param fileKey fileKey
      * @param response 响应
@@ -46,4 +54,5 @@ public interface FileService {
      * @param fileKey fileKey
      */
     void deleteByFileKey(String fileKey);
+
 }

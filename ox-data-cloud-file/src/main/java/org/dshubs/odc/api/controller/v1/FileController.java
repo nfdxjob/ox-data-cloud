@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  * 文件操作
@@ -46,8 +47,13 @@ public class FileController {
         return Results.success(fileService.uploadFileWithMd5(file, bucket, directory, fileName));
     }
 
+    @GetMapping("/post-policy")
+    public ResponseEntity<Map<String, String>> postPolicy(@RequestParam(value = "bucket", required = false) String bucket) {
+        return Results.success(fileService.getPostPolicy(bucket));
+    }
+
     @DeleteMapping("/delete/by-file-key")
-    public ResponseEntity<Void> deleteByFileKey(@RequestBody DeleteDTO deleteDTO) throws Exception{
+    public ResponseEntity<Void> deleteByFileKey(@RequestBody DeleteDTO deleteDTO) {
         fileService.deleteByFileKey(deleteDTO.getFileKey());
         return Results.success();
     }

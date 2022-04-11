@@ -14,6 +14,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  * @author Mr.zhou 2022/4/8
@@ -46,6 +47,11 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
+    public Map<String, String> getPostPolicy(String bucket) {
+        return fileServiceFactory.build(null).postPolicy(bucket);
+    }
+
+    @Override
     public void download(String fileKey, HttpServletResponse response) throws Exception {
         FileResource fileResource = fileResourceService.queryByFileKey(fileKey);
         if (fileResource == null) {
@@ -61,7 +67,7 @@ public class FileServiceImpl implements FileService {
         if (fileResource == null) {
             throw new CommonException(new Results.ErrorResult("500", "无效fileKey"));
         }
-        FileAbstractService fileService = fileServiceFactory.build(null);
+        FileAbstractService fileService = fileServiceFactory.build(fileResource.getStorageCode());
         try {
             fileService.delete(fileResource.getBucketName(), fileResource.getFileKey());
         } catch (Exception e) {
