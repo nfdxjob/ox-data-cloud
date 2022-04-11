@@ -1,0 +1,19 @@
+server:
+  port: 8100
+management:
+  server:
+    port: 8101
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+spring:
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 124.223.167.157:8484
+        namespace: ox-data-cloud-dev
+      config:
+        server-addr: ${spring.cloud.nacos.discovery.server-addr}
+        namespace: ${spring.cloud.nacos.discovery.namespace}
+        enabled: false
