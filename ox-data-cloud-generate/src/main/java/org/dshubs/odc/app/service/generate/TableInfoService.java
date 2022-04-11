@@ -94,6 +94,7 @@ public class TableInfoService {
                 generateCodeBO.setDate(LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
                 generateCodeBO.setTableName(tableName);
                 generateCodeBO.setTableComment(tableInfo.getComment());
+                generateCodeBO.setLevel(generateCode.getConfig().getLevel());
                 String tablePrefix = generateCode.getConfig().getPrefix();
                 if (StringUtils.isNotBlank(tablePrefix)) {
                     String tmpClassName = tableName.substring(tablePrefix.length());
