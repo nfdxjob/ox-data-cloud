@@ -1,6 +1,7 @@
 package org.dshubs.odc.app.service.impl;
 
 import com.google.common.collect.Lists;
+import org.dshubs.odc.api.vo.LovValueVO;
 import org.dshubs.odc.app.service.LovService;
 import org.dshubs.odc.app.service.LovValueService;
 import org.dshubs.odc.domain.entity.Lov;
@@ -33,12 +34,13 @@ public class LovServiceImpl extends BaseServiceImpl<LovMapper, Lov> implements L
      * @return 值集
      */
     @Override
-    public List<LovValue> listLovData(String lovCode) {
+    public List<LovValueVO> listLovData(String lovCode) {
         Lov lov = this.baseMapper.selectByLovCode(lovCode);
         if (lov == null) {
             return Lists.newArrayList();
         }
-        return this.lovValueService.
+        List<LovValue> lovValues = this.lovValueService.listByLovId(lov.getLovId());
+        return null;
     }
 }
 

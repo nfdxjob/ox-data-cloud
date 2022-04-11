@@ -1,5 +1,6 @@
 package org.dshubs.odc.app.service;
 
+import org.dshubs.odc.api.vo.LovValueVO;
 import org.dshubs.odc.domain.entity.Lov;
 import org.dshubs.odc.domain.entity.LovValue;
 import org.dshubs.odc.mybatis.app.service.IBaseService;
@@ -20,6 +21,6 @@ public interface LovService extends IBaseService<Lov> {
      * @param lovCode 值集编码
      * @return 值集
      */
-    List<LovValue> listLovData(String lovCode);
+    List<LovValueVO> listLovData(String lovCode);
 }
 

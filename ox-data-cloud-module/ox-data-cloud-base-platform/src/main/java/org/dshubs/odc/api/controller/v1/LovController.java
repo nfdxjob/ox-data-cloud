@@ -3,6 +3,7 @@ package org.dshubs.odc.api.controller.v1;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.dshubs.odc.api.vo.LovValueVO;
 import org.dshubs.odc.app.service.LovService;
 import org.dshubs.odc.core.util.result.Results;
 import org.dshubs.odc.domain.entity.Lov;
@@ -41,9 +42,9 @@ public class LovController {
 
     @ApiOperation("值集数据查询")
     @GetMapping("/data")
-    public ResponseEntity<List<LovValue>> list(@RequestParam("lovCode") String lovCode) {
+    public ResponseEntity<List<LovValueVO>> list(@RequestParam("lovCode") String lovCode) {
         log.info("值集数据查询,lovCode:{}", lovCode);
-        List<LovValue> result = lovService.listLovData(lovCode);
+        List<LovValueVO> result = lovService.listLovData(lovCode);
         return Results.success(result);
     }
 

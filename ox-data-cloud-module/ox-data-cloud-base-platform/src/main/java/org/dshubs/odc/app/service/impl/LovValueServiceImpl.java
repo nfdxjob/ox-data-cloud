@@ -6,6 +6,8 @@ import org.dshubs.odc.infra.mapper.LovValueMapper;
 import org.dshubs.odc.domain.entity.LovValue;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 /**
  * 独立值集数据逻辑控制层
@@ -15,5 +17,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class LovValueServiceImpl extends BaseServiceImpl<LovValueMapper,LovValue> implements LovValueService {
 
+    @Override
+    public List<LovValue> listByLovId(Long lovId) {
+        return this.baseMapper.listByLovId(lovId);
+    }
 }
 

@@ -1,8 +1,12 @@
 package org.dshubs.odc.infra.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.dshubs.odc.domain.entity.LovValue;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 
 /**
@@ -13,4 +17,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface LovValueMapper extends BaseMapper<LovValue> {
 
+    List<LovValue> listByLovId(@Param("lovId") Long lovId);
 }

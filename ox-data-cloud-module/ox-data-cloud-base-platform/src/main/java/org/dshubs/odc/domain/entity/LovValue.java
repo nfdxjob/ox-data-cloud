@@ -61,7 +61,7 @@ public class LovValue extends AuditEntity {
      * 描述
      */
     @ApiModelProperty("描述")
-    private String descirption;
+    private String description;
 
     /**
      * 排序号
