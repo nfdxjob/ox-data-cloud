@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  * @author Mr.zhou 2022/4/8
@@ -15,6 +16,11 @@ public class OssFileServiceImpl extends FileAbstractService {
 
     @Override
     public FileInfoVO upload(MultipartFile file, String bucket, String directory, String fileName) throws Exception {
+        return null;
+    }
+
+    @Override
+    public Map<String, String> postPolicy(String bucket) {
         return null;
     }
 

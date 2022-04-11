@@ -21,4 +21,5 @@ public class MinioConfig {
                 .credentials(fileStore.getAccessKey(), fileStore.getAccessKeySecret())
                 .build();
     }
+
 }

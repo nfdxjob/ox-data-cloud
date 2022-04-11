@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.dshubs.odc.infra.mapper.FileEditLogMapper">
+    <resultMap id="BaseResultMap" type="org.dshubs.odc.domain.entity.FileEditLog">
+        <result column="id" property="id"/>
+        <result column="file_resource_id" property="fileResourceId"/>
+        <result column="file_url" property="fileUrl"/>
+        <result column="file_key" property="fileKey"/>
+        <result column="file_type" property="fileType"/>
+        <result column="file_directory" property="fileDirectory"/>
+        <result column="file_name" property="fileName"/>
+        <result column="file_size" property="fileSize"/>
+        <result column="bucket_name" property="bucketName"/>
+        <result column="storage_code" property="storageCode"/>
+        <result column="source_type" property="sourceType"/>
+        <result column="file_md5" property="fileMd5"/>
+        <result column="file_version" property="fileVersion"/>
+        <result column="tenant_id" property="tenantId"/>
+        <result column="version" property="version"/>
+        <result column="creation_date" property="creationDate"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="last_update_date" property="lastUpdateDate"/>
+        <result column="last_updated_by" property="lastUpdatedBy"/>
+    </resultMap>
+</mapper>
