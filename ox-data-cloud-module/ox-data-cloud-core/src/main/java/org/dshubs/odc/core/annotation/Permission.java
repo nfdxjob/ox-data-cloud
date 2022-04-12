@@ -24,6 +24,8 @@ public @interface Permission {
 
     boolean apiIsLogin() default false;
 
+    boolean apiIsAdmin() default false;
+
     boolean apiIsSign() default false;
 
 
