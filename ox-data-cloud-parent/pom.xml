@@ -26,6 +26,7 @@
         <aliyun-java-sdk-core.version>4.5.16</aliyun-java-sdk-core.version>
         <redisson.version>3.17.0</redisson.version>
         <minio.version>8.2.1</minio.version>
+        <aliyun.oss.version>3.10.2</aliyun.oss.version>
     </properties>
     <dependencies>
         <dependency>

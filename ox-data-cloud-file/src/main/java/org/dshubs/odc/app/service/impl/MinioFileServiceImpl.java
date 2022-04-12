@@ -19,6 +19,7 @@ import org.springframework.util.DigestUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.ZonedDateTime;
@@ -32,8 +33,6 @@ import java.util.Map;
 @Slf4j
 public class MinioFileServiceImpl extends FileAbstractService {
 
-    public static final String DEFAULT_BUCKET = "default";
-
     private final MinioClient minioClient;
     private final FileResourceService fileResourceService;
     private final FileEditLogService fileEditLogService;
@@ -46,59 +45,36 @@ public class MinioFileServiceImpl extends FileAbstractService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public FileInfoVO upload(MultipartFile file, String bucket, String directory, String fileName) throws Exception {
+    public String upload(MultipartFile file, String bucketName, String objectName) {
 
-        String realBucket = realBucket(bucket);
-        this.makeBucket(realBucket);
-        String fileNamePre = UuidUtils.generateUuid().replaceAll("-", "") + "@";
-        String newFileName = StringUtils.isNotBlank(fileName) ? fileName : file.getOriginalFilename();
-        String uploadFileName = fileNamePre + newFileName;
-        String fileKey = StringUtils.isBlank(directory) ? uploadFileName : String.format("%s/%s", directory, uploadFileName);
-        minioClient.putObject(PutObjectArgs.builder()
-                .bucket(realBucket)
-                .object(fileKey)
-                .stream(file.getInputStream(), file.getSize(), -1)
-                .contentType(file.getContentType())
-                .build());
-
-        String url = String.format("%s/%s", realPreUrl(bucket), fileKey);
-        FileResource fileResource = new FileResource()
-                .setFileUrl(url)
-                .setFileKey(fileKey)
-                .setFileDirectory(directory)
-                .setFileType(file.getContentType())
-                .setFileName(newFileName)
-                .setFileSize(file.getSize())
-                .setBucketName(bucket)
-                .setFileMd5(DigestUtils.md5DigestAsHex(file.getInputStream()))
-                .setStorageCode(super.fileStorageConfig.getStorageType());
-
-
-        FileResource insertFileResource = fileResourceService.insert(fileResource);
-        FileEditLog fileEditLog = new FileEditLog();
-        BeanUtils.copyProperties(insertFileResource, fileEditLog);
-        String version = UuidUtils.generateUuid().replaceAll("-", "");
-        fileEditLog.setFileVersion(version);
-        fileEditLogService.insert(fileEditLog);
-
-        return new FileInfoVO().setFileResourceId(insertFileResource.getFileResourceId()).setFileKey(fileKey).setFileName(fileResource.getFileName()).setFileVersion(version);
+        try {
+            minioClient.putObject(PutObjectArgs.builder()
+                    .bucket(bucketName)
+                    .object(objectName)
+                    .stream(file.getInputStream(), file.getSize(), -1)
+                    .contentType(file.getContentType())
+                    .build());
+            return UuidUtils.generateUuid().replaceAll("-", "");
+        } catch (Exception e) {
+            log.error("Minio上传文件错误");
+            log.error(e.getMessage(), e);
+            throw new CommonException(new Results.ErrorResult("500", "Minio上传文件错误"));
+        }
     }
 
     @Override
     public Map<String, String> postPolicy(String bucket) {
 
         String bucketName = StringUtils.isBlank(bucket) ? DEFAULT_BUCKET : bucket;
-        String realBucket = realBucket(bucketName);
+        String realBucket = getRealBucket(bucketName);
         this.makeBucket(realBucket);
         // 创建policy策略，10s过期时间
         PostPolicy policy = new PostPolicy(realBucket, ZonedDateTime.now().plusSeconds(10));
         // 文件对象要有此前缀
         policy.addStartsWithCondition("key", LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd")));
-        // 'content-length' 大小在 64kiB 到 10MiB之间
-//        policy.addContentLengthRangeCondition(64 * 1024, 10 * 1024 * 1024);
         try {
             Map<String, String> postFormData = minioClient.getPresignedPostFormData(policy);
-            postFormData.put("endpoint", realPreUrl(bucketName));
+            postFormData.put("endpoint", getRealPreUrl(bucketName));
             return postFormData;
         } catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -109,12 +85,13 @@ public class MinioFileServiceImpl extends FileAbstractService {
 
     @Override
     public void download(String bucket, String fileKey, String fileName, HttpServletResponse response) {
-        try (InputStream is = minioClient.getObject(
-                GetObjectArgs.builder()
-                        .bucket(bucket)
-                        .object(fileKey)
-                        .build())) {
-            buildResponse(is, response, fileName);
+        try (InputStream is = new BufferedInputStream(
+                minioClient.getObject(
+                        GetObjectArgs.builder()
+                                .bucket(bucket)
+                                .object(fileKey)
+                                .build()))) {
+            buildDownloadResponse(is, response, fileName);
         } catch (Exception e) {
             log.error("文件下载错误，fileKey -> {}", fileKey);
             log.error(e.getMessage(), e);
@@ -124,9 +101,9 @@ public class MinioFileServiceImpl extends FileAbstractService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public FileInfoVO update(FileResource fileResource, MultipartFile file, String bucketName, String directory) {
-        String realBucket = realBucket(bucketName);
+        String realBucket = getRealBucket(bucketName);
         this.makeBucket(realBucket);
-        String fileNamePre = UuidUtils.generateUuid().replaceAll("-", "") + "@";
+        String fileNamePre = getPreFileName();
         String fileName = file.getOriginalFilename();
         String uploadFileName = fileNamePre + fileName;
         String fileKey = StringUtils.isBlank(directory) ? uploadFileName : String.format("%s/%s", directory, uploadFileName);
@@ -140,6 +117,7 @@ public class MinioFileServiceImpl extends FileAbstractService {
 
             // 更新
             fileResource.setFileKey(fileKey);
+            fileResource.setFileName(fileName);
             fileResourceService.update(fileResource);
             // 增加一个文件版本
             FileEditLog fileEditLog = new FileEditLog();
@@ -159,14 +137,20 @@ public class MinioFileServiceImpl extends FileAbstractService {
         minioClient.removeObject(RemoveObjectArgs.builder().bucket(bucketName).object(fileKey).build());
     }
 
+    @Override
+    public String getRealPreUrl(String bucket) {
+        String realBucket = getRealBucket(bucket);
+        return String.format("%s/%s", StringUtils.isNotBlank(fileStorageConfig.getDomain()) ? fileStorageConfig.getDomain() : fileStorageConfig.getEndPoint(), realBucket);
+    }
+
     private void makeBucket(String bucket) {
         try {
             if (!minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucket).build())) {
                 minioClient.makeBucket(MakeBucketArgs.builder().bucket(bucket).build());
             }
         } catch (Exception e) {
-            log.error(e.getMessage(), e);
             log.error("创建bucket失败");
+            log.error(e.getMessage(), e);
             throw new CommonException(new Results.ErrorResult("500", "创建bucket失败：" + bucket));
         }
 

@@ -6,6 +6,7 @@ import org.dshubs.odc.constant.enums.StorageType;
 import org.dshubs.odc.domain.entity.FileStorageConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Scope;
 
 /**
  * @author Mr.zhou 2022/4/6
@@ -14,7 +15,8 @@ import org.springframework.context.annotation.Configuration;
 public class MinioConfig {
 
     @Bean
-    public MinioClient minioClient(FileStorageConfigService fileStorageConfigService)  {
+    @Scope("prototype")
+    public MinioClient minioClient(FileStorageConfigService fileStorageConfigService) {
         FileStorageConfig fileStore = fileStorageConfigService.getFileStoreByType(StorageType.MINIO.getType());
         return MinioClient.builder()
                 .endpoint(fileStore.getEndPoint(), 9000, false)

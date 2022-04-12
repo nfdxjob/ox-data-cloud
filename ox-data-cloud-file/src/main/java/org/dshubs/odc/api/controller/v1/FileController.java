@@ -1,5 +1,10 @@
 package org.dshubs.odc.api.controller.v1;
 
+import com.aliyun.oss.OSS;
+import com.aliyun.oss.OSSClientBuilder;
+import com.aliyun.oss.model.CreateBucketRequest;
+import com.aliyun.oss.model.PutObjectRequest;
+import com.aliyun.oss.model.PutObjectResult;
 import io.swagger.annotations.Api;
 import lombok.extern.slf4j.Slf4j;
 import org.dshubs.odc.app.service.FileService;
@@ -13,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayInputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 /**
@@ -49,7 +56,7 @@ public class FileController {
     }
 
     @GetMapping("/post-policy")
-    public ResponseEntity<Map<String, String>> postPolicy(@RequestParam(value = "bucket", required = false) String bucket) {
+    public ResponseEntity<Map<String, String>> postPolicy(@RequestParam(value = "bucket") String bucket) {
         return Results.success(fileService.getPostPolicy(bucket));
     }
 
@@ -73,4 +80,5 @@ public class FileController {
     public void downloadByVersion(@PathVariable("fileResourceId") Long fileResourceId,@PathVariable("fileVersion") String fileVersion, HttpServletResponse response) {
         fileService.download(fileResourceId, fileVersion, response);
     }
+
 }
