@@ -42,7 +42,8 @@ public class PermissionAspectj {
             MethodSignature signature = (MethodSignature) point.getSignature();
             Method method = signature.getMethod();
             HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
-            log.debug("application name:{},method:{},requestURI:{}", applicationName, method.getName(), request.getRequestURI());
+            String requestURI = request.getRequestURI();
+            log.debug("application name:{},method:{},requestURI:{}", applicationName, method.getName(), requestURI);
             Permission annotation = method.getAnnotation(Permission.class);
             if (annotation != null) {
                 if (annotation.apiIsPublic()) {
