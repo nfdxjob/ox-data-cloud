@@ -18,11 +18,13 @@ public @interface Permission {
 
     String[] roles() default {};
 
-    ResourcesLevel level() default ResourcesLevel.SITE;
+    ResourcesLevel level() default ResourcesLevel.PROJECT;
 
     boolean apiIsPublic() default false;
 
     boolean apiIsLogin() default false;
+
+    boolean apiIsAdmin() default false;
 
     boolean apiIsSign() default false;
 

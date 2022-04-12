@@ -4,6 +4,8 @@ import ${packageName}.domain.entity.${className};
 import org.dshubs.odc.mybatis.infra.pagination.PageData;
 import org.dshubs.odc.mybatis.infra.pagination.PageRequest;
 import ${packageName}.app.service.${className}Service;
+import org.dshubs.odc.core.annotation.Permission;
+import org.dshubs.odc.core.ips.ResourcesLevel;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +27,7 @@ import java.util.List;
 <#else>
 @RequestMapping("/api/v1/${apiBasePath}")
 </#if>
-@Api(tags = "${tableComment}API")
+@Api(tags = "${className}")
 @Slf4j
 public class ${className}Controller {
     private final ${className}Service ${lowerClassName}Service;
@@ -37,8 +39,10 @@ public class ${className}Controller {
     @ApiOperation("列表查询")
     @GetMapping("/list")
 <#if level ==  "tenant">
+    @Permission(level = ResourcesLevel.ORGANIZATION)
     public ResponseEntity<PageData<${className}>> list(@PathVariable("organizationId") Long organizationId, PageRequest page, ${className} query) {
 <#else>
+    @Permission(level = ResourcesLevel.SITE)
     public ResponseEntity<PageData<${className}>> list(PageRequest page, ${className} query) {
 </#if>
          log.info("列表查询");
@@ -49,8 +53,10 @@ public class ${className}Controller {
     @GetMapping("{id}")
     @ApiOperation("根据ID获取")
 <#if level ==  "tenant">
+    @Permission(level = ResourcesLevel.ORGANIZATION)
     public ResponseEntity<${className}> detail(@PathVariable("organizationId") Long organizationId, @PathVariable("id") Long ${lowerClassName}Id) {
 <#else>
+    @Permission(level = ResourcesLevel.SITE)
     public ResponseEntity<${className}> detail(@PathVariable("id") Long ${lowerClassName}Id) {
 </#if>
         return Results.success(${lowerClassName}Service.selectById(${lowerClassName}Id));
@@ -60,8 +66,10 @@ public class ${className}Controller {
     @PostMapping
     @ApiOperation("创建")
 <#if level ==  "tenant">
+    @Permission(level = ResourcesLevel.ORGANIZATION)
     public ResponseEntity<${className}> create(@PathVariable("organizationId") Long organizationId, @RequestBody @Validated ${className} ${lowerClassName}) {
 <#else>
+    @Permission(level = ResourcesLevel.SITE)
     public ResponseEntity<${className}> create(@RequestBody @Validated ${className} ${lowerClassName}) {
 </#if>
         log.info("创建,参数:{}", ${lowerClassName});
@@ -72,8 +80,10 @@ public class ${className}Controller {
     @PutMapping
     @ApiOperation("更新")
 <#if level ==  "tenant">
+    @Permission(level = ResourcesLevel.ORGANIZATION)
     public ResponseEntity<${className}> update(@PathVariable("organizationId") Long organizationId, @RequestBody @Validated ${className} ${lowerClassName}) {
 <#else>
+    @Permission(level = ResourcesLevel.SITE)
     public ResponseEntity<${className}> update(@RequestBody @Validated ${className} ${lowerClassName}) {
 </#if>
         log.info("更新,参数:{}", ${lowerClassName});
@@ -84,8 +94,10 @@ public class ${className}Controller {
     @DeleteMapping("/{id}")
     @ApiOperation("根据ID删除")
 <#if level ==  "tenant">
+@Permission(level = ResourcesLevel.ORGANIZATION)
     public ResponseEntity<Void> deleteById(@PathVariable("organizationId") Long organizationId, @PathVariable("id") Long ${lowerClassName}Id) {
 <#else>
+    @Permission(level = ResourcesLevel.SITE)
     public ResponseEntity<Void> deleteById(@PathVariable("id") Long ${lowerClassName}Id) {
 </#if>
         ${lowerClassName}Service.deleteById(${lowerClassName}Id);

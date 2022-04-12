@@ -21,7 +21,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/v1/audit-operation-logs")
-@Api(tags = "操作审计日志API")
+@Api(tags = "Audit Operation Log")
 @Slf4j
 public class AuditOperationLogController {
     private final AuditOperationLogService auditOperationLogService;

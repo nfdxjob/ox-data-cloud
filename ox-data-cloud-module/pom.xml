@@ -7,7 +7,7 @@
         <artifactId>ox-data-cloud-parent</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
-    <artifactId>ox-data-cloud-base-module</artifactId>
+    <artifactId>ox-data-cloud-module</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>ox-data-cloud-module</name>
     <description>ox-data-cloud-module</description>

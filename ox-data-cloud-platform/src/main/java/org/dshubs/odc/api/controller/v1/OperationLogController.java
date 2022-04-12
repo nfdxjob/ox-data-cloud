@@ -11,6 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/v1/operation-logs")
 @Slf4j
-@Api(tags = "操作日志API")
+@Api(tags = "Operation Log")
 public class OperationLogController {
 }

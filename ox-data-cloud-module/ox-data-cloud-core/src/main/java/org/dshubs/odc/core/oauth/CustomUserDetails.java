@@ -54,6 +54,4 @@ public class CustomUserDetails extends User implements Serializable {
     public CustomUserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
     }
-
-
 }

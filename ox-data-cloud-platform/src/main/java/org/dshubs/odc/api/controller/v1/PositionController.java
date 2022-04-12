@@ -4,6 +4,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.dshubs.odc.app.service.PositionService;
+import org.dshubs.odc.core.annotation.Permission;
+import org.dshubs.odc.core.ips.ResourcesLevel;
 import org.dshubs.odc.core.util.result.Results;
 import org.dshubs.odc.domain.entity.Position;
 import org.dshubs.odc.mybatis.infra.pagination.PageData;
@@ -20,8 +22,8 @@ import java.util.List;
  * @author wangxian 2022-03-02
  */
 @RestController
-@RequestMapping("/api/v1/positions")
-@Api(tags = "岗位API")
+@RequestMapping("/api/v1/{organizationId}/positions")
+@Api(tags = "Position")
 @Slf4j
 public class PositionController {
     private final PositionService positionService;
@@ -32,8 +34,9 @@ public class PositionController {
 
     @ApiOperation("所有数据")
     @GetMapping("/all")
-    public ResponseEntity<List<Position>> all() {
-        log.info("所有数据");
+    @Permission(level = ResourcesLevel.ORGANIZATION)
+    public ResponseEntity<List<Position>> all(@PathVariable("organizationId") Long organizationId) {
+        log.debug("所有数据,organizationId:{}", organizationId);
         List<Position> result = positionService.list();
         return Results.success(result);
     }
@@ -41,7 +44,7 @@ public class PositionController {
     @ApiOperation("列表查询")
     @GetMapping("/list")
     public ResponseEntity<PageData<Position>> list(PageRequest page, Position query) {
-        log.info("列表查询");
+        log.debug("列表查询");
         PageData<Position> result = positionService.page(page, query);
         return Results.success(result);
     }

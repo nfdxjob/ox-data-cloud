@@ -8,7 +8,7 @@ import lombok.Getter;
 @Getter
 public enum ResourcesLevel {
     /**
-     * 全局层
+     * 平台层
      */
     SITE("site"),
     /**

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/api/v1/lov-values")
-@Api(tags = "独立值集数据API")
+@Api(tags = "Lov Value")
 @Slf4j
 public class LovValueController {
     private final LovValueService lovValueService;

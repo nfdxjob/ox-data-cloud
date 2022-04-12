@@ -21,7 +21,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/v1/oauth-users")
-@Api(tags = "用户信息API")
+@Api(tags = "Oauth User")
 @Slf4j
 public class OauthUserController {
     private final OauthUserService oauthUserService;
