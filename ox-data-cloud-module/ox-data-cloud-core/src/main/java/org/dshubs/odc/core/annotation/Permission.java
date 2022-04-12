@@ -18,7 +18,7 @@ public @interface Permission {
 
     String[] roles() default {};
 
-    ResourcesLevel level() default ResourcesLevel.SITE;
+    ResourcesLevel level() default ResourcesLevel.PROJECT;
 
     boolean apiIsPublic() default false;
 

@@ -34,7 +34,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         CustomUserDetails customUserDetails = new CustomUserDetails(s, oauthUser.getPassword(), Lists.newArrayList(new SimpleGrantedAuthority("admin")));
         customUserDetails.setOrganizationId(oauthUser.getTenantId());
         customUserDetails.setEmail(oauthUser.getEmail());
-        customUserDetails.setIsAdmin(oauthUser.getIsAdmin());
+        customUserDetails.setIsAdmin(oauthUser.getAdmin());
         customUserDetails.setRealName(oauthUser.getRealName());
         customUserDetails.setUserId(oauthUser.getUserId());
         customUserDetails.setNickname(oauthUser.getNickName());

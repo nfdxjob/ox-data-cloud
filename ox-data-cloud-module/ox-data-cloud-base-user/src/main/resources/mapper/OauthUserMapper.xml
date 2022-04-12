@@ -10,6 +10,7 @@
         <result column="real_name" property="realName"/>
         <result column="nickname" property="nickName"/>
         <result column="avatar_address" property="avatarAddress"/>
+        <result column="is_admin" property="admin"/>
         <result column="last_login_time" property="lastLoginTime"/>
         <result column="last_login_ip" property="lastLoginIp"/>
         <result column="password_error_times" property="passwordErrorTimes"/>
@@ -23,7 +24,26 @@
         <result column="last_updated_by" property="lastUpdatedBy"/>
     </resultMap>
     <select id="selectByUsernameOrEmail" resultType="org.dshubs.odc.domain.entity.OauthUser">
-        SELECT *
+        SELECT user_id,
+               username,
+               password,
+               email,
+               phone,
+               real_name,
+               nickname,
+               avatar_address,
+               is_admin admin,
+               last_login_time,
+               last_login_ip,
+               password_error_times,
+               account_non_locked,
+               enabled,
+               tenant_id,
+               version,
+               creation_date,
+               created_by,
+               last_update_date,
+               last_updated_by
         FROM oauth_user
         where username = #{username}
            or email = #{username}

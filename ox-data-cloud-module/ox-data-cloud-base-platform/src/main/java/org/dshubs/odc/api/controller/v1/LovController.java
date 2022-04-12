@@ -5,9 +5,10 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.dshubs.odc.api.vo.LovValueVO;
 import org.dshubs.odc.app.service.LovService;
+import org.dshubs.odc.core.annotation.Permission;
+import org.dshubs.odc.core.ips.ResourcesLevel;
 import org.dshubs.odc.core.util.result.Results;
 import org.dshubs.odc.domain.entity.Lov;
-import org.dshubs.odc.domain.entity.LovValue;
 import org.dshubs.odc.mybatis.infra.pagination.PageData;
 import org.dshubs.odc.mybatis.infra.pagination.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/v1/lovs")
-@Api(tags = "值集API")
+@Api(tags = "Lov")
 @Slf4j
 public class LovController {
     private final LovService lovService;
@@ -34,6 +35,7 @@ public class LovController {
 
     @ApiOperation("列表查询")
     @GetMapping("/list")
+    @Permission(apiIsAdmin = true)
     public ResponseEntity<PageData<Lov>> list(PageRequest page, Lov query) {
         log.info("列表查询");
         PageData<Lov> result = lovService.page(page, query);
@@ -42,6 +44,7 @@ public class LovController {
 
     @ApiOperation("值集数据查询")
     @GetMapping("/data")
+    @Permission(level = ResourcesLevel.SITE, apiIsLogin = true)
     public ResponseEntity<List<LovValueVO>> list(@RequestParam("lovCode") String lovCode) {
         log.info("值集数据查询,lovCode:{}", lovCode);
         List<LovValueVO> result = lovService.listLovData(lovCode);
@@ -50,6 +53,7 @@ public class LovController {
 
     @GetMapping("{id}")
     @ApiOperation("根据ID获取")
+    @Permission(level = ResourcesLevel.SITE, apiIsLogin = true)
     public ResponseEntity<Lov> detail(@PathVariable("id") Long lovId) {
         return Results.success(lovService.selectById(lovId));
     }

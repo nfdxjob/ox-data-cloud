@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/api/v1/lov-view-fields")
-@Api(tags = "值集视图字段API")
+@Api(tags = "Lov View Field")
 @Slf4j
 public class LovViewFieldController {
     private final LovViewFieldService lovViewFieldService;

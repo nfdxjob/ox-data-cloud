@@ -1,5 +1,6 @@
 package org.dshubs.odc.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
@@ -77,7 +78,8 @@ public class OauthUser extends AuditEntity {
      * 是否管理员
      */
     @ApiModelProperty("是否管理员")
-    private Boolean isAdmin;
+    @TableField("is_admin")
+    private Boolean admin;
     /**
      * 最后登录时间
      */

@@ -27,7 +27,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.annotation.Nonnull;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -109,9 +108,9 @@ public class ApplicationPermissionParseImpl implements ApplicationPermissionPars
         RequestMapping requestMapping = AnnotatedElementUtils.findMergedAnnotation(method, RequestMapping.class);
         if (requestMapping != null) {
             Permission permission = AnnotationUtils.findAnnotation(method, Permission.class);
-            if (permission == null) {
-                return Collections.emptyList();
-            }
+//            if (permission == null) {
+//                return Collections.emptyList();
+//            }
             String[] methodPaths = requestMapping.value();
             if (ArrayUtils.isEmpty(methodPaths)) {
                 methodPaths = new String[]{""};
