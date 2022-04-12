@@ -6,6 +6,32 @@
 
 **ox-data-cloud,以下简称odc用于企业解决项目开发微服务框架搭建需求,提供快速开发平台,为公司节省开发成本,让开发人员只需要关心具体业务开发**
 
+### 目录结构
+```
+ox-data-cloud/
+  ox-data-cloud-admin/
+  ox-data-cloud-document
+  ox-data-cloud-file
+  ox-data-cloud-gateway
+  ox-data-cloud-generate
+  ox-data-cloud-import
+  ox-data-cloud-message
+  ox-data-cloud-module(用于提供可打包的模块功能)
+    ox-data-cloud-audit(审计)
+    ox-data-cloud-base-message(提供对外消息能力)
+    ox-data-cloud-base-user
+    ox-data-cloud-core
+    ox-data-cloud-lock
+    ox-data-cloud-mybatis
+    ox-data-cloud-redis
+  ox-data-cloud-oauth
+  ox-data-cloud-parent
+  ox-data-cloud-platform
+  ox-data-cloud-register
+  ox-data-cloud-workflow
+
+```
+
 ### 服务预览
 
 |        服务名称        | 端口 | 描述 | 数据库 |
