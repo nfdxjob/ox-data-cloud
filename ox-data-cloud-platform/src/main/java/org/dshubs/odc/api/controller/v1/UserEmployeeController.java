@@ -21,7 +21,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/v1/user-employees")
-@Api(tags = "用户员工API")
+@Api(tags = "User Employee")
 @Slf4j
 public class UserEmployeeController {
     private final UserEmployeeService userEmployeeService;

@@ -21,7 +21,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/v1/oauth-user-roles")
-@Api(tags = "用户角色API")
+@Api(tags = "Oauth User Role")
 @Slf4j
 public class OauthUserRoleController {
     private final OauthUserRoleService oauthUserRoleService;

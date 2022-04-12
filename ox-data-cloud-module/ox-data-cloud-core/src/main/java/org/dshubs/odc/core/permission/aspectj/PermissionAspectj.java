@@ -42,26 +42,25 @@ public class PermissionAspectj {
             MethodSignature signature = (MethodSignature) point.getSignature();
             Method method = signature.getMethod();
             HttpServletRequest request = HttpContextUtils.getHttpServletRequest();
-            String requestURI = request.getRequestURI();
-            log.debug("application name:{},method:{},requestURI:{}", applicationName, method.getName(), requestURI);
+            String requestUri = request.getRequestURI();
+            log.debug("application name:{},method:{},requestURI:{}", applicationName, method.getName(), requestUri);
             Permission annotation = method.getAnnotation(Permission.class);
             if (annotation != null) {
                 if (annotation.apiIsPublic()) {
                     return point.proceed();
                 }
+                CustomUserDetails userDetails = DetailsUtils.getUserDetails();
+                if (userDetails == null) {
+                    throw new CommonException("no.login", "用户未登录");
+                }
                 if (annotation.apiIsLogin()) {
-                    CustomUserDetails userDetails = DetailsUtils.getUserDetails();
-                    if (userDetails != null) {
-                        return point.proceed();
-                    }
-                    throw new CommonException("no.login","no login");
+                    return point.proceed();
                 }
                 if (annotation.apiIsAdmin()) {
-                    CustomUserDetails userDetails = DetailsUtils.getUserDetails();
-                    if (userDetails != null && userDetails.getIsAdmin()) {
+                    if (userDetails.getIsAdmin()) {
                         return point.proceed();
                     }
-                    throw new CommonException("no.admin","no admin");
+                    throw new CommonException("no.admin", "no admin");
                 }
                 //TODO 权限控制
                 return point.proceed();

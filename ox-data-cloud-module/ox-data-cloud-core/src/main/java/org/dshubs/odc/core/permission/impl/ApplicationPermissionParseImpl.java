@@ -41,6 +41,8 @@ public class ApplicationPermissionParseImpl implements ApplicationPermissionPars
 
     private static final String SUFFIX_CONTROLLER = "-controller";
 
+    private static final String GLOBAL_PERMISSION_CODE_TEMPLATE = "%s.%s.%s";
+
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -73,9 +75,9 @@ public class ApplicationPermissionParseImpl implements ApplicationPermissionPars
             }
         }
         try {
-            log.info("API:{}",objectMapper.writeValueAsString(permissionDataList));
+            log.info("API:{}", objectMapper.writeValueAsString(permissionDataList));
         } catch (JsonProcessingException e) {
-            log.error(e.getMessage(),e);
+            log.error(e.getMessage(), e);
         }
     }
 
@@ -130,8 +132,8 @@ public class ApplicationPermissionParseImpl implements ApplicationPermissionPars
                 for (String path : paths) {
                     for (String methodPath : methodPaths) {
                         index++;
-                        permissionDataList.add(this.buildPermissionData(resourceCode,paths.length,methodPaths.length,
-                                requestMethods.length,description,permission,methodName,requestMethod.name().toLowerCase(),index,path,methodPath));
+                        permissionDataList.add(this.buildPermissionData(resourceCode, paths.length, methodPaths.length,
+                                requestMethods.length, description, permission, methodName, requestMethod.name().toLowerCase(), index, path, methodPath));
                     }
                 }
             }
@@ -147,22 +149,25 @@ public class ApplicationPermissionParseImpl implements ApplicationPermissionPars
         PermissionData permissionData = new PermissionData();
         permissionData.setDescription(description);
         permissionData.setServerName(applicationName);
+        permissionData.setResourceCode(resourceCode);
         permissionData.setMethod(methodName);
         permissionData.setRequestMethod(requestMethod);
         permissionData.setPath(this.concatPath(controllerPath, methodPath));
         if (permission != null) {
-            permissionData.setCode(this.generatePermissionCode(permission.code(),methodName,requestMethod,
-                    index,requestMethodLength,controllerPathLength,methodPathLength));
+            permissionData.setPermissionLevel(permission.level().getValue());
+            permissionData.setCode(this.generatePermissionCode(permission.code(), methodName, requestMethod,
+                    index, requestMethodLength, controllerPathLength, methodPathLength));
             permissionData.setApiIsLogin(permission.apiIsLogin());
             permissionData.setApiIsPublic(permission.apiIsPublic());
             permissionData.setApiIsSign(permission.apiIsSign());
         } else {
-            permissionData.setCode(this.generatePermissionCode(null,methodName,requestMethod,
-                    index,requestMethodLength,controllerPathLength,methodPathLength));
+            permissionData.setCode(this.generatePermissionCode(null, methodName, requestMethod,
+                    index, requestMethodLength, controllerPathLength, methodPathLength));
             permissionData.setApiIsLogin(false);
             permissionData.setApiIsPublic(false);
             permissionData.setApiIsSign(false);
         }
+        permissionData.setGlobalCode(String.format(GLOBAL_PERMISSION_CODE_TEMPLATE, applicationName, resourceCode, permissionData.getCode()));
         return permissionData;
     }
 

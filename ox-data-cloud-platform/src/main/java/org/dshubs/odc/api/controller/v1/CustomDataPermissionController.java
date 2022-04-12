@@ -21,7 +21,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/v1/custom-data-permissions")
-@Api(tags = "数据权限API")
+@Api(tags = "Custom Data Permission")
 @Slf4j
 public class CustomDataPermissionController {
     private final CustomDataPermissionService customDataPermissionService;

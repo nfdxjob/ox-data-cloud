@@ -4,6 +4,8 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.dshubs.odc.app.service.OrganizationService;
+import org.dshubs.odc.core.annotation.Permission;
+import org.dshubs.odc.core.ips.ResourcesLevel;
 import org.dshubs.odc.core.util.result.Results;
 import org.dshubs.odc.domain.entity.Organization;
 import org.dshubs.odc.mybatis.infra.pagination.PageData;
@@ -21,7 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/v1/organizations")
-@Api(tags = "组织部门API")
+@Api(tags = "Organization")
 @Slf4j
 public class OrganizationController {
     private final OrganizationService organizationService;
@@ -32,6 +34,7 @@ public class OrganizationController {
 
     @ApiOperation("所有数据")
     @GetMapping("/all")
+    @Permission(level = ResourcesLevel.ORGANIZATION)
     public ResponseEntity<List<Organization>> all() {
         log.info("所有数据");
         List<Organization> result = organizationService.list();

@@ -19,7 +19,11 @@ public class PermissionData implements Serializable {
 
     private String description;
 
+    private String resourceCode;
+
     private String code;
+
+    private String globalCode;
 
     private  String permissionLevel;
 

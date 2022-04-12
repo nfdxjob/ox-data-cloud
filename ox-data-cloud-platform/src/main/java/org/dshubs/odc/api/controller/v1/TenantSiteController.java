@@ -22,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/tenants")
 @Slf4j
-@Api(tags = "租户管理API")
+@Api(tags = "Tenant Site")
 public class TenantSiteController {
     private final TenantService tenantService;
 
