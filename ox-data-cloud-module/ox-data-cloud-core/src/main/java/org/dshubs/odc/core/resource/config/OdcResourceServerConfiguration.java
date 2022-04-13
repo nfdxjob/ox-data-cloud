@@ -8,13 +8,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenEnhancerChain;
@@ -22,6 +23,7 @@ import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
 import org.springframework.web.cors.CorsUtils;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +40,9 @@ import java.util.List;
 public class OdcResourceServerConfiguration extends ResourceServerConfigurerAdapter {
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
+
+    @Autowired
+    private DataSource dataSource;
 
     @Bean
     public TokenStore tokenStore() {
@@ -59,7 +64,13 @@ public class OdcResourceServerConfiguration extends ResourceServerConfigurerAdap
         defaultTokenServices.setSupportRefreshToken(true);
         defaultTokenServices.setTokenEnhancer(initTokenEnhancerChain());
         defaultTokenServices.setTokenStore(tokenStore());
+        defaultTokenServices.setClientDetailsService(clientDetailsService());
         return defaultTokenServices;
+    }
+
+    @Bean
+    public ClientDetailsService clientDetailsService() {
+        return new JdbcClientDetailsService(dataSource);
     }
 
     @Bean
@@ -70,7 +81,7 @@ public class OdcResourceServerConfiguration extends ResourceServerConfigurerAdap
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
-        resources.tokenStore(tokenStore());
+        resources.tokenServices(tokenServices());
     }
 
     @Override
@@ -90,7 +101,8 @@ public class OdcResourceServerConfiguration extends ResourceServerConfigurerAdap
                         "/actuator/**",
                         "/oauth/authorize",
                         "/login",
-                        "/"
+                        "/",
+                        "/home"
                 ).permitAll()
                 .antMatchers(HttpMethod.OPTIONS)
                 .permitAll()

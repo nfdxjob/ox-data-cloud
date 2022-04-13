@@ -4,5 +4,10 @@
       "name": "odc.resource.server.enable",
       "type": "java.lang.String",
       "description": "Description for odc.resource.server.enable."
-  }
+  },
+    {
+      "name": "odc.oauth.redirect-url",
+      "type": "java.lang.String",
+      "description": "Description for odc.resource.server.enable."
+    }
 ] }
