@@ -82,7 +82,14 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T>, T> implements IBa
         Page<T> page = new Page<>(pageParam.getPage(), pageParam.getPerPage());
         if (pageParam.getSort() != null) {
             List<OrderItem> orderItems = new ArrayList<>();
-            for (String sortProperty : pageParam.getSort()) {
+            String[] trueSort;
+            String[] sort = pageParam.getSort();
+            if (sort.length == 2 && ("asc".equalsIgnoreCase(sort[1]) || "desc".equalsIgnoreCase(sort[1]))) {
+                trueSort = new String[]{sort[0] + "," + sort[1]};
+            } else {
+                trueSort = pageParam.getSort();
+            }
+            for (String sortProperty : trueSort) {
                 String sortType = "asc";
                 if (sortProperty.contains(",")) {
                     String[] sortArray = StringUtils.split(sortProperty, ",");
