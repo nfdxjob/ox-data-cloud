@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 /**
  * @author create by wangxian 2022/2/21
  */
-@Service
 @Slf4j
 public class CustomUserDetailsService implements UserDetailsService {
 

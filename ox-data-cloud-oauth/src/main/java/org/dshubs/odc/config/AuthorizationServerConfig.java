@@ -1,6 +1,7 @@
 package org.dshubs.odc.config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.dshubs.odc.custom.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,7 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Aut
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
+import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 
 import javax.sql.DataSource;
@@ -28,7 +30,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private DataSource dataSource;
     @Autowired
-    private UserDetailsService userDetailsService;
+    private CustomUserDetailsService userDetailsService;
     @Autowired
     private AuthenticationManager authenticationManager;
     @Autowired
@@ -58,6 +60,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
         oauthServer.allowFormAuthenticationForClients()
                 .passwordEncoder(passwordEncoder)
                 .tokenKeyAccess("permitAll()")
-                .checkTokenAccess("isAuthenticated()");
+                .checkTokenAccess("permitAll()")
+                .allowFormAuthenticationForClients();
     }
 }

@@ -41,25 +41,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         String[] permitPaths = ArrayUtils.addAll(PERMIT_PATHS);
         http.authorizeRequests().antMatchers(permitPaths).permitAll().
-                and().formLogin().loginPage("/login").failureHandler(new AuthenticationFailureHandler() {
-                    @Override
-                    public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-                        log.error(e.getMessage(), e);
-                    }
-                }).successHandler(new AuthenticationSuccessHandler() {
-                    @Override
-                    public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
-                        log.info("{} login success", authentication.getName());
-
-                    }
-                }).
-                and().authorizeRequests().anyRequest().authenticated().
-                and().exceptionHandling().authenticationEntryPoint(new AuthenticationEntryPoint() {
-                    @Override
-                    public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) {
-                        log.error(e.getMessage(), e);
-                    }
-                }).and().csrf().disable();
+                and().formLogin().loginPage("/login")
+                .failureHandler((httpServletRequest, httpServletResponse, e) -> log.error(e.getMessage(), e))
+                .successHandler((httpServletRequest, httpServletResponse, authentication)
+                        -> log.info("{} login success", authentication.getName())).and().logout().deleteCookies("access_token").invalidateHttpSession(true)
+                .logoutSuccessHandler((httpServletRequest, httpServletResponse, authentication) -> log.info("{} logout success", authentication.getName())).and()
+                .authorizeRequests().anyRequest().authenticated().
+                and().exceptionHandling().authenticationEntryPoint((httpServletRequest, httpServletResponse, e) -> log.error(e.getMessage(), e)).and().csrf().disable();
     }
 
     @Bean
