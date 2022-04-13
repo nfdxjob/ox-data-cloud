@@ -3,6 +3,7 @@ package org.dshubs.odc.config;
 import org.dshubs.odc.app.service.OauthUserService;
 import org.dshubs.odc.core.redis.RedisHelper;
 import org.dshubs.odc.custom.CustomAuthenticationProvider;
+import org.dshubs.odc.custom.CustomAuthenticationSuccessHandler;
 import org.dshubs.odc.custom.CustomUserDetailsService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -38,5 +39,11 @@ public class SecurityConfiguration {
     @ConditionalOnMissingBean(CustomAuthenticationProvider.class)
     public CustomAuthenticationProvider authenticationProvider() {
         return new CustomAuthenticationProvider(userDetailsService(), passwordEncoder, redisHelper);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(CustomAuthenticationSuccessHandler.class)
+    public CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler() {
+        return new CustomAuthenticationSuccessHandler();
     }
 }

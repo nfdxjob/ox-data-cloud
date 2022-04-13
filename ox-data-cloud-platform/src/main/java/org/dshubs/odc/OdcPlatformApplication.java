@@ -1,6 +1,6 @@
 package org.dshubs.odc;
 
-import org.dshubs.odc.core.resource.annoation.EnableButterflyResourceServer;
+import org.dshubs.odc.core.resource.annoation.EnableOdcResourceServer;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
@@ -12,7 +12,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableButterflyResourceServer
+@EnableOdcResourceServer
 public class OdcPlatformApplication {
 
     public static void main(String[] args) {

@@ -1,6 +1,6 @@
 package org.dshubs.odc.core.resource.annoation;
 
-import org.dshubs.odc.core.resource.config.ButterflyResourceServerConfiguration;
+import org.dshubs.odc.core.resource.config.OdcResourceServerConfiguration;
 import org.springframework.context.annotation.Import;
 
 import java.lang.annotation.*;
@@ -11,6 +11,6 @@ import java.lang.annotation.*;
 @Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-@Import({ButterflyResourceServerConfiguration.class})
-public @interface EnableButterflyResourceServer {
+@Import({OdcResourceServerConfiguration.class})
+public @interface EnableOdcResourceServer {
 }

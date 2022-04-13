@@ -35,8 +35,7 @@ import java.util.List;
 @AllArgsConstructor
 @Configuration
 @EnableResourceServer
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-public class ButterflyResourceServerConfiguration extends ResourceServerConfigurerAdapter {
+public class OdcResourceServerConfiguration extends ResourceServerConfigurerAdapter {
     @Autowired
     private RedisConnectionFactory redisConnectionFactory;
 
@@ -89,10 +88,9 @@ public class ButterflyResourceServerConfiguration extends ResourceServerConfigur
                         "/doc.html",
                         "/*/api-docs",
                         "/actuator/**",
-                        "/oauth/**",
+                        "/oauth/authorize",
                         "/login",
-                        "/",
-                        "/**"
+                        "/"
                 ).permitAll()
                 .antMatchers(HttpMethod.OPTIONS)
                 .permitAll()

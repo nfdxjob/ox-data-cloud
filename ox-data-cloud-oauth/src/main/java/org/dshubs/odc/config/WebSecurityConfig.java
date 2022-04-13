@@ -9,16 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.web.AuthenticationEntryPoint;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  * @author create by wangxian 2021/12/29
@@ -29,7 +19,12 @@ import java.io.IOException;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-    private static final String[] PERMIT_PATHS = new String[]{"/login", "/login/**", "/open-bind", "/token/**",
+    private static final String[] PERMIT_PATHS = new String[]{
+            "/",
+            "/login",
+            "/login/**",
+            "/open-bind",
+            "/token/**",
             "/pass-page/**", "/admin/**", "/static/**", "/password/**", "/admin/**", "/static/**", "/saml/metadata", "/actuator/**"};
 
     @Override
@@ -41,7 +36,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         String[] permitPaths = ArrayUtils.addAll(PERMIT_PATHS);
         http.authorizeRequests().antMatchers(permitPaths).permitAll().
-                and().formLogin().loginPage("/login")
+                and().formLogin().permitAll().loginPage("/login")
                 .failureHandler((httpServletRequest, httpServletResponse, e) -> log.error(e.getMessage(), e))
                 .successHandler((httpServletRequest, httpServletResponse, authentication)
                         -> log.info("{} login success", authentication.getName())).and().logout().deleteCookies("access_token").invalidateHttpSession(true)
