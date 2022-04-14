@@ -14,19 +14,19 @@ import org.springframework.web.servlet.ModelAndView;
 @Slf4j
 @Controller
 public class OauthController {
-//
-//    @Value("${butterfly.oauth.redirect-url:login}")
-//    private String defaultUrl;
-//
-//    @GetMapping({"/"})
-//    public String index() {
-//        return this.defaultUrl;
-//    }
-//
-//    @GetMapping({"/custom-login"})
-//    public String login() {
-//        return this.defaultUrl;
-//    }
+
+    @Value("${butterfly.oauth.redirect-url:login}")
+    private String defaultUrl;
+
+    @GetMapping({"/"})
+    public String index() {
+        return this.defaultUrl;
+    }
+
+    @GetMapping({"/login"})
+    public String login() {
+        return this.defaultUrl;
+    }
 
     @GetMapping({"/home","/index"})
     public ModelAndView home() {

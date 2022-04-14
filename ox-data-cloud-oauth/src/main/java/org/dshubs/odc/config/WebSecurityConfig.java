@@ -1,6 +1,7 @@
 package org.dshubs.odc.config;
 
 import lombok.extern.slf4j.Slf4j;
+import org.dshubs.odc.core.util.JsonUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -28,15 +29,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .formLogin()
-                .loginPage("/custom-login.html")
+                .loginPage("/login")
                 .loginProcessingUrl("/login")
+                .successHandler((request, response, authentication) -> {
+                    log.info("登录成功:{},{}", authentication.getName(), JsonUtils.getInstance().toJson(authentication));
+                    response.sendRedirect("http://localhost:8010/home");
+                })
                 .permitAll()
                 .and()
-                .requestMatchers().antMatchers("/oauth/**", "/login/**", "/logout/**")
+                .requestMatchers().antMatchers("/oauth/**", "/login/**", "/logout/**","/login")
                 .and()
                 .authorizeRequests()
-                .antMatchers(
-                        "/xxx/**").permitAll()
                 .anyRequest().authenticated()
                 .and().headers().frameOptions().disable()
                 .and().csrf().disable();
