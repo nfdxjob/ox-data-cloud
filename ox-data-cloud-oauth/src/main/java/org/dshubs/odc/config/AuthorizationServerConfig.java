@@ -5,6 +5,7 @@ import org.dshubs.odc.custom.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.token.TokenService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
@@ -12,7 +13,11 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.code.JdbcAuthorizationCodeServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+
+import javax.sql.DataSource;
 
 /**
  * @author create by wangxian 2022/2/21
@@ -30,7 +35,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private PasswordEncoder passwordEncoder;
     @Autowired
+    private TokenStore tokenStore;
+    @Autowired
     private DefaultTokenServices tokenServices;
+    @Autowired
+    private DataSource dataSource;
 
 
     @Override
@@ -40,9 +49,11 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-        endpoints.authenticationManager(authenticationManager)
+        endpoints.authorizationCodeServices(new JdbcAuthorizationCodeServices(dataSource))
+                .tokenStore(tokenStore)
                 .tokenServices(tokenServices)
-                .userDetailsService(userDetailsService);
+                .userDetailsService(userDetailsService)
+                .authenticationManager(authenticationManager);
     }
 
     @Override
@@ -53,4 +64,6 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
                 .checkTokenAccess("permitAll()")
                 .allowFormAuthenticationForClients();
     }
+
+
 }

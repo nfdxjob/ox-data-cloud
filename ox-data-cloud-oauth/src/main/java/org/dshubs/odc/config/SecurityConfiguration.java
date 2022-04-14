@@ -8,7 +8,17 @@ import org.dshubs.odc.custom.CustomUserDetailsService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
+import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.redis.RedisTokenStore;
+
+import javax.sql.DataSource;
 
 /**
  * @author create by wangxian 2022/4/13
@@ -18,14 +28,43 @@ public class SecurityConfiguration {
 
     private final OauthUserService oauthUserService;
 
-    private final PasswordEncoder passwordEncoder;
 
     private final RedisHelper redisHelper;
 
-    public SecurityConfiguration(OauthUserService oauthUserService, PasswordEncoder passwordEncoder, RedisHelper redisHelper) {
+    private final DataSource dataSource;
+
+    private final RedisConnectionFactory redisConnectionFactory;
+
+    public SecurityConfiguration(OauthUserService oauthUserService, RedisHelper redisHelper, DataSource dataSource, RedisConnectionFactory redisConnectionFactory) {
         this.oauthUserService = oauthUserService;
-        this.passwordEncoder = passwordEncoder;
         this.redisHelper = redisHelper;
+        this.dataSource = dataSource;
+        this.redisConnectionFactory = redisConnectionFactory;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public TokenStore tokenStore() {
+        return new RedisTokenStore(redisConnectionFactory);
+    }
+
+    @Bean
+    @Primary
+    public ClientDetailsService clientDetailsService(){
+        return new JdbcClientDetailsService(dataSource);
+    }
+
+    @Bean
+    public DefaultTokenServices tokenServices() {
+        DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
+        defaultTokenServices.setSupportRefreshToken(true);
+        defaultTokenServices.setTokenStore(tokenStore());
+        defaultTokenServices.setClientDetailsService(clientDetailsService());
+        return defaultTokenServices;
     }
 
     @Bean
@@ -38,7 +77,7 @@ public class SecurityConfiguration {
     @Bean
     @ConditionalOnMissingBean(CustomAuthenticationProvider.class)
     public CustomAuthenticationProvider authenticationProvider() {
-        return new CustomAuthenticationProvider(userDetailsService(), passwordEncoder, redisHelper);
+        return new CustomAuthenticationProvider(userDetailsService(), passwordEncoder(), redisHelper);
     }
 
     @Bean
@@ -46,4 +85,6 @@ public class SecurityConfiguration {
     public CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler() {
         return new CustomAuthenticationSuccessHandler();
     }
+
+
 }

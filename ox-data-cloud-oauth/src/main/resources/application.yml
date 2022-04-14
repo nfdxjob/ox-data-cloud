@@ -10,13 +10,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
     host: localhost
-
   main:
     allow-bean-definition-overriding: true
 server:
   port: 8010
-  servlet:
-    context-path: /oauth
 management:
   endpoint:
     health:

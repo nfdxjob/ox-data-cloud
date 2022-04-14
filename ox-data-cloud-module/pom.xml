@@ -16,6 +16,7 @@
         <module>ox-data-cloud-core</module>
         <module>ox-data-cloud-redis</module>
         <module>ox-data-cloud-lock</module>
+        <module>ox-data-cloud-feign</module>
         <module>ox-data-cloud-audit</module>
         <module>ox-data-cloud-mybatis</module>
         <module>ox-data-cloud-base-user</module>

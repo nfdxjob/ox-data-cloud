@@ -9,6 +9,7 @@ import org.springframework.security.authentication.dao.AbstractUserDetailsAuthen
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.WebAuthenticationDetails;
 
 import java.util.Map;
 import java.util.Optional;
@@ -65,6 +66,9 @@ public class CustomAuthenticationProvider extends AbstractUserDetailsAuthenticat
     }
 
     protected void checkCaptcha(UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
+        if (authentication.getDetails() instanceof WebAuthenticationDetails) {
+            return;
+        }
         Map<String, Object> parameter = (Map) authentication.getDetails();
         String captcha = getParameterForMap(parameter, LoginUtils.FIELD_CAPTCHA);
         String captchaKey = getParameterForMap(parameter, LoginUtils.FIELD_CAPTCHA_KEY);

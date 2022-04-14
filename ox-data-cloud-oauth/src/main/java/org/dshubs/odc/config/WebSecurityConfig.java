@@ -1,7 +1,6 @@
 package org.dshubs.odc.config;
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,38 +10,36 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 /**
- * @author create by wangxian 2021/12/29
+ * 安全配置
+ *
+ * @author wangxian
  */
 @Configuration
-@Slf4j
 @EnableWebSecurity
+@Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-
-    private static final String[] PERMIT_PATHS = new String[]{
-            "/",
-            "/login",
-            "/login/**",
-            "/open-bind",
-            "/token/**",
-            "/pass-page/**", "/admin/**", "/static/**", "/password/**", "/admin/**", "/static/**", "/saml/metadata", "/actuator/**"};
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/static/**");
+        web.ignoring().antMatchers("*.html");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        String[] permitPaths = ArrayUtils.addAll(PERMIT_PATHS);
-        http.authorizeRequests().antMatchers(permitPaths).permitAll().
-                and().formLogin().permitAll().loginPage("/login")
-                .failureHandler((httpServletRequest, httpServletResponse, e) -> log.error(e.getMessage(), e))
-                .successHandler((httpServletRequest, httpServletResponse, authentication)
-                        -> log.info("{} login success", authentication.getName())).and().logout().deleteCookies("access_token").invalidateHttpSession(true)
-                .logoutSuccessHandler((httpServletRequest, httpServletResponse, authentication) -> log.info("{} logout success", authentication.getName())).and()
-                .authorizeRequests().anyRequest().authenticated().
-                and().exceptionHandling().authenticationEntryPoint((httpServletRequest, httpServletResponse, e) -> log.error(e.getMessage(), e)).and().csrf().disable();
+        http
+                .formLogin()
+                .loginPage("/custom-login.html")
+                .loginProcessingUrl("/login")
+                .permitAll()
+                .and()
+                .requestMatchers().antMatchers("/oauth/**", "/login/**", "/logout/**")
+                .and()
+                .authorizeRequests()
+                .antMatchers(
+                        "/xxx/**").permitAll()
+                .anyRequest().authenticated()
+                .and().headers().frameOptions().disable()
+                .and().csrf().disable();
     }
 
     @Bean

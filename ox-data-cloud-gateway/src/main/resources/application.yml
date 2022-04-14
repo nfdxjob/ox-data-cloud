@@ -13,6 +13,8 @@ spring:
           uri: lb://odc-oauth
           predicates:
             - Path=/oauth/**
+          filters:
+            - StripPrefix=1
         - id: odc-platform
           uri: lb://odc-platform
           predicates:
